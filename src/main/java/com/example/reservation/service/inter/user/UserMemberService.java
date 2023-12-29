@@ -7,7 +7,7 @@ public interface UserMemberService {
 
   void join(UserJoinDto userJoinDto);
 
-  void login(UserLoginDto userLoginDto);
+  boolean login(UserLoginDto userLoginDto);
 
   void validateDuplicateMember(UserJoinDto userJoinDto);
 }

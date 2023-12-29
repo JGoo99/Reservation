@@ -5,17 +5,13 @@
   <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>User Join</title>
+  <title>User Login</title>
 </head>
 <body>
-<form action="/joinProc" method="post" name="joinForm">
-  <input type="text" class="username" name="username" placeholder="이름">
-  <input type="text" class="nickname" name="nickname" placeholder="닉네임">
+<form action="/loginProc" method="post" name="loginForm">
   <input type="email" class="email" name="email" placeholder="이메일주소">
   <input type="password" class="password" name="password" placeholder="비밀번호">
-  <input type="text" class="phone" name="phone" placeholder="전화번호">
-  <input type="text" class="address" name="address" placeholder="주소">
-  <button type="submit">회원가입</button>
+  <button type="submit">로그인</button>
 </form>
 </body>
 </html>

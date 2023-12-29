@@ -22,12 +22,10 @@ public class Owner extends BaseEntity {
   private String busNumber; // business number
 
   @Column(unique = true)
-  private String ownerName;
-
-  @Column(unique = true)
   private String email;
 
   private String password;
+  private String ownerName;
   private String phone;
   private String stAddress1; // store address
   private String stAddress2;
@@ -35,5 +33,6 @@ public class Owner extends BaseEntity {
 
   @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
   @ToString.Exclude
+  @Builder.Default
   private List<Review> reviews = new ArrayList<>();
 }

@@ -21,6 +21,8 @@ public class UserJoinDto {
   @NotNull
   private String username;
 
+  private String nickname;
+
   @Pattern(regexp = "^\\d{3}-\\d{3,4}-\\d{4}$")
   private String phone;
 
