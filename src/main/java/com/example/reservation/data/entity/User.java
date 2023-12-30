@@ -1,7 +1,5 @@
 package com.example.reservation.data.entity;
 
-import com.example.reservation.data.dto.join.UserJoinDto;
-import com.example.reservation.type.RoleType;
 import jakarta.persistence.*;
 import lombok.*;
 
