@@ -1,4 +1,4 @@
-package com.example.reservation.service.inter.user;
+package com.example.reservation.service.impl.user;
 
 import com.example.reservation.data.dto.login.CustomUserDetails;
 import com.example.reservation.data.entity.User;

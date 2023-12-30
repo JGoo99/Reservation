@@ -36,16 +36,4 @@ public class User extends BaseEntity {
   @ToString.Exclude
   @Builder.Default
   private List<Review> reviews = new ArrayList<>();
-
-  public static User toEntity(UserJoinDto userJoinDto) {
-    return User.builder()
-      .email(userJoinDto.getEmail())
-      .password(userJoinDto.getPassword())
-      .username(userJoinDto.getUsername())
-      .nickname(userJoinDto.getNickname())
-      .phone(userJoinDto.getPhone())
-      .address(userJoinDto.getAddress())
-      .role(String.valueOf(RoleType.ROLE_USER))
-      .build();
-  }
 }
