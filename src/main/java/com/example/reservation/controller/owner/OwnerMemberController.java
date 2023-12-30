@@ -28,7 +28,7 @@ public class OwnerMemberController {
 
   @PostMapping("/joinProc")
   public String joinProcP(@ModelAttribute OwnerJoinDto ownerJoinDto) {
-    LOGGER.info("[ownerJoinDto] : {}", ownerJoinDto.toString());
+    LOGGER.info("[owner join] : {}", ownerJoinDto.toString());
 
     ownerMemberService.join(ownerJoinDto);
     return "owner/login";
@@ -42,7 +42,7 @@ public class OwnerMemberController {
 
   @PostMapping("/loginProc")
   public String loginProcP(@ModelAttribute OwnerJoinDto ownerJoinDto) {
-    LOGGER.debug("[owner login] : {}", ownerJoinDto.toString());
+    LOGGER.info("[owner login] : {}", ownerJoinDto.toString());
 
     boolean isLogin = ownerMemberService.login(ownerJoinDto);
 

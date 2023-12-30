@@ -1,22 +1,78 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta charset="UTF-8"/>
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+  <link rel="stylesheet" href="/css/reset.css"/>
+  <link rel="stylesheet" href="/css/join.css"/>
   <title>Owner Join</title>
 </head>
 <body>
-<form action="/owner/joinProc" method="post" name="joinForm">
-  <input type="text" class="owner-name" name="ownerName" placeholder="대표자이름">
-  <input type="text" class="bus-number" name="busNumber" placeholder="사업자번호">
-  <input type="email" class="email" name="email" placeholder="이메일주소">
-  <input type="password" class="password" name="password" placeholder="비밀번호">
-  <input type="text" class="phone" name="phone" placeholder="전화번호">
-  <input type="text" class="stAddress1" name="stAddress1" placeholder="도로명주소">
-  <input type="text" class="stAddress2" name="stAddress2" placeholder="상세주소">
-  <button type="submit">회원가입</button>
-</form>
+<div id="default">
+  <div id="container">
+    <div class="contents">
+      <div class="title">
+        <p>Goo's Reservation</p>
+      </div>
+      <p class="intro">점장님의 회원가입 정보를 입력해주세요.</p>
+      <form action="/owner/joinProc" method="post" class="joinForm">
+        <div class="text-filed">
+          <div class="input-box">
+            <input id="owner-name" type="text" name="ownerName" placeholder="" required/>
+            <label for="owner-name" class="label">대표자이름</label>
+            <p class="example">홍길동</p>
+          </div>
+        </div>
+        <div class="text-filed">
+          <div class="input-box">
+            <input id="bus-number" type="text" name="busNumber" placeholder="" required/>
+            <label for="bus-number" class="label">사업자번호</label>
+            <p class="example">123-45-67890</p>
+          </div>
+        </div>
+        <div class="text-filed">
+          <div class="input-box">
+            <input id="email" type="email" name="email" placeholder="" required/>
+            <label for="email" class="label">이메일주소</label>
+            <p class="example">goo@example.com</p>
+          </div>
+        </div>
+        <div class="text-filed">
+          <div class="input-box">
+            <input id="password" type="text" name="password" placeholder="" required/>
+            <label for="password" class="label">비밀번호</label>
+            <p class="example">123456789</p>
+          </div>
+        </div>
+        <div class="text-filed">
+          <div class="input-box">
+            <input id="phone" type="text" name="phone" placeholder=""/>
+            <label for="phone" class="label">전화번호</label>
+            <p class="example">010-1234-5678</p>
+          </div>
+        </div>
+        <div class="text-filed">
+          <div class="input-box">
+            <input id="st-address-1" type="text" name="stAddress1" placeholder=""/>
+            <label for="st-address-1" class="label">도로명주소</label>
+            <p class="example">OO로 OO길 OO</p>
+          </div>
+        </div>
+        <div class="text-filed">
+          <div class="input-box">
+            <input id="st-address-2" type="text" name="stAddress2" placeholder=""/>
+            <label for="st-address-2" class="label">상세주소</label>
+            <p class="example">OOO호 / OO층</p>
+          </div>
+        </div>
+        <button type="submit" class="submit-button">회원가입</button>
+      </form>
+    </div>
+  </div>
+</div>
 </body>
 </html>

@@ -1,15 +1,12 @@
 package com.example.reservation.controller.user;
 
 import com.example.reservation.data.dto.join.UserJoinDto;
-import com.example.reservation.data.dto.login.CustomUserDetails;
 import com.example.reservation.data.dto.login.UserLoginDto;
-import com.example.reservation.data.entity.User;
 import com.example.reservation.service.impl.user.UserMemberServiceImpl;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -30,7 +27,7 @@ public class UserMemberController {
 
   @PostMapping("/joinProc")
   public String joinProcP(@ModelAttribute UserJoinDto userJoinDto) {
-    LOGGER.info(userJoinDto.toString());
+    LOGGER.info("[user join] : {}", userJoinDto.toString());
 
     userMemberService.join(userJoinDto);
 

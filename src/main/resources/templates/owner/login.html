@@ -5,13 +5,38 @@
   <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="/css/reset.css"/>
+  <link rel="stylesheet" href="/css/join.css"/>
   <title>Owner Login</title>
 </head>
 <body>
-<form action="/owner/loginProc" method="post" name="loginForm">
-  <input type="email" class="email" name="email" placeholder="이메일주소">
-  <input type="password" class="password" name="password" placeholder="비밀번호">
-  <button type="submit">로그인</button>
-</form>
+
+<div id="default">
+  <div id="container">
+    <div class="contents">
+      <div class="title">
+        <p>Goo's Reservation</p>
+      </div>
+      <p class="intro">점장님의 로그인 정보를 입력해주세요.</p>
+      <form action="/owner/loginProc" method="post" class="loginForm">
+        <div class="text-filed">
+          <div class="input-box">
+            <input id="email" type="email" name="email" placeholder="" required/>
+            <label for="email" class="label">이메일주소</label>
+            <p class="example">goo@example.com</p>
+          </div>
+        </div>
+        <div class="text-filed">
+          <div class="input-box">
+            <input id="password" type="text" name="password" placeholder="" required/>
+            <label for="password" class="label">비밀번호</label>
+            <p class="example">123456789</p>
+          </div>
+        </div>
+        <button type="submit" class="submit-button">로그인</button>
+      </form>
+    </div>
+  </div>
+</div>
 </body>
 </html>

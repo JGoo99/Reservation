@@ -1,0 +1,128 @@
+@font-face {
+  font-family: "BMDOHYEON";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMDOHYEON.woff")
+  format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "GmarketSansMedium";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+  format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #f6f5f7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  letter-spacing: 0.7px;
+  font-family: "GmarketSansMedium", sans-serif;
+  height: 100vh;
+}
+
+#default {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  margin: 0 20px;
+}
+
+.contents {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  font-family: "BMDOHYEON", sans-serif;
+  font-size: 30px;
+  padding: 10px;
+  margin: 15px 0 10px;
+}
+
+.intro {
+  font-size: 14px;
+  margin-bottom: 5x;
+}
+
+form {
+  padding: 10px;
+}
+
+.input-box {
+  position: relative;
+  margin: 10px 0;
+}
+
+label {
+  position: absolute;
+  left: 5px;
+  top: 20px;
+  font-size: 12pt;
+  color: #aaa;
+}
+
+.example {
+  margin-top: 4px;
+  margin-left: 10px;
+  color: darkslategray;
+  font-size: 7pt;
+}
+
+.input-box > input {
+  margin-top: 10px;
+  border: none;
+  border-bottom: solid 1px #ccc;
+  padding-top: 13px;
+  font-size: 14pt;
+  width: 100%;
+}
+
+input:focus + label {
+  position: absolute;
+  font-size: 10px;
+  left: 4px;
+  top: 13px;
+  transition: all 0.2s ease;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+}
+
+input:focus {
+  outline: none;
+  border-bottom: solid 1px darkslategray;
+  transition-duration: 0.7s;
+}
+
+input:not(:placeholder-shown) + label {
+  position: absolute;
+  font-size: 10px;
+  left: 4px;
+  top: 13px;
+}
+
+.submit-button {
+  font-family: "GmarketSansMedium", sans-serif;
+  letter-spacing: 1px;
+  display: block;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  padding: 5px 0 5px 0;
+  width: 80%;
+  margin: 30px auto auto;
+  background-color: #6a6f4c;
+}
+
+.submit-button:hover {
+  background-color: #54583c;
+}
