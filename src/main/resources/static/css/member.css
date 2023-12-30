@@ -110,7 +110,7 @@ input:not(:placeholder-shown) + label {
   top: 13px;
 }
 
-.submit-button {
+.submit-button, .submit-button-owner {
   font-family: "GmarketSansMedium", sans-serif;
   letter-spacing: 1px;
   display: block;
@@ -123,6 +123,20 @@ input:not(:placeholder-shown) + label {
   background-color: #6a6f4c;
 }
 
+.submit-button {
+  background-color: #6a6f4c;
+}
+
 .submit-button:hover {
   background-color: #54583c;
 }
+
+.submit-button-owner {
+  background-color: #5b92e4;
+}
+
+.submit-button-owner:hover {
+  background-color: #436da6;
+}
+
+
