@@ -33,7 +33,7 @@ class UserMemberServiceImplTest {
     bCryptPasswordEncoder = new BCryptPasswordEncoder();
     UserJoinDto userJoinDto = getUserJoinDto();
     userJoinDto.setPassword(bCryptPasswordEncoder.encode(userJoinDto.getPassword()));
-    when(userRepository.save(any())).thenReturn(User.toEntity(userJoinDto));
+    when(userRepository.save(any())).thenReturn(UserJoinDto.toEntity(userJoinDto));
 
     // when
     userMemberService.join(userJoinDto);

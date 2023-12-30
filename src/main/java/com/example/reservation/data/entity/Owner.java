@@ -9,11 +9,14 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Table(name = "owner")
+@ToString(callSuper = true)
 public class Owner extends BaseEntity {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -24,12 +27,12 @@ public class Owner extends BaseEntity {
   @Column(unique = true)
   private String email;
 
-  private String password;
   private String ownerName;
+  private String password;
   private String phone;
   private String stAddress1; // store address
   private String stAddress2;
-  private RoleType role;
+  private String role;
 
   @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
   @ToString.Exclude
