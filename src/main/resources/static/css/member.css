@@ -49,9 +49,15 @@ body {
   margin: 15px 0 10px;
 }
 
+.alert {
+  font-size: 12px;
+  padding-bottom: 10px;
+  color: #cd5c5c;
+}
+
 .intro {
   font-size: 14px;
-  margin-bottom: 5x;
+  margin-bottom: 5px;
 }
 
 form {
@@ -69,6 +75,10 @@ label {
   top: 20px;
   font-size: 12pt;
   color: #aaa;
+}
+
+label:hover {
+  cursor: text;
 }
 
 .example {
@@ -132,11 +142,22 @@ input:not(:placeholder-shown) + label {
 }
 
 .submit-button-owner {
-  background-color: #5b92e4;
+  background-color: #d96161;
 }
 
 .submit-button-owner:hover {
-  background-color: #436da6;
+  background-color: #b45151;
+}
+
+#to-join {
+  margin: auto;
+  font-size: 12px;
+  text-decoration: none;
+  color: #606060;
+}
+
+#to-join:hover {
+  text-decoration: underline;
 }
 
 
