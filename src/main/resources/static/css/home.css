@@ -164,3 +164,16 @@ a {
     height: 60px;
     font-size: 16pt;
 }
+
+.add-button-wrap {
+    margin: 5px;
+    border-radius: 20px;
+    background-color: #ffbf00;
+    box-shadow: 3px 3px #ffa600;
+}
+
+.add-button-wrap a {
+    display: block;
+    color: #343a40;
+    padding: 13px 15px;
+}

@@ -1,13 +1,17 @@
-<!doctype html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="/css/home.css">
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link rel="stylesheet" href="/css/home.css" />
   <title>Owner Home</title>
 </head>
 <body>
@@ -18,7 +22,7 @@
         <a href="/owner/home" id="home">Goo's Reservation</a>
         <div class="member-wrap">
           <div class="is-login" sec:authorize="hasRole('OWNER')">
-            <a href="/owner/my" th:text="${name}"></a>
+            <a href="/owner/my" th:text="${name}">구구구</a>
             <p>점장님</p>
             <span> | </span>
             <a href="/owner/logout">로그아웃</a>
@@ -33,8 +37,15 @@
       <div class="search-box" id="owner-search-box">
         <form action="" method="get" name="searchForm">
           <div id="owner-icon" class="icon"></div>
-          <input type="text" id="search-input">
+          <input type="text" id="search-input" />
         </form>
+      </div>
+      <div class="add-button-wrap">
+        <a href="/owner/shop/add">매장 등록하러 가기 👉🏻👉🏻</a>
+      </div>
+      <div class="list-wrap">
+        <div class="list-title"></div>
+        <div class="list"></div>
       </div>
     </div>
   </div>
