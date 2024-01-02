@@ -29,8 +29,7 @@ public class Owner extends BaseEntity {
   private String ownerName;
   private String password;
   private String phone;
-  private String stAddress1; // store address
-  private String stAddress2;
+  private String address;
   private String role;
 
   @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)

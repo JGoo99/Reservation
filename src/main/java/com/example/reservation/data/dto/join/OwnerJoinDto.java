@@ -33,8 +33,7 @@ public class OwnerJoinDto {
   @Pattern(regexp = "^\\d{3}-\\d{3,4}-\\d{4}$")
   private String phone;
 
-  private String stAddress1;
-  private String stAddress2;
+  private String address;
 
   public static Owner toEntity(OwnerJoinDto ownerJoinDto) {
     return Owner.builder()
@@ -43,8 +42,7 @@ public class OwnerJoinDto {
       .email(ownerJoinDto.getEmail())
       .password(ownerJoinDto.getPassword())
       .phone(ownerJoinDto.getPhone())
-      .stAddress1(ownerJoinDto.getStAddress1())
-      .stAddress2(ownerJoinDto.getStAddress2())
+      .address(ownerJoinDto.getAddress())
       .role(RoleType.ROLE_OWNER.toString())
       .build();
   }
