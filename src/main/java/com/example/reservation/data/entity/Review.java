@@ -23,10 +23,6 @@ public class Review extends BaseEntity {
   private int star;
 
   @ManyToOne
-  @JoinColumn(name = "owner_id")
-  private Owner owner;
-
-  @ManyToOne
   @JoinColumn(name = "user_id")
   private User user;
 }
