@@ -1,6 +1,6 @@
 package com.example.reservation.service.impl.user;
 
-import com.example.reservation.data.dto.login.CustomUserDetails;
+import com.example.reservation.data.dto.user.CustomUserDetails;
 import com.example.reservation.data.entity.User;
 import com.example.reservation.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

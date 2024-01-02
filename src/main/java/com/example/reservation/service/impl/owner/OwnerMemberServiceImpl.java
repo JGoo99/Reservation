@@ -1,7 +1,7 @@
 package com.example.reservation.service.impl.owner;
 
-import com.example.reservation.data.dto.join.OwnerJoinDto;
-import com.example.reservation.data.dto.login.OwnerLoginDto;
+import com.example.reservation.data.dto.owner.OwnerJoinDto;
+import com.example.reservation.data.dto.owner.OwnerLoginDto;
 import com.example.reservation.data.entity.Owner;
 import com.example.reservation.repository.OwnerRepository;
 import com.example.reservation.service.inter.owner.OwnerMemberService;

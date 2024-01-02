@@ -1,7 +1,7 @@
 package com.example.reservation.controller.owner;
 
-import com.example.reservation.data.dto.join.OwnerJoinDto;
-import com.example.reservation.data.dto.login.OwnerLoginDto;
+import com.example.reservation.data.dto.owner.OwnerJoinDto;
+import com.example.reservation.data.dto.owner.OwnerLoginDto;
 import com.example.reservation.service.impl.owner.OwnerMemberServiceImpl;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;

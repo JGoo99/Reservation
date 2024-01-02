@@ -1,7 +1,7 @@
 package com.example.reservation.repository;
 
-import com.example.reservation.data.dto.join.OwnerJoinDto;
-import com.example.reservation.data.dto.login.OwnerLoginDto;
+import com.example.reservation.data.dto.owner.OwnerJoinDto;
+import com.example.reservation.data.dto.owner.OwnerLoginDto;
 import com.example.reservation.data.entity.Owner;
 import org.junit.jupiter.api.Test;
 import org.mockito.Spy;

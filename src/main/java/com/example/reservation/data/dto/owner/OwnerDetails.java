@@ -1,4 +1,4 @@
-package com.example.reservation.data.dto.login;
+package com.example.reservation.data.dto.owner;
 
 import com.example.reservation.data.entity.Owner;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,7 +9,7 @@ import java.util.Collection;
 
 public class OwnerDetails implements UserDetails {
 
-  private Owner owner;
+  private final Owner owner;
 
   public OwnerDetails(Owner owner) {
     this.owner = owner;
@@ -37,6 +37,10 @@ public class OwnerDetails implements UserDetails {
   @Override
   public String getUsername() {
     return owner.getOwnerName();
+  }
+
+  public String getEmail() {
+    return owner.getEmail();
   }
 
   @Override

@@ -1,7 +1,7 @@
 package com.example.reservation.repository;
 
-import com.example.reservation.data.dto.join.UserJoinDto;
-import com.example.reservation.data.dto.login.UserLoginDto;
+import com.example.reservation.data.dto.user.UserJoinDto;
+import com.example.reservation.data.dto.user.UserLoginDto;
 import com.example.reservation.data.entity.User;
 import org.junit.jupiter.api.Test;
 import org.mockito.Spy;
@@ -86,7 +86,7 @@ class UserRepositoryTest {
     boolean isUser = userRepository.existsByEmail(userJoinDto.getEmail());
 
     // then
-    assertEquals(isUser, true);
+    assertTrue(isUser);
   }
 
   @Test
@@ -102,7 +102,7 @@ class UserRepositoryTest {
     boolean isUser = userRepository.existsByEmail("ex@naver.com");
 
     // then
-    assertEquals(isUser, false);
+    assertFalse(isUser);
   }
 
 

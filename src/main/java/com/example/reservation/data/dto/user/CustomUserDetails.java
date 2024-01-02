@@ -1,4 +1,4 @@
-package com.example.reservation.data.dto.login;
+package com.example.reservation.data.dto.user;
 
 import com.example.reservation.data.entity.User;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,7 +9,7 @@ import java.util.Collection;
 
 public class CustomUserDetails implements UserDetails {
 
-  private User user;
+  private final User user;
 
   public CustomUserDetails(User user) {
     this.user = user;

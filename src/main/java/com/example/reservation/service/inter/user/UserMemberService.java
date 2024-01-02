@@ -1,7 +1,7 @@
 package com.example.reservation.service.inter.user;
 
-import com.example.reservation.data.dto.join.UserJoinDto;
-import com.example.reservation.data.dto.login.UserLoginDto;
+import com.example.reservation.data.dto.user.UserJoinDto;
+import com.example.reservation.data.dto.user.UserLoginDto;
 
 public interface UserMemberService {
 

@@ -24,7 +24,12 @@ public class OwnerController {
   }
 
   @GetMapping("/my")
-  public String myP() {
+  public String myP(Principal principal, Model model) {
+
+    if (principal != null) {
+      String ownerName = principal.getName();
+      model.addAttribute("name", ownerName);
+    }
     return "owner/my";
   }
 }

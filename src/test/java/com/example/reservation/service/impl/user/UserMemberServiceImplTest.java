@@ -1,7 +1,7 @@
 package com.example.reservation.service.impl.user;
 
-import com.example.reservation.data.dto.join.UserJoinDto;
-import com.example.reservation.data.dto.login.UserLoginDto;
+import com.example.reservation.data.dto.user.UserJoinDto;
+import com.example.reservation.data.dto.user.UserLoginDto;
 import com.example.reservation.data.entity.User;
 import com.example.reservation.repository.UserRepository;
 import org.junit.jupiter.api.Test;
@@ -12,11 +12,7 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)

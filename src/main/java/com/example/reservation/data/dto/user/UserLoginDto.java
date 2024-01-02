@@ -1,4 +1,4 @@
-package com.example.reservation.data.dto.login;
+package com.example.reservation.data.dto.user;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -9,12 +9,12 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@Builder
 @ToString
-public class OwnerLoginDto {
+@Builder
+public class UserLoginDto {
 
-  @Pattern(regexp = "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$")
   @NotBlank
+  @Pattern(regexp = "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$")
   private String email;
 
   @NotBlank

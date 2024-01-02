@@ -1,4 +1,4 @@
-package com.example.reservation.data.dto.join;
+package com.example.reservation.data.dto.owner;
 
 import com.example.reservation.data.entity.Owner;
 import com.example.reservation.type.RoleType;

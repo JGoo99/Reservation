@@ -35,5 +35,5 @@ public class Owner extends BaseEntity {
   @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
   @ToString.Exclude
   @Builder.Default
-  private List<Review> reviews = new ArrayList<>();
+  private List<Shop> stores = new ArrayList<>();
 }
