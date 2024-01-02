@@ -9,11 +9,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-@Order(1)
+@Order(2)
 public class UserSecurityConfig {
 
   @Bean
@@ -22,7 +23,7 @@ public class UserSecurityConfig {
   }
 
   @Bean
-  public BCryptPasswordEncoder bCryptPasswordEncoder() {
+  public PasswordEncoder userBCryptPasswordEncoder() {
     return new BCryptPasswordEncoder();
   }
 
@@ -30,13 +31,13 @@ public class UserSecurityConfig {
   public DaoAuthenticationProvider userAuthenticationProvider() {
     DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
     provider.setUserDetailsService(userDetailsService());
-    provider.setPasswordEncoder(bCryptPasswordEncoder());
+    provider.setPasswordEncoder(userBCryptPasswordEncoder());
 
     return provider;
   }
 
   @Bean
-  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+  public SecurityFilterChain userSecurityFilterChain(HttpSecurity http) throws Exception {
 
     http
       .csrf((auth) -> auth.disable());
@@ -44,7 +45,7 @@ public class UserSecurityConfig {
     http
       .authenticationProvider(userAuthenticationProvider())
       .authorizeHttpRequests((auth) -> auth
-        .requestMatchers("/home").hasRole("USER")
+        .requestMatchers("/user/my").hasRole("USER")
         .anyRequest().permitAll()
       );
 
@@ -53,12 +54,12 @@ public class UserSecurityConfig {
         .loginPage("/login")
         .loginProcessingUrl("/loginProc")
         .usernameParameter("email")
-        .defaultSuccessUrl("/home")
-        .permitAll()
+        .defaultSuccessUrl("/user/home")
       )
       .logout((auth) -> auth
         .logoutUrl("/logout")
-        .logoutSuccessUrl("/home")
+        .logoutSuccessUrl("/")
+        .deleteCookies("JSESSIONID")
       );
 
     return http.build();

@@ -43,9 +43,9 @@ public class OwnerJoinDto {
       .email(ownerJoinDto.getEmail())
       .password(ownerJoinDto.getPassword())
       .phone(ownerJoinDto.getPhone())
-      .stAddress1(ownerJoinDto.stAddress1)
-      .stAddress2(ownerJoinDto.stAddress2)
-      .role(String.valueOf(RoleType.ROLE_OWNER))
+      .stAddress1(ownerJoinDto.getStAddress1())
+      .stAddress2(ownerJoinDto.getStAddress2())
+      .role(RoleType.ROLE_OWNER.toString())
       .build();
   }
 }

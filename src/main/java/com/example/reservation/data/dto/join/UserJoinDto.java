@@ -41,7 +41,7 @@ public class UserJoinDto {
       .nickname(userJoinDto.getNickname())
       .phone(userJoinDto.getPhone())
       .address(userJoinDto.getAddress())
-      .role(String.valueOf(RoleType.ROLE_USER))
+      .role(RoleType.ROLE_USER.toString())
       .build();
   }
 }

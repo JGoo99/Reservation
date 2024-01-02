@@ -1,6 +1,7 @@
 package com.example.reservation.controller.owner;
 
 import com.example.reservation.data.dto.join.OwnerJoinDto;
+import com.example.reservation.data.dto.login.OwnerLoginDto;
 import com.example.reservation.service.impl.owner.OwnerMemberServiceImpl;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -41,20 +42,23 @@ public class OwnerMemberController {
   }
 
   @PostMapping("/loginProc")
-  public String loginProcP(@ModelAttribute OwnerJoinDto ownerJoinDto) {
-    LOGGER.info("[owner login] : {}", ownerJoinDto.toString());
+  public String loginProcP(@ModelAttribute OwnerLoginDto ownerLoginDto) {
+    LOGGER.info("[owner login] : {}", ownerLoginDto.toString());
 
-    boolean isLogin = ownerMemberService.login(ownerJoinDto);
+    boolean isLogin = ownerMemberService.login(ownerLoginDto);
 
     if (!isLogin) {
-      return "redirect:/login";
+      return "redirect:/owner/login";
     }
     return "redirect:/owner/home";
   }
 
   @GetMapping("/logout")
   public String logoutP(HttpSession session) {
-    session.invalidate();
-    return "main";
+
+    if (session.getId() != null) {
+      session.invalidate();
+    }
+    return "redirect:/";
   }
 }

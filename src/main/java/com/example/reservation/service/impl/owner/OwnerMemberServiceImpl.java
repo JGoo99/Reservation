@@ -1,11 +1,13 @@
 package com.example.reservation.service.impl.owner;
 
 import com.example.reservation.data.dto.join.OwnerJoinDto;
+import com.example.reservation.data.dto.login.OwnerLoginDto;
 import com.example.reservation.data.entity.Owner;
 import com.example.reservation.repository.OwnerRepository;
 import com.example.reservation.service.inter.owner.OwnerMemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class OwnerMemberServiceImpl implements OwnerMemberService {
 
   private final OwnerRepository ownerRepository;
-  private final BCryptPasswordEncoder bCryptPasswordEncoder;
+  private final PasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
   @Override
   public void join(OwnerJoinDto ownerJoinDto) {
@@ -25,12 +27,12 @@ public class OwnerMemberServiceImpl implements OwnerMemberService {
   }
 
   @Override
-  public boolean login(OwnerJoinDto ownerJoinDto) {
-    Owner owner = ownerRepository.findByEmail(ownerJoinDto.getEmail())
+  public boolean login(OwnerLoginDto ownerLoginDto) {
+    Owner owner = ownerRepository.findByEmail(ownerLoginDto.getEmail())
       .orElseThrow(() -> new RuntimeException("가입하지 않은 이메일"));
 
     if (bCryptPasswordEncoder
-      .matches(ownerJoinDto.getPassword(), owner.getPassword())) {
+      .matches(ownerLoginDto.getPassword(), owner.getPassword())) {
       throw new RuntimeException("일치하지 않는 비밀번호");
     }
 

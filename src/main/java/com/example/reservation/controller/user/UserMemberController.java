@@ -49,14 +49,17 @@ public class UserMemberController {
     if (!isLogin) {
       return "redirect:/login";
     }
-    return "redirect:/home";
+    return "redirect:/user/home";
   }
 
   @GetMapping("/logout")
   public String logoutP(HttpSession session) {
-    // LOGGER.info("[logout]: {}", user.toString());
-    session.invalidate();
-    return "main";
+
+    if (session.getId() != null) {
+      session.invalidate();
+      return "redirect:/";
+    }
+    return "redirect:/user/home";
   }
 }
 

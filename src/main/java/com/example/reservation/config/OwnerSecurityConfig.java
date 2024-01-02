@@ -3,17 +3,19 @@ package com.example.reservation.config;
 import com.example.reservation.service.impl.owner.OwnerDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-@Order(2)
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class OwnerSecurityConfig {
 
   @Bean
@@ -22,7 +24,7 @@ public class OwnerSecurityConfig {
   }
 
   @Bean
-  public BCryptPasswordEncoder ownerBCryptPasswordEncoder() {
+  public PasswordEncoder ownerBCryptPasswordEncoder() {
     return new BCryptPasswordEncoder();
   }
 
@@ -44,6 +46,11 @@ public class OwnerSecurityConfig {
     http
       .authenticationProvider(ownerAuthenticationProvider())
       .authorizeHttpRequests((auth) -> auth
+        .requestMatchers("/", "/user/home", "/owner/home").permitAll()
+        .requestMatchers("/join", "/joinProc", "/logout", "/login", "/loginProc").permitAll()
+        .requestMatchers("/owner/join", "/owner/joinProc", "/owner/logout", "/owner/login", "/owner/loginProc").permitAll()
+        .requestMatchers("/css/**").permitAll()
+        .requestMatchers("/owner/**").hasRole("OWNER")
         .anyRequest().permitAll()
       );
 
@@ -56,10 +63,10 @@ public class OwnerSecurityConfig {
       )
       .logout((auth) -> auth
         .logoutUrl("/owner/logout")
-        .logoutSuccessUrl("/owner/home")
+        .logoutSuccessUrl("/")
+        .deleteCookies("JSESSIONID")
       );
 
     return http.build();
   }
-
 }
