@@ -1,0 +1,241 @@
+@import url(reset.css);
+
+@font-face {
+    font-family: "BMDOHYEON";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMDOHYEON.woff")
+    format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "GmarketSansMedium";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+    format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "GmarketSansMedium", sans-serif;
+    background: #f6f5f7;
+    padding-top: 90px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    letter-spacing: 0.7px;
+    height: 100vh;
+}
+
+#default {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin: 0 20px;
+}
+
+.contents {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title {
+    position: fixed;
+    display: flex;
+    top: 0;
+    width: 100%;
+    height: 60px;
+    padding: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #6a6f4c;
+}
+
+#owner-title {
+    background-color: #d96161;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+#home {
+    text-decoration: none;
+    font-family: "BMDOHYEON", sans-serif;
+    font-size: 30px;
+}
+
+.member-wrap {
+    font-size: 16px;
+}
+
+.is-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.is-login p {
+    color: beige;
+    padding-top: 3px;
+    font-size: 9pt;
+}
+
+.member-wrap a:hover {
+    border-bottom: 1px solid white;
+}
+
+.member-wrap span {
+    color: #cbcaca;
+    margin: 8px;
+}
+
+.alert {
+    font-size: 12px;
+    color: #cd5c5c;
+    margin: 12px;
+}
+
+.intro {
+    font-size: 20px;
+    margin: 10px;
+}
+
+form {
+    padding: 10px;
+}
+
+.input-box {
+    position: relative;
+    margin: 10px 10px;
+}
+
+label {
+    position: absolute;
+    left: 5px;
+    top: 20px;
+    font-size: 12pt;
+    color: #aaa;
+}
+
+label:hover {
+    cursor: text;
+}
+
+.input-box > input,
+textarea {
+    margin-top: 10px;
+    border: none;
+    border-bottom: solid 1px #ccc;
+    padding-top: 13px;
+    font-size: 14pt;
+    width: 100%;
+}
+
+textarea {
+    resize: none;
+    outline: none;
+}
+
+.explain {
+    margin-left: 13px;
+    color: darkslategray;
+    font-size: 7pt;
+}
+
+p > a {
+    color: black;
+    border-bottom: 0.2px solid #606060;
+}
+
+textarea:focus + label {
+    position: absolute;
+    font-size: 10px;
+    left: 4px;
+    top: 13px;
+    transition: all 0.2s ease;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+}
+
+input:focus + label {
+    position: absolute;
+    font-size: 10px;
+    left: 4px;
+    top: 13px;
+    transition: all 0.2s ease;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border-bottom: solid 1px darkslategray;
+    transition-duration: 0.7s;
+}
+
+input:not(:placeholder-shown) + label {
+    position: absolute;
+    font-size: 10px;
+    left: 4px;
+    top: 13px;
+}
+
+#place {
+    display: flex;
+}
+
+.example {
+    margin-top: 4px;
+    margin-left: 10px;
+    color: darkslategray;
+    font-size: 7pt;
+}
+
+.submit-button,
+.submit-button-owner {
+    font-family: "GmarketSansMedium", sans-serif;
+    letter-spacing: 1px;
+    display: block;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    padding: 5px 0 5px 0;
+    width: 80%;
+    margin: 30px auto auto;
+    background-color: #6a6f4c;
+}
+
+.submit-button {
+    background-color: #6a6f4c;
+}
+
+.submit-button:hover {
+    background-color: #54583c;
+}
+
+.submit-button-owner {
+    background-color: #d96161;
+}
+
+.submit-button-owner:hover {
+    background-color: #b45151;
+}
+
+#to-join {
+    margin: auto;
+    font-size: 12px;
+    text-decoration: none;
+    color: #606060;
+}
+
+#to-join:hover {
+    text-decoration: underline;
+}
