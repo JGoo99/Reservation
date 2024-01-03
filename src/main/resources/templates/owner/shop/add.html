@@ -20,10 +20,15 @@
         <a href="/owner/home" id="home">Goo's Reservation</a>
         <div class="member-wrap">
           <div class="is-login" sec:authorize="hasRole('OWNER')">
-            <a href="/owner/my" th:text="${name}">구구구</a>
+            <a href="/owner/my" th:text="${name}"></a>
             <p>점장님</p>
             <span> | </span>
             <a href="/owner/logout">로그아웃</a>
+          </div>
+          <div class="is-logout" sec:authorize="isAnonymous()">
+            <a href="/owner/join">회원가입</a>
+            <span> | </span>
+            <a href="/owner/login">로그인</a>
           </div>
         </div>
       </div>
@@ -33,7 +38,7 @@
           <div class="input-box">
             <input id="shop-name" type="text" name="shopName" placeholder="" required
             />
-            <label for="shop-name" class="label">가게상호명</label>
+            <label for="shop-name" class="label">매장상호명</label>
           </div>
         </div>
         <div class="text-filed" id="place">
@@ -50,8 +55,8 @@
         </div>
         <div class="text-filed">
           <div class="input-box">
-            <textarea id="explain" name="shopExplain" cols="30" rows="10"></textarea>
-            <label for="explain" class="label">상점설명</label>
+            <textarea id="explain" name="shopExplain" cols="30" rows="10" placeholder=""></textarea>
+            <label for="explain" class="label">매장설명</label>
           </div>
         </div>
         <button type="submit" class="submit-button-owner">매장 등록</button>
