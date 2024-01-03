@@ -1,0 +1,59 @@
+@import "default.css";
+
+.intro {
+    font-size: 20px;
+    margin: 10px;
+}
+
+.service-boxes {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    width: 506px;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+}
+
+.box-wrap {
+    width: 300px;
+    background-color: #cbcaca;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 3px 3px 53px 3px;
+    box-shadow: 2px 2px 4px #9f9e9e;
+    cursor: pointer;
+}
+
+.box-wrap:hover {
+    margin: 0 0 50px 0;
+    border: 3px solid black;
+}
+
+.box-contents {
+    color: black;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.box-name {
+    color: white;
+    padding: 10px;
+    font-size: 18pt;
+    width: 100%;
+    background-color: #5a5b9f;
+}
+
+.summary {
+    font-size: 10pt;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    background-color: white;
+}
+
+.summary * {
+    line-height: 15pt;
+}

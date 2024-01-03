@@ -19,6 +19,7 @@
         <div class="member-wrap">
           <div class="is-login" sec:authorize="hasRole('USER')">
             <a href="/user/my" th:text="${name}"></a>
+            <p>고객님</p>
             <span> | </span>
             <a href="/logout">로그아웃</a>
           </div>

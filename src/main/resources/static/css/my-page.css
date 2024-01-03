@@ -1,0 +1,79 @@
+@import "default.css";
+
+.intro {
+    font-size: 20px;
+    margin: 10px;
+}
+
+.shop-list {
+    margin-top: 20px;
+    width: 506px;
+    height: fit-content;
+}
+
+.shop-wrap {
+    width: 500px;
+    background-color: #cbcaca;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 3px 3px 15px 3px;
+    box-shadow: 2px 2px 4px #9f9e9e;
+    cursor: pointer;
+}
+
+.shop-wrap:hover {
+    margin: 0 0 12px 0;
+    border: 3px solid black;
+}
+
+.shop-contents {
+    color: black;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.shop-name {
+    color: white;
+    padding: 10px;
+    font-size: 18pt;
+    width: 100%;
+    background-color: #9f5496;
+}
+
+.summary {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: white;
+}
+
+.stars {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 16px;
+}
+
+.stars .icon-star {
+    font-size: 14pt;
+    margin-right: 2px;
+}
+
+.stars .stars-value {
+    font-size: 12pt;
+    font-weight: bold;
+}
+
+.review-count {
+    display: flex;
+}
+
+#review-count {
+    margin-left: 5px;
+}
+
+.review-count p {
+    font-size: 12pt;
+}

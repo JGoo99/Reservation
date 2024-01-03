@@ -1,0 +1,92 @@
+@import "default.css";
+
+.alert {
+    font-size: 12px;
+    color: #cd5c5c;
+    margin: 12px;
+}
+
+.intro {
+    font-size: 20px;
+    margin: 10px;
+}
+
+.shop-details {
+    padding: 10px;
+}
+
+.input-box {
+    position: relative;
+    margin: 10px 10px;
+}
+
+label {
+    position: absolute;
+    left: 5px;
+    top: 20px;
+    font-size: 12pt;
+    color: #aaa;
+}
+
+label:hover {
+    cursor: text;
+}
+
+.input-box > input,
+textarea {
+    margin-top: 10px;
+    border: none;
+    border-bottom: solid 1px #ccc;
+    padding-top: 13px;
+    font-size: 14pt;
+    width: 100%;
+}
+
+textarea {
+    resize: none;
+    outline: none;
+}
+
+.explain {
+    margin-left: 13px;
+    color: darkslategray;
+    font-size: 7pt;
+}
+
+input:not(:placeholder-shown) + label {
+    position: absolute;
+    font-size: 10px;
+    left: 4px;
+    top: 13px;
+}
+
+#explain_label {
+    position: absolute;
+    font-size: 10px;
+    left: 4px;
+    top: 13px;
+}
+
+#place {
+    display: flex;
+}
+
+.example {
+    margin-top: 4px;
+    margin-left: 10px;
+    color: darkslategray;
+    font-size: 7pt;
+}
+
+.move {
+    justify-content: center;
+    align-items: center;
+}
+
+.move a {
+    color: darkslategray;
+    font-size: 8pt;
+}
+.move a:hover {
+    border-bottom: 1px solid darkslategray;
+}
