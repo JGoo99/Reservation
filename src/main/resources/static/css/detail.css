@@ -88,6 +88,7 @@ a {
 }
 
 .member-wrap a:hover {
+    margin-top: 0;
     border-bottom: 1px solid white;
 }
 
@@ -96,93 +97,60 @@ a {
     margin: 8px;
 }
 
-.alert {
-    font-size: 12px;
-    color: #cd5c5c;
-    margin: 12px;
-}
-
 .intro {
     font-size: 20px;
     margin: 10px;
 }
 
-.shop-details {
-    padding: 10px;
-}
-
-.input-box {
-    position: relative;
-    margin: 10px 10px;
-}
-
-label {
-    position: absolute;
-    left: 5px;
-    top: 20px;
-    font-size: 12pt;
-    color: #aaa;
-}
-
-label:hover {
-    cursor: text;
-}
-
-.input-box > input,
-textarea {
-    margin-top: 10px;
-    border: none;
-    border-bottom: solid 1px #ccc;
-    padding-top: 13px;
-    font-size: 14pt;
-    width: 100%;
-}
-
-textarea {
-    resize: none;
-    outline: none;
-}
-
-.explain {
-    margin-left: 13px;
-    color: darkslategray;
-    font-size: 7pt;
-}
-
-input:not(:placeholder-shown) + label {
-    position: absolute;
-    font-size: 10px;
-    left: 4px;
-    top: 13px;
-}
-
-#explain_label {
-    position: absolute;
-    font-size: 10px;
-    left: 4px;
-    top: 13px;
-}
-
-#place {
+.service-boxes {
     display: flex;
-}
-
-.example {
-    margin-top: 4px;
-    margin-left: 10px;
-    color: darkslategray;
-    font-size: 7pt;
-}
-
-.move {
+    flex-direction: column;
+    margin: 20px;
+    width: 506px;
     justify-content: center;
     align-items: center;
+    height: fit-content;
 }
 
-.move a {
-    color: darkslategray;
-    font-size: 8pt;
+.box-wrap {
+    width: 300px;
+    background-color: #cbcaca;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 3px 3px 53px 3px;
+    box-shadow: 2px 2px 4px #9f9e9e;
+    cursor: pointer;
 }
-.move a:hover {
-    border-bottom: 1px solid darkslategray;
+
+.box-wrap:hover {
+    margin: 0 0 50px 0;
+    border: 3px solid black;
+}
+
+.box-contents {
+    color: black;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.box-name {
+    color: white;
+    padding: 10px;
+    font-size: 18pt;
+    width: 100%;
+    background-color: #5a5b9f;
+}
+
+.summary {
+    font-size: 10pt;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    background-color: white;
+}
+
+.summary * {
+    line-height: 15pt;
 }

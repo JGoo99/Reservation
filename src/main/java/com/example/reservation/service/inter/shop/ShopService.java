@@ -9,4 +9,7 @@ public interface ShopService {
   ShopDetailDto add(ShopAddDto storeDto, String ownerEmail);
 
   List<ShopDetailDto> getShopList(Long ownerId);
+
+  ShopDetailDto getShopDetails(Long id);
+
 }

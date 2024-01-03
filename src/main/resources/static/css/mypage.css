@@ -88,6 +88,7 @@ a {
 }
 
 .member-wrap a:hover {
+    margin-top: 0;
     border-bottom: 1px solid white;
 }
 
@@ -103,17 +104,23 @@ a {
 
 .shop-list {
     margin-top: 20px;
-    width: 500px;
+    width: 506px;
     height: fit-content;
 }
 
 .shop-wrap {
-    width: 100%;
+    width: 500px;
     background-color: #cbcaca;
     border-radius: 20px;
     overflow: hidden;
-    margin-bottom: 15px;
+    margin: 3px 3px 15px 3px;
     box-shadow: 2px 2px 4px #9f9e9e;
+    cursor: pointer;
+}
+
+.shop-wrap:hover {
+    margin: 0 0 12px 0;
+    border: 3px solid black;
 }
 
 .shop-contents {
@@ -158,8 +165,10 @@ a {
 
 .review-count {
     display: flex;
-    justify-content: center;
-    text-align: center;
+}
+
+#review-count {
+    margin-left: 5px;
 }
 
 .review-count p {

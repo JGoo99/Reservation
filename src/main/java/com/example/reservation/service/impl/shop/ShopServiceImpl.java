@@ -45,6 +45,16 @@ public class ShopServiceImpl implements ShopService {
     return shopDetailList;
   }
 
+  @Override
+  public ShopDetailDto getShopDetails(Long id) {
+    Optional<Shop> shop = shopRepository.findById(id);
+    if (!shop.isPresent()) {
+      throw new RuntimeException("해당 매장을 찾을 수 없습니다.");
+    }
+
+    return ShopDetailDto.fromEntity(shop.get());
+  }
+
   public Owner validateOwnerEmail(String ownerEmail) {
 
     Optional<Owner> owner = ownerRepository.findByEmail(ownerEmail);

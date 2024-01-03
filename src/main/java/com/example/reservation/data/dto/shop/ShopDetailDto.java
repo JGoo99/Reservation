@@ -1,6 +1,5 @@
 package com.example.reservation.data.dto.shop;
 
-import com.example.reservation.data.entity.Owner;
 import com.example.reservation.data.entity.Shop;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -30,6 +29,8 @@ public class ShopDetailDto {
 
   private int reviewCount;
 
+  private Long shopId;
+
   public static ShopDetailDto fromEntity(Shop shop) {
     return ShopDetailDto.builder()
       .shopName(shop.getShopName())
@@ -38,6 +39,7 @@ public class ShopDetailDto {
       .shopExplain(shop.getShopExplain())
       .stars(shop.getStars())
       .reviewCount(shop.getReviewCount())
+      .shopId(shop.getId())
       .build();
   }
 }
