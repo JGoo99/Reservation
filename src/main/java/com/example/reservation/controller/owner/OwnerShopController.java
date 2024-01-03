@@ -25,10 +25,12 @@ public class OwnerShopController {
   @GetMapping("/add")
   public String addP(Principal principal, Model model) {
 
-    if (principal != null) {
-      String ownerName = principal.getName();
-      model.addAttribute("name", ownerName);
+    if (principal == null) {
+      throw new RuntimeException("점장페이지의 로그인 정보가 존재하지 않습니다.");
     }
+    String ownerName = principal.getName();
+    model.addAttribute("name", ownerName);
+
     return "owner/shop/add";
   }
 

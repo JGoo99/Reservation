@@ -18,14 +18,6 @@ public class ShopDetailDto {
   @NotBlank
   private String shopName;
 
-  @NotBlank
-  private String ownerName;
-
-  @NotBlank
-  private String ownerEmail;
-
-  private String ownerPhone;
-
   @NotNull
   private String address1;
 
@@ -36,16 +28,16 @@ public class ShopDetailDto {
 
   private double stars;
 
+  private int reviewCount;
+
   public static ShopDetailDto fromEntity(Shop shop) {
     return ShopDetailDto.builder()
       .shopName(shop.getShopName())
-      .ownerName(shop.getOwner().getOwnerName())
-      .ownerEmail(shop.getOwner().getEmail())
-      .ownerPhone(shop.getOwner().getPhone())
       .address1(shop.getAddress1())
       .address2(shop.getAddress2())
       .shopExplain(shop.getShopExplain())
       .stars(shop.getStars())
+      .reviewCount(shop.getReviewCount())
       .build();
   }
 }

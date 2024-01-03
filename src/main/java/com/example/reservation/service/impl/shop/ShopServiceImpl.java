@@ -10,33 +10,52 @@ import com.example.reservation.service.inter.shop.ShopService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class ShopServiceImpl implements ShopService {
 
-  private final ShopRepository storeRepository;
+  private final ShopRepository shopRepository;
   private final OwnerRepository ownerRepository;
 
   @Override
-  public ShopDetailDto add(ShopAddDto storeDto, String ownerEmail) {
+  public ShopDetailDto add(ShopAddDto shopAddDto, String ownerEmail) {
 
-    validateDuplicateStore(storeDto.getShopName());
+    validateDuplicateStore(shopAddDto.getShopName());
+    Owner owner = validateOwnerEmail(ownerEmail);
+
+    shopAddDto.setOwnerId(owner.getId());
+    Shop shop = shopRepository.save(ShopAddDto.toEntity(shopAddDto));
+
+    return ShopDetailDto.fromEntity(shop);
+  }
+
+  @Override
+  public List<ShopDetailDto> getShopList(Long ownerId) {
+    List<Shop> shops = shopRepository.findAllByOwnerId(ownerId);
+
+    List<ShopDetailDto> shopDetailList = new ArrayList<>();
+    for (Shop s : shops) {
+      shopDetailList.add(ShopDetailDto.fromEntity(s));
+    }
+
+    return shopDetailList;
+  }
+
+  public Owner validateOwnerEmail(String ownerEmail) {
+
     Optional<Owner> owner = ownerRepository.findByEmail(ownerEmail);
-
-    if (owner.isPresent()) {
-      storeDto.setOwner(owner.get());
-      Shop shop = storeRepository.save(ShopAddDto.toEntity(storeDto));
-
-      return ShopDetailDto.fromEntity(shop);
-    } else {
+    if (!owner.isPresent()) {
       throw new RuntimeException("이메일 정보가 유효하지 않아 매장등록에 실패했습니다.");
     }
+    return owner.get();
   }
 
   public void validateDuplicateStore(String storeName) {
-    boolean isStore = storeRepository.existsByShopName(storeName);
+    boolean isStore = shopRepository.existsByShopName(storeName);
     if (isStore) {
       throw new RuntimeException("이미 등록된 매장입니다.");
     }

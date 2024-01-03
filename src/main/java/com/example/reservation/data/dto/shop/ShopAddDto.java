@@ -19,7 +19,7 @@ public class ShopAddDto {
   private String shopName;
 
   @NotBlank
-  private Owner owner;
+  private Long ownerId;
 
   @NotNull
   private String address1;
@@ -36,7 +36,8 @@ public class ShopAddDto {
       .address2(shopAddDto.getAddress2())
       .shopExplain(shopAddDto.getShopExplain())
       .stars(0)
-      .owner(shopAddDto.getOwner())
+      .reviewCount(0)
+      .ownerId(shopAddDto.getOwnerId())
       .build();
   }
 

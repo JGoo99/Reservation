@@ -43,6 +43,8 @@ public class OwnerDetails implements UserDetails {
     return owner.getEmail();
   }
 
+  public Long getId() { return owner.getId(); }
+
   @Override
   public boolean isAccountNonExpired() {
     return true;
