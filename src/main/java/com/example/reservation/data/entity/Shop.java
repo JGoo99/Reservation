@@ -25,9 +25,10 @@ public class Shop extends BaseEntity {
 
   private String shopExplain;
 
-  private double stars; // 평균 별점
+  private double stars; // 총 별점
 
-  @ManyToOne
-  @JoinColumn(name = "owner_id")
-  private Owner owner;
+  private int reviewCount;
+
+
+  private Long ownerId;
 }

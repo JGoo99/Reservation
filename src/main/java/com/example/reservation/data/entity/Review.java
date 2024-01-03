@@ -21,8 +21,4 @@ public class Review extends BaseEntity {
   private String title;
   private String content;
   private int star;
-
-  @ManyToOne
-  @JoinColumn(name = "user_id")
-  private User user;
 }
