@@ -1,6 +1,6 @@
 package com.example.reservation.config;
 
-import com.example.reservation.service.impl.user.UserDetailsServiceImpl;
+import com.example.reservation.service.impl.member.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;

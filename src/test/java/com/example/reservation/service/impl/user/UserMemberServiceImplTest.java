@@ -4,6 +4,7 @@ import com.example.reservation.data.dto.user.UserJoinDto;
 import com.example.reservation.data.dto.user.UserLoginDto;
 import com.example.reservation.data.entity.User;
 import com.example.reservation.repository.UserRepository;
+import com.example.reservation.service.impl.member.UserMemberServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -52,22 +53,4 @@ class UserMemberServiceImplTest {
       .phone("010-1234-5678")
       .build();
   }
-
-  UserLoginDto getUserLoginDto() {
-    return UserLoginDto.builder()
-      .email("goo@gmail.com")
-      .password("123")
-      .build();
-  }
-
-  User getUser() {
-    return User.builder()
-      .email("goo@gmail.com")
-      .username("goo")
-      .password("1234")
-      .address("구의로")
-      .phone("010-1234-5678")
-      .build();
-  }
-
 }

@@ -1,8 +1,8 @@
-package com.example.reservation.service.impl.owner;
+package com.example.reservation.service.impl.member;
 
-import com.example.reservation.data.dto.owner.OwnerDetails;
-import com.example.reservation.data.entity.Owner;
-import com.example.reservation.repository.OwnerRepository;
+import com.example.reservation.data.dto.user.CustomUserDetails;
+import com.example.reservation.data.entity.User;
+import com.example.reservation.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,17 +12,17 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class OwnerDetailsServiceImpl implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
   @Autowired
-  OwnerRepository ownerRepository;
+  UserRepository userRepository;
 
   @Override
   public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-    Optional<Owner> owner = ownerRepository.findByEmail(email);
+    Optional<User> user = userRepository.findByEmail(email);
 
-    if (owner.isPresent()) {
-      return new OwnerDetails(owner.get());
+    if (user.isPresent()) {
+      return new CustomUserDetails(user.get());
     }
 
     return null;

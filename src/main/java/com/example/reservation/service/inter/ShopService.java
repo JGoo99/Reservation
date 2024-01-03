@@ -1,4 +1,4 @@
-package com.example.reservation.service.inter.shop;
+package com.example.reservation.service.inter;
 
 import com.example.reservation.data.dto.shop.ShopAddDto;
 import com.example.reservation.data.dto.shop.ShopDetailDto;
@@ -11,5 +11,4 @@ public interface ShopService {
   List<ShopDetailDto> getShopList(Long ownerId);
 
   ShopDetailDto getShopDetails(Long id);
-
 }

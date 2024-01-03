@@ -1,10 +1,10 @@
-package com.example.reservation.service.impl.owner;
+package com.example.reservation.service.impl.member;
 
 import com.example.reservation.data.dto.owner.OwnerJoinDto;
 import com.example.reservation.data.dto.owner.OwnerLoginDto;
 import com.example.reservation.data.entity.Owner;
 import com.example.reservation.repository.OwnerRepository;
-import com.example.reservation.service.inter.owner.OwnerMemberService;
+import com.example.reservation.service.inter.OwnerMemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;

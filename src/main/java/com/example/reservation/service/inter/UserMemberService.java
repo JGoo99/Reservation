@@ -1,4 +1,4 @@
-package com.example.reservation.service.inter.user;
+package com.example.reservation.service.inter;
 
 import com.example.reservation.data.dto.user.UserJoinDto;
 import com.example.reservation.data.dto.user.UserLoginDto;

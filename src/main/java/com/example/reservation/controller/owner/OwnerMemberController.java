@@ -2,7 +2,7 @@ package com.example.reservation.controller.owner;
 
 import com.example.reservation.data.dto.owner.OwnerJoinDto;
 import com.example.reservation.data.dto.owner.OwnerLoginDto;
-import com.example.reservation.service.impl.owner.OwnerMemberServiceImpl;
+import com.example.reservation.service.impl.member.OwnerMemberServiceImpl;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;

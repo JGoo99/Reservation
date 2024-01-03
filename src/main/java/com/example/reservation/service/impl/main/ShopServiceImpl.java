@@ -1,4 +1,4 @@
-package com.example.reservation.service.impl.shop;
+package com.example.reservation.service.impl.main;
 
 import com.example.reservation.data.dto.shop.ShopAddDto;
 import com.example.reservation.data.dto.shop.ShopDetailDto;
@@ -6,7 +6,7 @@ import com.example.reservation.data.entity.Owner;
 import com.example.reservation.data.entity.Shop;
 import com.example.reservation.repository.OwnerRepository;
 import com.example.reservation.repository.ShopRepository;
-import com.example.reservation.service.inter.shop.ShopService;
+import com.example.reservation.service.inter.ShopService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -2,7 +2,7 @@ package com.example.reservation.controller.owner;
 
 import com.example.reservation.data.dto.owner.OwnerDetails;
 import com.example.reservation.data.dto.shop.ShopDetailDto;
-import com.example.reservation.service.impl.shop.ShopServiceImpl;
+import com.example.reservation.service.impl.main.ShopServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;

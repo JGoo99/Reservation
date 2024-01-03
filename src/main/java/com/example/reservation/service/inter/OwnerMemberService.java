@@ -1,4 +1,4 @@
-package com.example.reservation.service.inter.owner;
+package com.example.reservation.service.inter;
 
 import com.example.reservation.data.dto.owner.OwnerJoinDto;
 import com.example.reservation.data.dto.owner.OwnerLoginDto;

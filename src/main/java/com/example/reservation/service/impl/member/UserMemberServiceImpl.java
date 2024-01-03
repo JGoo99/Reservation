@@ -1,10 +1,10 @@
-package com.example.reservation.service.impl.user;
+package com.example.reservation.service.impl.member;
 
 import com.example.reservation.data.dto.user.UserJoinDto;
 import com.example.reservation.data.dto.user.UserLoginDto;
 import com.example.reservation.data.entity.User;
 import com.example.reservation.repository.UserRepository;
-import com.example.reservation.service.inter.user.UserMemberService;
+import com.example.reservation.service.inter.UserMemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
