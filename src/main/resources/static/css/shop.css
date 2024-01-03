@@ -188,6 +188,13 @@ input:not(:placeholder-shown) + label {
     top: 13px;
 }
 
+textarea:not(:placeholder-shown) + label {
+    position: absolute;
+    font-size: 10px;
+    left: 4px;
+    top: 13px;
+}
+
 #place {
     display: flex;
 }

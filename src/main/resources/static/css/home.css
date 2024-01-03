@@ -172,6 +172,13 @@ a {
     box-shadow: 3px 3px #ffa600;
 }
 
+.add-button-wrap:hover {
+    margin: 8px 5px 5px 10px;
+    border-radius: 20px;
+    background-color: #ffbf00;
+    box-shadow: none;
+}
+
 .add-button-wrap a {
     display: block;
     color: #343a40;
