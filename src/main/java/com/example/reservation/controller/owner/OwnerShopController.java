@@ -66,7 +66,7 @@ public class OwnerShopController {
     model.addAttribute("name", principal.getName());
     model.addAttribute("shopId", shopId);
 
-    return "owner/shop/service";
+    return "owner/shop/service-select";
   }
 
   @GetMapping("/{shopId}/reserve")

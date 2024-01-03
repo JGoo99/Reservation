@@ -14,7 +14,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-@Order(2)
+@Order(1)
 public class UserSecurityConfig {
 
   @Bean
@@ -44,9 +44,13 @@ public class UserSecurityConfig {
 
     http
       .authenticationProvider(userAuthenticationProvider())
+      .securityMatchers((matchers) -> matchers.requestMatchers("/**"))
       .authorizeHttpRequests((auth) -> auth
+        .requestMatchers("/", "/join", "/joinProc", "/logout", "/login", "/loginProc").permitAll()
+        .requestMatchers("/css/**").permitAll()
+        .requestMatchers("/user/home").permitAll()
         .requestMatchers("/user/my").hasRole("USER")
-        .anyRequest().permitAll()
+        .anyRequest().authenticated()
       );
 
     http
