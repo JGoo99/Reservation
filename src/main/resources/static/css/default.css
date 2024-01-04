@@ -54,6 +54,7 @@ body {
     justify-content: space-between;
     align-items: center;
     background-color: #3e8ede;
+    z-index: 20;
 }
 
 #owner-title {

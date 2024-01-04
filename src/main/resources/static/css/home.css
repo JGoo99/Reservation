@@ -26,7 +26,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 10;
     cursor: pointer;
 }
 
@@ -69,6 +69,7 @@
     font-size: 16pt;
 }
 .intro {
+    text-align: center;
     font-size: 20px;
     margin: 10px;
 }
@@ -120,18 +121,22 @@
     height: fit-content;
     border-radius: 16px;
     border: 1px solid #bfbebe;
-}
-
-.shop-box a {
-    color: black;
     overflow: hidden;
 }
 
 .shop-list {
     display: flex;
     flex-direction: column;
-    margin-left: 8px;
+    justify-content: center;
+    overflow: hidden;
 }
+
+.shop-list a {
+    color: black;
+    overflow: hidden;
+    border-bottom: 0.5px solid #bfbebe;
+}
+
 
 .shop-ele {
     padding: 15px;
@@ -139,6 +144,7 @@
 
 .ele-summary {
     align-items: baseline;
+    display: flex;
 }
 
 .ele-title {
@@ -147,10 +153,6 @@
     font-size: 16pt;
     border-bottom: 1px solid #f6f5f7;
     margin: 0 7px 8px 0;
-}
-
-.ele-summary {
-    display: flex;
 }
 
 .stars {
@@ -179,19 +181,11 @@
 .location p {
     color: #727272;
     font-size: 9pt;
-    margin-right: 8px;
+    margin-right: 4px;
 }
 
 .shop-ele:hover .ele-title {
     border-bottom: 1px solid black;
-}
-
-hr {
-    margin: 0;
-    width: 95%;
-    height: 0.5px;
-    background-color: #bfbebe;
-    border: none;
 }
 
 .shop-ele::before {
