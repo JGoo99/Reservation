@@ -46,9 +46,8 @@ public class UserSecurityConfig {
       .authenticationProvider(userAuthenticationProvider())
       .securityMatchers((matchers) -> matchers.requestMatchers("/**"))
       .authorizeHttpRequests((auth) -> auth
-        .requestMatchers("/", "/user/home", "/join", "/joinProc", "/logout", "/login", "/loginProc").permitAll()
-        .requestMatchers("/css/**").permitAll()
-        .requestMatchers("/user/my").hasRole("USER")
+        .requestMatchers("/user/home").permitAll()
+        .requestMatchers("/user/**").hasRole("USER")
         .anyRequest().permitAll()
       );
 

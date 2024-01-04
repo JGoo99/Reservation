@@ -25,11 +25,12 @@ public class ShopDetailDto {
 
   private String shopExplain;
 
-  private double stars;
+  private int stars;
 
   private int reviewCount;
 
   private Long shopId;
+  private Long ownerId;
 
   public static ShopDetailDto fromEntity(Shop shop) {
     return ShopDetailDto.builder()
@@ -40,6 +41,19 @@ public class ShopDetailDto {
       .stars(shop.getStars())
       .reviewCount(shop.getReviewCount())
       .shopId(shop.getId())
+      .ownerId(shop.getOwnerId())
+      .build();
+  }
+
+  public static Shop toEntity(ShopDetailDto shopDetailDto) {
+    return Shop.builder()
+      .shopName(builder().shopName)
+      .address1(shopDetailDto.getAddress1())
+      .address2(shopDetailDto.getAddress2())
+      .shopExplain(shopDetailDto.getShopExplain())
+      .stars(shopDetailDto.getStars())
+      .reviewCount(shopDetailDto.getReviewCount())
+      .ownerId(shopDetailDto.getOwnerId())
       .build();
   }
 }

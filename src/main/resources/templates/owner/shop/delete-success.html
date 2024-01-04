@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8"/>
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+  <link rel="stylesheet" href="/css/shop-detail.css"/>
+  <title>Owner Store Add</title>
+</head>
+<body>
+<div id="default">
+  <div id="container">
+    <div class="contents">
+      <div class="title" id="owner-title">
+        <a href="/owner/home" id="home">Goo's Reservation</a>
+        <div class="member-wrap">
+          <div class="is-login" sec:authorize="hasRole('OWNER')">
+            <a href="/owner/my" sec:authentication="name"></a>
+            <p>점장님</p>
+            <span> | </span>
+            <a href="/owner/logout">로그아웃</a>
+          </div>
+          <div class="is-logout" sec:authorize="isAnonymous()">
+            <a href="/owner/join">회원가입</a>
+            <span> | </span>
+            <a href="/owner/login">로그인</a>
+          </div>
+        </div>
+      </div>
+      <p class="intro">매장이 성공적으로 삭제되었습니다.</p>
+      <div class="move">
+        <a href="/owner/home">👈🏻👈🏻 다른 매장 구경하러가기</a>
+      </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

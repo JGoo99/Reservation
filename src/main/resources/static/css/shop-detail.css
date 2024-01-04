@@ -40,6 +40,7 @@ textarea {
     padding-top: 13px;
     font-size: 14pt;
     width: 100%;
+    outline: none;
 }
 
 textarea {
@@ -79,14 +80,18 @@ input:not(:placeholder-shown) + label {
 }
 
 .move {
+    display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 10px;
 }
 
 .move a {
+    margin: 0 20px;
     color: darkslategray;
     font-size: 8pt;
 }
+
 .move a:hover {
     border-bottom: 1px solid darkslategray;
 }

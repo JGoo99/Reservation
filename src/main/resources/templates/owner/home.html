@@ -27,7 +27,7 @@
             <span> | </span>
             <a href="/owner/logout">로그아웃</a>
           </div>
-          <div class="is-logout" sec:authorize="isAnonymous()">
+          <div class="is-logout" sec:authorize="hasRole('USER') or isAnonymous()">
             <a href="/owner/join">회원가입</a>
             <span> | </span>
             <a href="/owner/login">로그인</a>
@@ -55,26 +55,27 @@
         </div>
       </div>
       <div class="shop-box">
+        <div class="intro" th:if="${list.size} == '0'">아직 등록된 매장이 없습니다.</div>
         <div class="shop-list">
-          <a href="" class="shop-ele">
-            <p class="ele-title">대박가게</p>
+          <a th:href="@{/owner/shopDetail/{shopId}(shopId = ${x.shopId})}" class="shop-ele" th:each="x : ${list}">
+            <p class="ele-title" th:text="${x.shopName}"></p>
             <div class="ele-summary">
               <div class="stars">
-                <div class="icon-star">⭐️</div>
-                <div class="stars-value">2.6</div>
+                <div class="icon-star">⭐</div>
+                <div class="stars-value" th:if="${x.reviewCount} == '0'" th:text="0.0"></div>
+                <div class="stars-value" th:unless="${x.reviewCount} == '0'" th:text="${x.stars} / ${x.reviewCount}"></div>
               </div>
               <div class="review-count">
                 <p>리뷰</p>
-                <p id="review-count"></p>
+                <p id="review-count" th:text="${x.reviewCount}"></p>
                 <p>개</p>
               </div>
               <div class="location">
-                <p>구의로 9길 17</p>
-                <p>202호</p>
+                <p th:text="${x.address1}"></p>
+                <p th:text="${x.address2}"></p>
               </div>
             </div>
           </a>
-          <hr />
         </div>
       </div>
     </div>

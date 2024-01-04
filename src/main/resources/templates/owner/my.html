@@ -23,7 +23,7 @@
             <span> | </span>
             <a href="/owner/logout">로그아웃</a>
           </div>
-          <div class="is-logout" sec:authorize="isAnonymous()">
+          <div class="is-logout" sec:authorize="hasRole('USER') or isAnonymous()">
             <a href="/owner/join">회원가입</a>
             <span> | </span>
             <a href="/owner/login">로그인</a>
@@ -31,20 +31,22 @@
         </div>
       </div>
       <p class="intro">점장님의 매장 리스트</p>
+      <div class="intro" th:if="${list.size} == '0'">아직 등록된 매장이 없습니다.</div>
       <div class="shop-list">
-        <div class="shop-wrap" th:onclick="|location.href='@{|/owner/shop/${x.shopId}|}'|">
+        <div class="shop-wrap" th:onclick="|location.href='@{|/owner/shop/${x.shopId}|}'|" th:each="x : ${list}">
           <div class="shop-contents">
-            <div class="shop-name">
+            <div class="shop-name" th:text="${x.shopName}">
               <p></p>
             </div>
             <div class="summary">
               <div class="stars">
                 <div class="icon-star">⭐️</div>
-                <div class="stars-value" >2.6</div>
+                <div class="stars-value" th:if="${x.reviewCount} == '0'" th:text="0.0"></div>
+                <div class="stars-value" th:unless="${x.reviewCount} == '0'" th:text="${x.stars} / ${x.reviewCount}"></div>
               </div>
               <div class="review-count">
                 <p>리뷰</p>
-                <p id="review-count"></p>
+                <p id="review-count" th:text="${x.reviewCount}"></p>
                 <p>개</p>
               </div>
             </div>

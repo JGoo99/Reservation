@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <meta charset="UTF-8"/>
@@ -25,7 +24,7 @@
             <span> | </span>
             <a href="/owner/logout">로그아웃</a>
           </div>
-          <div class="is-logout" sec:authorize="isAnonymous()">
+          <div class="is-logout" sec:authorize="hasRole('USER') or isAnonymous()">
             <a href="/owner/join">회원가입</a>
             <span> | </span>
             <a href="/owner/login">로그인</a>
@@ -33,7 +32,7 @@
         </div>
       </div>
       <p class="intro">매장등록을 위한 정보를 입력해주세요.</p>
-      <form action="/owner/shop/addProc" method="post" class="reviewAddForm">
+      <form action="/owner/shop/addProc" method="post" class="addForm">
         <div class="text-filed">
           <div class="input-box">
             <input id="shop-name" type="text" name="shopName" placeholder="" required
