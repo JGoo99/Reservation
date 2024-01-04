@@ -136,15 +136,15 @@ input:not(:placeholder-shown) + label {
   padding: 5px 0 5px 0;
   width: 80%;
   margin: 30px auto auto;
-  background-color: #6a6f4c;
+  background-color: #3e8ede;
 }
 
 .submit-button {
-  background-color: #6a6f4c;
+  background-color: #3e8ede;
 }
 
 .submit-button:hover {
-  background-color: #54583c;
+  background-color: #3272b2;
 }
 
 .submit-button-owner {
