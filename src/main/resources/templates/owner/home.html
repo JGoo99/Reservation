@@ -22,7 +22,7 @@
         <a href="/owner/home" id="home">Goo's Reservation</a>
         <div class="member-wrap">
           <div class="is-login" sec:authorize="hasRole('OWNER')">
-            <a href="/owner/my" th:text="${name}"></a>
+            <a href="/owner/my" sec:authentication="name"></a>
             <p>점장님</p>
             <span> | </span>
             <a href="/owner/logout">로그아웃</a>
@@ -34,18 +34,48 @@
           </div>
         </div>
       </div>
-      <div class="search-box" id="owner-search-box">
+      <div class="search-box">
         <form action="" method="get" name="searchForm">
-          <div id="owner-icon" class="icon"></div>
+          <div class="icon" id="owner-icon"></div>
           <input type="text" id="search-input" />
         </form>
       </div>
-      <div class="add-button-wrap">
-        <a href="/owner/shop/add">매장 등록하러 가기 👉🏻👉🏻</a>
+      <div class="dir-selector" id="owner-dir-selector">
+        <div class="selector-wrap">
+          <p>거리순</p>
+        </div>
+        <div class="selector-wrap">
+          <p>별점순</p>
+        </div>
+        <div class="selector-wrap">
+          <p>가나다순</p>
+        </div>
+        <div class="selector-wrap" id="add-button">
+          <a href="/owner/shop/add">매장 등록하러 가기 👉🏻👉🏻</a>
+        </div>
       </div>
-      <div class="list-wrap">
-        <div class="list-title"></div>
-        <div class="list"></div>
+      <div class="shop-box">
+        <div class="shop-list">
+          <a href="" class="shop-ele">
+            <p class="ele-title">대박가게</p>
+            <div class="ele-summary">
+              <div class="stars">
+                <div class="icon-star">⭐️</div>
+                <div class="stars-value">2.6</div>
+              </div>
+              <div class="review-count">
+                <p>리뷰</p>
+                <p id="review-count"></p>
+                <p>개</p>
+              </div>
+              <div class="location">
+                <p>구의로 9길 17</p>
+                <p>202호</p>
+              </div>
+            </div>
+          </a>
+          <hr />
+        </div>
       </div>
     </div>
   </div>

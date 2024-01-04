@@ -18,7 +18,7 @@
         <a href="/owner/home" id="home">Goo's Reservation</a>
         <div class="member-wrap">
           <div class="is-login" sec:authorize="hasRole('OWNER')">
-            <a href="/owner/my" th:text="${name}"></a>
+            <a href="/owner/my" sec:authentication="name"></a>
             <p>점장님</p>
             <span> | </span>
             <a href="/owner/logout">로그아웃</a>
@@ -31,20 +31,20 @@
         </div>
       </div>
       <p class="intro">점장님의 매장 리스트</p>
-      <div class="shop-list" th:each="x : ${list}">
+      <div class="shop-list">
         <div class="shop-wrap" th:onclick="|location.href='@{|/owner/shop/${x.shopId}|}'|">
           <div class="shop-contents">
             <div class="shop-name">
-              <p th:text="${x.shopName}"></p>
+              <p></p>
             </div>
             <div class="summary">
               <div class="stars">
                 <div class="icon-star">⭐️</div>
-                <div class="stars-value" th:text="${x.stars}">2.6</div>
+                <div class="stars-value" >2.6</div>
               </div>
               <div class="review-count">
                 <p>리뷰</p>
-                <p id="review-count" th:text="${x.reviewCount}"></p>
+                <p id="review-count"></p>
                 <p>개</p>
               </div>
             </div>

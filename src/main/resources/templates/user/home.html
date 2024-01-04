@@ -18,7 +18,7 @@
         <a href="/user/home" id="home">Goo's Reservation</a>
         <div class="member-wrap">
           <div class="is-login" sec:authorize="hasRole('USER')">
-            <a href="/user/my" th:text="${name}"></a>
+            <a href="/user/my" sec:authentication="principal.nickname"></a>
             <p>고객님</p>
             <span> | </span>
             <a href="/logout">로그아웃</a>
@@ -31,18 +31,45 @@
         </div>
       </div>
       <div class="search-box">
-        <form action="" method="get" name="searchForm">
-          <div class="icon"></div>
-          <input type="text" id="search-input">
+        <form action="" method="post" name="searchForm">
+          <div class="icon" onclick="document.forms['searchForm'].submit()"></div>
+          <input type="text" id="search-input" />
         </form>
       </div>
-      <script>
-        const submitButton = document.querySelector('.icon');
-        submitButton.addEventListener('click', function() {
-          // const form = document.forms.;
-          // form.submit();
-        });
-      </script>
+      <div class="dir-selector">
+        <div class="selector-wrap">
+          <p>거리순</p>
+        </div>
+        <div class="selector-wrap">
+          <p>별점순</p>
+        </div>
+        <div class="selector-wrap">
+          <p>가나다순</p>
+        </div>
+      </div>
+      <div class="shop-box">
+        <div class="shop-list">
+          <a href="" class="shop-ele" >
+            <p class="ele-title">대박가게</p>
+            <div class="ele-summary">
+              <div class="stars">
+                <div class="icon-star">⭐️</div>
+                <div class="stars-value" >2.6</div>
+              </div>
+              <div class="review-count">
+                <p>리뷰</p>
+                <p id="review-count" ></p>
+                <p>개</p>
+              </div>
+              <div class="location">
+                <p>구의로 9길 17</p>
+                <p>202호</p>
+              </div>
+            </div>
+          </a>
+          <hr />
+        </div>
+      </div>
     </div>
   </div>
 </div>

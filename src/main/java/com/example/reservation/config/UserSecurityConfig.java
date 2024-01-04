@@ -46,11 +46,10 @@ public class UserSecurityConfig {
       .authenticationProvider(userAuthenticationProvider())
       .securityMatchers((matchers) -> matchers.requestMatchers("/**"))
       .authorizeHttpRequests((auth) -> auth
-        .requestMatchers("/", "/join", "/joinProc", "/logout", "/login", "/loginProc").permitAll()
+        .requestMatchers("/", "/user/home", "/join", "/joinProc", "/logout", "/login", "/loginProc").permitAll()
         .requestMatchers("/css/**").permitAll()
-        .requestMatchers("/user/home").permitAll()
         .requestMatchers("/user/my").hasRole("USER")
-        .anyRequest().authenticated()
+        .anyRequest().permitAll()
       );
 
     http

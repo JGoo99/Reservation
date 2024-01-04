@@ -27,73 +27,55 @@ public class OwnerShopController {
 
 
   @GetMapping("/add")
-  public String addP(Principal principal, Model model) {
-
-    if (principal == null) {
-      throw new RuntimeException("점장페이지의 로그인 정보가 존재하지 않습니다.");
-    }
-    String ownerName = principal.getName();
-    model.addAttribute("name", ownerName);
+  public String addP() {
 
     return "owner/shop/add";
   }
 
   @PostMapping("/addProc")
-  public String addProcP(@AuthenticationPrincipal OwnerDetails details,
-                         @ModelAttribute ShopAddDto storeDto,
+  public String addProcP(@ModelAttribute ShopAddDto storeDto,
+                         @AuthenticationPrincipal OwnerDetails details,
                          Model model) {
 
     if (details == null) {
       throw new RuntimeException("점장페이지의 로그인 정보가 존재하지 않습니다.");
     }
 
-    String email = details.getEmail();
-    ShopDetailDto shopDetails = shopService.add(storeDto, email);
+    ShopDetailDto shopDetails = shopService.add(storeDto, details.getEmail());
 
-    model.addAttribute("name", details.getUsername());
     model.addAttribute("shopDetails", shopDetails);
 
     return "owner/shop/addSuccess";
   }
 
   @GetMapping("/{shopId}")
-  public String detailP(Principal principal, Model model,
-                        @PathVariable Long shopId) {
+  public String detailP(@PathVariable Long shopId,
+                        Principal principal, Model model) {
+
     if (principal == null) {
       throw new RuntimeException("점장페이지의 로그인 정보가 존재하지 않습니다.");
     }
-
-    model.addAttribute("name", principal.getName());
     model.addAttribute("shopId", shopId);
 
     return "owner/shop/service-select";
   }
 
   @GetMapping("/{shopId}/reserve")
-  public String reserveP(Principal principal, Model model,
-                         @PageableDefault(page = 1) Pageable pageable,
-                         @PathVariable Long shopId) {
-    if (principal == null) {
-      throw new RuntimeException("점장페이지의 로그인 정보가 존재하지 않습니다.");
-    }
+  public String reserveP(@PageableDefault(page = 1) Pageable pageable,
+                         @PathVariable Long shopId,
+                         Model model) {
 
     Page<ReservationDetailsDto> acceptedList =
       reservationService.getAcceptedList(shopId, pageable);
 
-    model.addAttribute("name", principal.getName());
     model.addAttribute("list", acceptedList);
 
     return "owner/shop/reserve";
   }
 
   @GetMapping("/{shopId}/review")
-  public String reviewP(Principal principal, Model model,
-                         @PathVariable Long shopId) {
-    if (principal == null) {
-      throw new RuntimeException("점장페이지의 로그인 정보가 존재하지 않습니다.");
-    }
-
-    model.addAttribute("name", principal.getName());
+  public String reviewP(@PathVariable Long shopId,
+                        Model model) {
 
     return "owner/shop/review";
   }

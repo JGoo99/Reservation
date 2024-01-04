@@ -49,7 +49,7 @@ public class OwnerSecurityConfig {
         .requestMatchers("/owner/home").permitAll()
         .requestMatchers("/owner/join", "/owner/joinProc", "/owner/logout", "/owner/login", "/owner/loginProc").permitAll()
         .requestMatchers("/owner/**").hasRole("OWNER")
-        .anyRequest().authenticated()
+        .anyRequest().permitAll()
       );
 
     http

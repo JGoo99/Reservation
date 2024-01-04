@@ -1,25 +1,25 @@
 package com.example.reservation.controller.user;
 
+import com.example.reservation.data.dto.SearchDto;
+import com.example.reservation.service.impl.main.ShopServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.security.Principal;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/user")
 public class UserController {
 
-  @GetMapping("/home")
-  public String homeP(Principal principal, Model model) {
+  private final ShopServiceImpl shopService;
 
-    if (principal != null) {
-      String username = principal.getName();
-      model.addAttribute("name", username);
-    }
+  @GetMapping("/home")
+  public String homeP(@ModelAttribute SearchDto searchDto,
+                      Model model) {
+
     return "user/home";
   }
 

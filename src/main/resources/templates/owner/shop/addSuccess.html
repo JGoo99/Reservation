@@ -20,7 +20,7 @@
         <a href="/owner/home" id="home">Goo's Reservation</a>
         <div class="member-wrap">
           <div class="is-login" sec:authorize="hasRole('OWNER')">
-            <a href="/owner/my" th:text="${name}"></a>
+            <a href="/owner/my" sec:authentication="name"></a>
             <p>점장님</p>
             <span> | </span>
             <a href="/owner/logout">로그아웃</a>
