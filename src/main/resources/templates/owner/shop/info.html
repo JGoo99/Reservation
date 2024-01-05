@@ -35,31 +35,31 @@
       <div class="shop-details">
         <div class="text-filed">
           <div class="input-box">
-            <input id="shop-name" type="text" name="shopName" th:value="${details.shopName}" readonly/>
+            <input id="shop-name" type="text" name="shopName" th:value="${shopInfo.shopName}" readonly/>
             <label for="shop-name" class="label">매장상호명</label>
           </div>
         </div>
         <div class="text-filed" id="place">
           <div class="input-box">
-            <input id="address1" type="text" name="address1" th:value="${details.address1}" readonly/>
+            <input id="address1" type="text" name="address1" th:value="${shopInfo.address1}" readonly/>
             <label for="address1" class="label">도로명주소</label>
           </div>
           <div class="input-box">
-            <input id="address2" type="text" name="address2" th:value="${details.address2}" readonly/>
+            <input id="address2" type="text" name="address2" th:value="${shopInfo.address2}" readonly/>
             <label for="address2" class="label">상세주소</label>
           </div>
         </div>
         <div class="text-filed">
           <div class="input-box">
-            <textarea id="explain" name="shopExplain" cols="30" rows="10" th:text="${details.shopExplain}" readonly></textarea>
+            <textarea id="explain" name="shopExplain" cols="30" rows="10" th:text="${shopInfo.shopExplain}" readonly></textarea>
             <label id="explain_label" for="explain" class="label">매장설명</label>
           </div>
         </div>
         <div class="move">
           <div class="move">
-            <a th:href="@{/owner/shop/edit(shopId=${details.shopId})}">정보 수정하기</a>
+            <a th:href="@{/owner/shop/edit(shopId=${shopInfo.shopId})}">정보 수정하기</a>
             <form th:action="@{/owner/shop/deleteProc}" method="post">
-              <input type="hidden" name="shopId" th:value="${details.shopId}">
+              <input type="hidden" name="shopId" th:value="${shopInfo.shopId}">
               <button type="submit">매장 삭제하기</button>
             </form>
           </div>

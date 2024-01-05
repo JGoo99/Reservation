@@ -2,7 +2,7 @@ package com.example.reservation.service.impl.main;
 
 import com.example.reservation.data.dto.SearchDto;
 import com.example.reservation.data.dto.shop.ShopAddDto;
-import com.example.reservation.data.dto.shop.ShopDetailDto;
+import com.example.reservation.data.dto.shop.ShopInfoDto;
 import com.example.reservation.data.entity.Owner;
 import com.example.reservation.data.entity.Shop;
 import com.example.reservation.repository.OwnerRepository;
@@ -32,7 +32,7 @@ public class ShopServiceImpl implements ShopService {
   private final ReviewRepository reviewRepository;
 
   @Override
-  public ShopDetailDto add(ShopAddDto shopAddDto, String ownerEmail) {
+  public ShopInfoDto add(ShopAddDto shopAddDto, String ownerEmail) {
 
     validateDuplicateStore(shopAddDto.getShopName());
     Owner owner = validateOwnerEmail(ownerEmail);
@@ -40,23 +40,23 @@ public class ShopServiceImpl implements ShopService {
     shopAddDto.setOwnerId(owner.getId());
     Shop shop = shopRepository.save(ShopAddDto.toEntity(shopAddDto));
 
-    return ShopDetailDto.fromEntity(shop);
+    return ShopInfoDto.fromEntity(shop);
   }
 
   @Override
-  public List<ShopDetailDto> getOwnerShopList(Long ownerId) {
+  public List<ShopInfoDto> getOwnerShopList(Long ownerId) {
     List<Shop> shops = shopRepository.findAllByOwnerId(ownerId);
 
-    List<ShopDetailDto> shopDetailList = new ArrayList<>();
+    List<ShopInfoDto> shopInfoList = new ArrayList<>();
     for (Shop s : shops) {
-      shopDetailList.add(ShopDetailDto.fromEntity(s));
+      shopInfoList.add(ShopInfoDto.fromEntity(s));
     }
 
-    return shopDetailList;
+    return shopInfoList;
   }
 
   @Override
-  public Page<ShopDetailDto> getSearchedShopList(SearchDto searchDto) {
+  public Page<ShopInfoDto> getSearchedShopList(SearchDto searchDto) {
     Pageable pageable = getPaging(searchDto);
 
     Page<Shop> selectedShops = null;
@@ -66,16 +66,15 @@ public class ShopServiceImpl implements ShopService {
       selectedShops = shopRepository.findAllByShopNameContainingIgnoreCase(searchDto.getKeyword(), pageable);
     }
 
-    Page<ShopDetailDto> list = selectedShops.map(ShopDetailDto::fromEntity);
-    return list;
+    return selectedShops.map(ShopInfoDto::fromEntity);
   }
 
   @Override
-  public ShopDetailDto getOwnerShopDetails(Long shopId) {
+  public ShopInfoDto getShopInfo(Long shopId) {
     Shop shop = shopRepository.findById(shopId)
       .orElseThrow(() -> new RuntimeException("해당 매장의 정보가 존재하지 않습니다."));
 
-    return ShopDetailDto.fromEntity(shop);
+    return ShopInfoDto.fromEntity(shop);
   }
 
   @Override
@@ -90,20 +89,20 @@ public class ShopServiceImpl implements ShopService {
   }
 
   @Override
-  public ShopDetailDto edit(ShopDetailDto shopDetailDto) {
-    Shop shop = shopRepository.findById(shopDetailDto.getShopId())
+  public ShopInfoDto edit(ShopInfoDto shopInfoDto) {
+    Shop shop = shopRepository.findById(shopInfoDto.getShopId())
       .orElseThrow(() -> new RuntimeException("매장정보가 유효하지 않아 매장 정보 수정에 실패했습니다."));
 
-    Shop savedShop = shopRepository.save(editEntityByDto(shop, shopDetailDto));
+    Shop savedShop = shopRepository.save(editEntityByDto(shop, shopInfoDto));
 
-    return ShopDetailDto.fromEntity(savedShop);
+    return ShopInfoDto.fromEntity(savedShop);
   }
 
-  public Shop editEntityByDto(Shop shop, ShopDetailDto shopDetailDto) {
-    shop.setShopName(shopDetailDto.getShopName());
-    shop.setAddress1(shopDetailDto.getAddress1());
-    shop.setAddress2(shopDetailDto.getAddress2());
-    shop.setShopExplain(shopDetailDto.getShopExplain());
+  public Shop editEntityByDto(Shop shop, ShopInfoDto shopInfoDto) {
+    shop.setShopName(shopInfoDto.getShopName());
+    shop.setAddress1(shopInfoDto.getAddress1());
+    shop.setAddress2(shopInfoDto.getAddress2());
+    shop.setShopExplain(shopInfoDto.getShopExplain());
 
     return shop;
   }

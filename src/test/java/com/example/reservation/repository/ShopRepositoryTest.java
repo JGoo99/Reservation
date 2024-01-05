@@ -2,7 +2,7 @@ package com.example.reservation.repository;
 
 import com.example.reservation.data.dto.SearchDto;
 import com.example.reservation.data.dto.shop.ShopAddDto;
-import com.example.reservation.data.dto.shop.ShopDetailDto;
+import com.example.reservation.data.dto.shop.ShopInfoDto;
 import com.example.reservation.data.entity.Shop;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +46,7 @@ public class ShopRepositoryTest {
 
     // when
     Page<Shop> selected = shopRepository.findAll(pageable);
-    Page<ShopDetailDto> list = selected.map(ShopDetailDto::fromEntity);
+    Page<ShopInfoDto> list = selected.map(ShopInfoDto::fromEntity);
 
     // then
     list.forEach(m -> System.out.println(m.toString()));
@@ -61,7 +61,7 @@ public class ShopRepositoryTest {
     // when
     Page<Shop> selected =
       shopRepository.findAllByShopNameContainingIgnoreCase(shop.getShopName(), pageable);
-    Page<ShopDetailDto> list = selected.map(ShopDetailDto::fromEntity);
+    Page<ShopInfoDto> list = selected.map(ShopInfoDto::fromEntity);
 
     // then
     list.forEach(m -> System.out.println(m.toString()));

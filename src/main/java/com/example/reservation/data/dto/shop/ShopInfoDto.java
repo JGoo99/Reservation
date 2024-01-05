@@ -12,7 +12,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @Builder
-public class ShopDetailDto {
+public class ShopInfoDto {
 
   @NotBlank
   private String shopName;
@@ -32,8 +32,8 @@ public class ShopDetailDto {
   private Long shopId;
   private Long ownerId;
 
-  public static ShopDetailDto fromEntity(Shop shop) {
-    return ShopDetailDto.builder()
+  public static ShopInfoDto fromEntity(Shop shop) {
+    return ShopInfoDto.builder()
       .shopName(shop.getShopName())
       .address1(shop.getAddress1())
       .address2(shop.getAddress2())
@@ -45,15 +45,15 @@ public class ShopDetailDto {
       .build();
   }
 
-  public static Shop toEntity(ShopDetailDto shopDetailDto) {
+  public static Shop toEntity(ShopInfoDto shopInfoDto) {
     return Shop.builder()
       .shopName(builder().shopName)
-      .address1(shopDetailDto.getAddress1())
-      .address2(shopDetailDto.getAddress2())
-      .shopExplain(shopDetailDto.getShopExplain())
-      .stars(shopDetailDto.getStars())
-      .reviewCount(shopDetailDto.getReviewCount())
-      .ownerId(shopDetailDto.getOwnerId())
+      .address1(shopInfoDto.getAddress1())
+      .address2(shopInfoDto.getAddress2())
+      .shopExplain(shopInfoDto.getShopExplain())
+      .stars(shopInfoDto.getStars())
+      .reviewCount(shopInfoDto.getReviewCount())
+      .ownerId(shopInfoDto.getOwnerId())
       .build();
   }
 }

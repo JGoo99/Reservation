@@ -2,7 +2,7 @@ package com.example.reservation.controller.owner;
 
 import com.example.reservation.data.dto.SearchDto;
 import com.example.reservation.data.dto.owner.OwnerDetails;
-import com.example.reservation.data.dto.shop.ShopDetailDto;
+import com.example.reservation.data.dto.shop.ShopInfoDto;
 import com.example.reservation.service.impl.main.ShopServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -35,7 +35,7 @@ public class OwnerController {
     LOGGER.info("[owner searchDto]: {}", searchDto.toString());
 
     searchDto.setPageNum(page);
-    Page<ShopDetailDto> list = shopService.getSearchedShopList(searchDto);
+    Page<ShopInfoDto> list = shopService.getSearchedShopList(searchDto);
     searchDto.setPaging(pageable, list.getTotalPages());
 
     model.addAttribute("list", list);
@@ -49,7 +49,7 @@ public class OwnerController {
   public String myP(@AuthenticationPrincipal OwnerDetails details,
                     Model model) {
 
-    List<ShopDetailDto> list = shopService.getOwnerShopList(details.getId());
+    List<ShopInfoDto> list = shopService.getOwnerShopList(details.getId());
     model.addAttribute("list", list);
 
     return "owner/my";

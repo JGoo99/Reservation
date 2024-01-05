@@ -89,7 +89,7 @@ input:not(:placeholder-shown) + label {
 .move a, button {
     margin: 0 20px;
     color: darkslategray;
-    font-size: 8pt;
+    font-size: 12pt;
 }
 
 .move button {

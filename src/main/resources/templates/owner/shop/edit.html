@@ -36,33 +36,33 @@
       <form action="/owner/shop/editProc" method="post" class="reviewAddForm">
         <div class="text-filed">
           <div class="input-box">
-            <input id="shop-name" type="text" name="shopName" placeholder="" th:value="${details.shopName}" required
+            <input id="shop-name" type="text" name="shopName" placeholder="" th:value="${shopInfo.shopName}" required
             />
             <label for="shop-name" class="label">매장상호명</label>
           </div>
         </div>
         <div class="text-filed" id="place">
           <div class="input-box">
-            <input id="address1" type="text" name="address1" placeholder="" th:value="${details.address1}" required/>
+            <input id="address1" type="text" name="address1" placeholder="" th:value="${shopInfo.address1}" required/>
             <label for="address1" class="label">도로명주소</label>
             <p class="example">OO로 OO길 OO</p>
           </div>
           <div class="input-box">
-            <input id="address2" type="text" name="address2" placeholder="" th:value="${details.address2}" required/>
+            <input id="address2" type="text" name="address2" placeholder="" th:value="${shopInfo.address2}" required/>
             <label for="address2" class="label">상세주소</label>
             <p class="example">OOO호 / OO층</p>
           </div>
         </div>
         <div class="text-filed">
           <div class="input-box">
-            <textarea id="explain" name="shopExplain" cols="30" rows="10" placeholder="" th:text="${details.shopExplain}"></textarea>
+            <textarea id="explain" name="shopExplain" cols="30" rows="10" placeholder="" th:text="${shopInfo.shopExplain}"></textarea>
             <label for="explain" class="label">매장설명</label>
           </div>
         </div>
-        <input type="hidden" name="stars" th:value="${details.stars}">
-        <input type="hidden" name="reviewCount" th:value="${details.reviewCount}">
-        <input type="hidden" name="shopId" th:value="${details.shopId}">
-        <input type="hidden" name="ownerId" th:value="${details.ownerId}">
+        <input type="hidden" name="stars" th:value="${shopInfo.stars}">
+        <input type="hidden" name="reviewCount" th:value="${shopInfo.reviewCount}">
+        <input type="hidden" name="shopId" th:value="${shopInfo.shopId}">
+        <input type="hidden" name="ownerId" th:value="${shopInfo.ownerId}">
         <button type="submit" class="submit-button-owner">매장 정보 수정하기</button>
       </form>
     </div>

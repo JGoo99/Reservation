@@ -1,7 +1,7 @@
 package com.example.reservation.controller.user;
 
 import com.example.reservation.data.dto.SearchDto;
-import com.example.reservation.data.dto.shop.ShopDetailDto;
+import com.example.reservation.data.dto.shop.ShopInfoDto;
 import com.example.reservation.service.impl.main.ShopServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -28,7 +28,7 @@ public class UserController {
     LOGGER.info("[user searchDto]: {}", searchDto.toString());
 
     searchDto.setPageNum(page);
-    Page<ShopDetailDto> list = shopService.getSearchedShopList(searchDto);
+    Page<ShopInfoDto> list = shopService.getSearchedShopList(searchDto);
     searchDto.setPaging(pageable, list.getTotalPages());
 
     model.addAttribute("list", list);

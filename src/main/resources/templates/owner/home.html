@@ -57,7 +57,7 @@
       <div class="shop-box">
         <div class="intro" th:if="${list.size} == '0'">아직 등록된 매장이 없습니다.</div>
         <div class="shop-list">
-          <a th:href="@{/owner/shopDetail/{shopId}(shopId = ${x.shopId})}" class="shop-ele" th:each="x : ${list}">
+          <a th:href="@{/owner/shop/info(shopId=${x.shopId})}" class="shop-ele" th:each="x : ${list}">
             <p class="ele-title" th:text="${x.shopName}"></p>
             <div class="ele-summary">
               <div class="stars">

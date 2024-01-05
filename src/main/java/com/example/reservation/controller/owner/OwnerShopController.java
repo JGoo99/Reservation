@@ -3,7 +3,7 @@ package com.example.reservation.controller.owner;
 import com.example.reservation.data.dto.owner.OwnerDetails;
 import com.example.reservation.data.dto.reservation.ReservationDetailsDto;
 import com.example.reservation.data.dto.shop.ShopAddDto;
-import com.example.reservation.data.dto.shop.ShopDetailDto;
+import com.example.reservation.data.dto.shop.ShopInfoDto;
 import com.example.reservation.service.impl.main.ReservationServiceImpl;
 import com.example.reservation.service.impl.main.ShopServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +35,7 @@ public class OwnerShopController {
   }
 
   @PostMapping("/addProc")
-  public String addProcP(@ModelAttribute ShopAddDto storeDto,
+  public String addProcP(@ModelAttribute ShopAddDto shopAddDto,
                          @AuthenticationPrincipal OwnerDetails details,
                          Model model) {
 
@@ -43,8 +43,8 @@ public class OwnerShopController {
       throw new RuntimeException("점장페이지의 로그인 정보가 존재하지 않습니다.");
     }
 
-    ShopDetailDto shopDetails = shopService.add(storeDto, details.getEmail());
-    model.addAttribute("shopDetails", shopDetails);
+    ShopInfoDto shopInfo = shopService.add(shopAddDto, details.getEmail());
+    model.addAttribute("shopInfo", shopInfo);
 
     return "owner/shop/add-success";
   }
@@ -61,13 +61,13 @@ public class OwnerShopController {
     return "owner/shop/service-select";
   }
 
-  @GetMapping("/{shopId}/detail")
-  public String detailP(@PathVariable Long shopId, Model model) {
+  @GetMapping("/{shopId}/info")
+  public String infoP(@PathVariable Long shopId, Model model) {
 
-    ShopDetailDto details = shopService.getOwnerShopDetails(shopId);
-    model.addAttribute("details", details);
+    ShopInfoDto shopInfo = shopService.getShopInfo(shopId);
+    model.addAttribute("shopInfo", shopInfo);
 
-    return "owner/shop/detail";
+    return "owner/shop/info";
   }
 
   @PostMapping("/deleteProc")
@@ -81,18 +81,18 @@ public class OwnerShopController {
   @GetMapping("/edit")
   public String editP(@RequestParam Long shopId, Model model) {
 
-    ShopDetailDto details = shopService.getOwnerShopDetails(shopId);
-    model.addAttribute("details", details);
+    ShopInfoDto shopInfo = shopService.getShopInfo(shopId);
+    model.addAttribute("shopInfo", shopInfo);
 
     return "owner/shop/edit";
   }
 
   @PostMapping("/editProc")
-  public String editProcP(@ModelAttribute ShopDetailDto shopDetailDto, Model model) {
-    LOGGER.info("[edit shopDetails]: {}", shopDetailDto.toString());
+  public String editProcP(@ModelAttribute ShopInfoDto shopInfoDto, Model model) {
+    LOGGER.info("[edit shopInfo]: {}", shopInfoDto.toString());
 
-    ShopDetailDto details = shopService.edit(shopDetailDto);
-    model.addAttribute("details", details);
+    ShopInfoDto shopInfo = shopService.edit(shopInfoDto);
+    model.addAttribute("shopInfo", shopInfo);
 
     return "owner/shop/edit-success";
   }
