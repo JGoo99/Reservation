@@ -78,6 +78,25 @@
           </a>
         </div>
       </div>
+      <div class="paging-wrap">
+        <ul th:with="start=${startPage}, last=${endPage}">
+          <th:block th:with="
+          firstLink=@{/owner/home(page=1)},
+          prevLink=@{/owner/home(page=${list.number})},
+          nextLink=@{/owner/home(page=${list.number + 2})},
+          lastLink=@{/owner/home(page=${list.totalPages})}"
+          />
+          <li th:style="${list.first}"><a th:href="${firstLink}"> << </a></li>
+          <li><a th:href="${list.first} ? '#' : ${prevLink}"> < </a></li>
+          <li class="number" th:each="p : ${#numbers.sequence(start, last)}">
+            <a th:classappend="${p == list.number + 1} ? 'active'"
+               th:href="@{/owner/home(page=${p})}" th:text=" ${p} " >
+            </a>
+          </li>
+          <li><a th:href="${list.last} ? '#' : ${nextLink}"> > </a></li>
+          <li><a th:href="${lastLink}"> >> </a></li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>
