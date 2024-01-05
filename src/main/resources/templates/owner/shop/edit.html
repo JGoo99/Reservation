@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8"/>
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+  <link rel="stylesheet" href="/css/add.css"/>
+  <title>Owner Store Add</title>
+</head>
+<body>
+<div id="default">
+  <div id="container">
+    <div class="contents">
+      <div class="title" id="owner-title">
+        <a href="/owner/home" id="home">Goo's Reservation</a>
+        <div class="member-wrap">
+          <div class="is-login" sec:authorize="hasRole('OWNER')">
+            <a href="/owner/my" sec:authentication="name"></a>
+            <p>점장님</p>
+            <span> | </span>
+            <a href="/owner/logout">로그아웃</a>
+          </div>
+          <div class="is-logout" sec:authorize="hasRole('USER') or isAnonymous()">
+            <a href="/owner/join">회원가입</a>
+            <span> | </span>
+            <a href="/owner/login">로그인</a>
+          </div>
+        </div>
+      </div>
+      <p class="intro">수정할 부분을 지우고 다시 입력해주세요.</p>
+      <form action="/owner/shop/editProc" method="post" class="reviewAddForm">
+        <div class="text-filed">
+          <div class="input-box">
+            <input id="shop-name" type="text" name="shopName" placeholder="" th:value="${details.shopName}" required
+            />
+            <label for="shop-name" class="label">매장상호명</label>
+          </div>
+        </div>
+        <div class="text-filed" id="place">
+          <div class="input-box">
+            <input id="address1" type="text" name="address1" placeholder="" th:value="${details.address1}" required/>
+            <label for="address1" class="label">도로명주소</label>
+            <p class="example">OO로 OO길 OO</p>
+          </div>
+          <div class="input-box">
+            <input id="address2" type="text" name="address2" placeholder="" th:value="${details.address2}" required/>
+            <label for="address2" class="label">상세주소</label>
+            <p class="example">OOO호 / OO층</p>
+          </div>
+        </div>
+        <div class="text-filed">
+          <div class="input-box">
+            <textarea id="explain" name="shopExplain" cols="30" rows="10" placeholder="" th:text="${details.shopExplain}"></textarea>
+            <label for="explain" class="label">매장설명</label>
+          </div>
+        </div>
+        <input type="hidden" name="stars" th:value="${details.stars}">
+        <input type="hidden" name="reviewCount" th:value="${details.reviewCount}">
+        <input type="hidden" name="shopId" th:value="${details.shopId}">
+        <input type="hidden" name="ownerId" th:value="${details.ownerId}">
+        <button type="submit" class="submit-button-owner">매장 정보 수정하기</button>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>

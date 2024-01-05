@@ -86,12 +86,24 @@ input:not(:placeholder-shown) + label {
     margin-top: 10px;
 }
 
-.move a {
+.move a, button {
     margin: 0 20px;
     color: darkslategray;
     font-size: 8pt;
 }
 
+.move button {
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    font-size: 9pt;
+    color: darkred;
+}
+
 .move a:hover {
     border-bottom: 1px solid darkslategray;
+}
+
+.move button:hover {
+    border-bottom: 1px solid darkred;
 }
