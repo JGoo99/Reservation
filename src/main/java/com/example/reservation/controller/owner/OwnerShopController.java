@@ -1,7 +1,7 @@
 package com.example.reservation.controller.owner;
 
 import com.example.reservation.data.dto.owner.OwnerDetails;
-import com.example.reservation.data.dto.reservation.ReservationDetailsDto;
+import com.example.reservation.data.dto.reservation.ReservationInfoDto;
 import com.example.reservation.data.dto.shop.ShopAddDto;
 import com.example.reservation.data.dto.shop.ShopInfoDto;
 import com.example.reservation.service.impl.main.ReservationServiceImpl;
@@ -38,6 +38,7 @@ public class OwnerShopController {
   public String addProcP(@ModelAttribute ShopAddDto shopAddDto,
                          @AuthenticationPrincipal OwnerDetails details,
                          Model model) {
+    LOGGER.info("[add shop]: {}", shopAddDto);
 
     if (details == null) {
       throw new RuntimeException("점장페이지의 로그인 정보가 존재하지 않습니다.");
@@ -71,9 +72,10 @@ public class OwnerShopController {
   }
 
   @PostMapping("/deleteProc")
-  public String deleteProcP(@RequestParam Long shopId) {
+  public String deleteProcP(@RequestParam Long shopId, Model model) {
 
     boolean isDeleted = shopService.delete(shopId);
+    model.addAttribute("shopId", shopId);
 
     return "owner/shop/delete-success";
   }
@@ -102,7 +104,7 @@ public class OwnerShopController {
                          @PathVariable Long shopId,
                          Model model) {
 
-    Page<ReservationDetailsDto> acceptedList =
+    Page<ReservationInfoDto> acceptedList =
       reservationService.getAcceptedList(shopId, pageable);
     model.addAttribute("list", acceptedList);
 

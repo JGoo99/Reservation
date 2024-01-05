@@ -19,15 +19,16 @@ public class ShopInfoDto {
 
   @NotNull
   private String address1;
-
   @NotNull
   private String address2;
 
   private String shopExplain;
 
   private int stars;
-
   private int reviewCount;
+
+  private int open;
+  private int close;
 
   private Long shopId;
   private Long ownerId;
@@ -40,6 +41,8 @@ public class ShopInfoDto {
       .shopExplain(shop.getShopExplain())
       .stars(shop.getStars())
       .reviewCount(shop.getReviewCount())
+      .open(shop.getOpen())
+      .close(shop.getClose())
       .shopId(shop.getId())
       .ownerId(shop.getOwnerId())
       .build();
@@ -53,6 +56,8 @@ public class ShopInfoDto {
       .shopExplain(shopInfoDto.getShopExplain())
       .stars(shopInfoDto.getStars())
       .reviewCount(shopInfoDto.getReviewCount())
+      .open(shopInfoDto.getOpen())
+      .close(shopInfoDto.getClose())
       .ownerId(shopInfoDto.getOwnerId())
       .build();
   }

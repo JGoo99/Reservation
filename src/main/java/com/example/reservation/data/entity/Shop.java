@@ -26,9 +26,10 @@ public class Shop extends BaseEntity {
   private String shopExplain;
 
   private int stars; // 총 별점
-
   private int reviewCount;
 
+  private int open;
+  private int close;
 
   private Long ownerId;
 }

@@ -29,7 +29,6 @@ public class ShopServiceImpl implements ShopService {
 
   private final ShopRepository shopRepository;
   private final OwnerRepository ownerRepository;
-  private final ReviewRepository reviewRepository;
 
   @Override
   public ShopInfoDto add(ShopAddDto shopAddDto, String ownerEmail) {
@@ -103,6 +102,8 @@ public class ShopServiceImpl implements ShopService {
     shop.setAddress1(shopInfoDto.getAddress1());
     shop.setAddress2(shopInfoDto.getAddress2());
     shop.setShopExplain(shopInfoDto.getShopExplain());
+    shop.setOpen(shopInfoDto.getOpen());
+    shop.setClose(shopInfoDto.getClose());
 
     return shop;
   }

@@ -1,7 +1,8 @@
 package com.example.reservation.data.dto.shop;
 
-import com.example.reservation.data.entity.Owner;
 import com.example.reservation.data.entity.Shop;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
@@ -27,6 +28,14 @@ public class ShopAddDto {
   @NotNull
   private String address2;
 
+  @NotBlank
+  @Min(0) @Max(24)
+  private int open;
+
+  @NotBlank
+  @Min(0) @Max(24)
+  private int close;
+
   private String shopExplain;
 
   public static Shop toEntity(ShopAddDto shopAddDto) {
@@ -37,6 +46,8 @@ public class ShopAddDto {
       .shopExplain(shopAddDto.getShopExplain())
       .stars(0)
       .reviewCount(0)
+      .open(shopAddDto.getOpen())
+      .close(shopAddDto.getClose())
       .ownerId(shopAddDto.getOwnerId())
       .build();
   }

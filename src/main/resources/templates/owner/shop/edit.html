@@ -53,6 +53,16 @@
             <p class="example">OOO호 / OO층</p>
           </div>
         </div>
+        <div class="text-filed" id="time">
+          <div class="input-box">
+            <input id="open" type="text" name="open" placeholder="" th:value="${shopInfo.open}" required/>
+            <label for="open" class="label">예약 오픈 시각</label>
+          </div>
+          <div class="input-box">
+            <input id="close" type="text" name="close" placeholder="" th:value="${shopInfo.close}" required/>
+            <label for="close" class="label">예약 마감 시각</label>
+          </div>
+        </div>
         <div class="text-filed">
           <div class="input-box">
             <textarea id="explain" name="shopExplain" cols="30" rows="10" placeholder="" th:text="${shopInfo.shopExplain}"></textarea>

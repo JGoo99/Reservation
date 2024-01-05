@@ -8,7 +8,7 @@
   <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="/css/shop-detail.css">
+  <link rel="stylesheet" href="/css/shop-info.css">
   <title>Owner Shop Details</title>
 </head>
 <body>
@@ -47,6 +47,16 @@
           <div class="input-box">
             <input id="address2" type="text" name="address2" th:value="${shopInfo.address2}" readonly/>
             <label for="address2" class="label">상세주소</label>
+          </div>
+        </div>
+        <div class="text-filed" id="time">
+          <div class="input-box">
+            <input id="open" type="text" name="open" th:value="${shopInfo.open}" readonly/>
+            <label for="open" class="label">예약 오픈 시각</label>
+          </div>
+          <div class="input-box">
+            <input id="close" type="text" name="close" th:value="${shopInfo.close}" readonly/>
+            <label for="close" class="label">예약 마감 시각</label>
           </div>
         </div>
         <div class="text-filed">

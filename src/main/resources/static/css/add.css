@@ -99,7 +99,7 @@ textarea:not(:placeholder-shown) + label {
     top: 13px;
 }
 
-#place {
+#place, #time {
     display: flex;
 }
 
@@ -120,7 +120,7 @@ textarea:not(:placeholder-shown) + label {
     border-radius: 5px;
     padding: 5px 0 5px 0;
     width: 80%;
-    margin: 30px auto auto;
+    margin: 20px auto auto;
     background-color: #6a6f4c;
 }
 
