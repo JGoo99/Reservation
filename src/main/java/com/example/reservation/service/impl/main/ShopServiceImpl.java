@@ -6,7 +6,7 @@ import com.example.reservation.data.dto.shop.ShopInfoDto;
 import com.example.reservation.data.entity.Owner;
 import com.example.reservation.data.entity.Shop;
 import com.example.reservation.repository.OwnerRepository;
-import com.example.reservation.repository.ReviewRepository;
+import com.example.reservation.repository.ReservationRepository;
 import com.example.reservation.repository.ShopRepository;
 import com.example.reservation.service.inter.ShopService;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +29,7 @@ public class ShopServiceImpl implements ShopService {
 
   private final ShopRepository shopRepository;
   private final OwnerRepository ownerRepository;
+  private final ReservationRepository reservationRepository;
 
   @Override
   public ShopInfoDto add(ShopAddDto shopAddDto, String ownerEmail) {

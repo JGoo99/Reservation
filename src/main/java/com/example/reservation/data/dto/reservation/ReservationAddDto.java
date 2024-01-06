@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Setter
 @Getter
@@ -16,19 +17,31 @@ public class ReservationAddDto {
 
   private int year;
   private int month;
-  private int day;
-  private int time;
+
+  private Integer day;
+  private Long shopId;
+  private String userName;
+  private String userPhone;
+
+  private List<Integer> times;
 
   public static Reservation toEntity(ReservationAddDto reservationAddDto) {
+    List<Integer> times = reservationAddDto.getTimes();
+    int from = times.get(0);
+    int time = times.size();
+
     return Reservation.builder()
       .isVisited(false)
       .isAccepted(0)
-      .reservationTime(LocalDateTime.of(
+      .reservedAt(LocalDateTime.of(
         reservationAddDto.getYear(),
         reservationAddDto.getMonth(),
         reservationAddDto.getDay(),
-        reservationAddDto.getTime(), 0))
+        from, 0))
+      .time(time)
+      .shopId(reservationAddDto.getShopId())
+      .userName(reservationAddDto.userName)
+      .userPhone(reservationAddDto.userPhone)
       .build();
   }
-
 }

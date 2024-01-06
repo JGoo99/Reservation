@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="/css/shop-info.css">
+  <title>User Shop Reserve</title>
+</head>
+<body>
+<div id="default">
+  <div id="container">
+    <div class="contents">
+      <div class="title">
+        <a href="/user/home" id="home">Goo's Reservation</a>
+        <div class="member-wrap">
+          <div class="is-login" sec:authorize="hasRole('USER')">
+            <a href="/user/my" sec:authentication="principal.nickname"></a>
+            <p>고객님</p>
+            <span> | </span>
+            <a href="/logout">로그아웃</a>
+          </div>
+          <div class="is-logout" sec:authorize="hasRole('OWNER') or isAnonymous()">
+            <a href="/join">회원가입</a>
+            <span> | </span>
+            <a href="/login">로그인</a>
+          </div>
+        </div>
+      </div>
+      <th:block th:with="year=${days.year}, month=${days.month}, day=${days.day}">
+        <p class="intro" th:text="${year + '년 ' + month + '월 ' + day + '일'}"></p>
+        <p class="intro">원하시는 시간을 선택하세요.</p>
+        <form action="/user/shop/reserv.proc3" method="post">
+          <div class="selector">
+            <th:block th:each="i : ${availableTimes}">
+              <input type="checkbox" name="times" th:value="${i}" th:text="${i}" class="times">
+            </th:block>
+          </div>
+          <input type="hidden" name="year" th:value="${year}">
+          <input type="hidden" name="month" th:value="${month}">
+          <input type="hidden" name="day" th:value="${day}">
+          <input type="hidden" name="shopId" th:value="${days.shopId}">
+          <input type="hidden" name="userName" th:value="${#authentication.principal.username}">
+          <input type="hidden" name="userPhone" th:value="${#authentication.principal.phone}">
+          <button type="submit">예약 신청하기</button>
+        </form>
+        <form action="/user/shop/reserv.proc1" method="post">
+          <input type="hidden" name="year" th:value="${year}">
+          <input type="hidden" name="month" th:value="${month}">
+          <input type="hidden" name="shopId" th:value="${days.shopId}">
+          <button type="submit">이전</button>
+        </form>
+      </th:block>
+    </div>
+  </div>
+</div>
+<script>
+  $(function() {
+    $(".times").click(function() {
+      let times = new Array();
+      let i = 0;
+      $(".times").each(function(index){
+        if($(this).is(":checked")){
+          times[i]=index;
+          i++;
+        }
+      })
+      if(times.length !== 1){
+        let temp = times[0];
+        for(let x=1; x<times.length; x++){
+          if(temp+x !== times[x]){
+            if($(this).is(":checked"))
+              $(this).is(":checked", false)
+            else
+              $(this).is(":checked", true);
+            return false;
+          }
+        }
+      }
+    })
+  })
+</script>
+</body>
+</html>

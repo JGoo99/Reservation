@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="/css/shop-info.css">
+  <title>User Shop Reserve</title>
+</head>
+<body>
+<div id="default">
+  <div id="container">
+    <div class="contents">
+      <div class="title">
+        <a href="/user/home" id="home">Goo's Reservation</a>
+        <div class="member-wrap">
+          <div class="is-login" sec:authorize="hasRole('USER')">
+            <a href="/user/my" sec:authentication="principal.nickname"></a>
+            <p>고객님</p>
+            <span> | </span>
+            <a href="/logout">로그아웃</a>
+          </div>
+          <div class="is-logout" sec:authorize="hasRole('OWNER') or isAnonymous()">
+            <a href="/join">회원가입</a>
+            <span> | </span>
+            <a href="/login">로그인</a>
+          </div>
+        </div>
+      </div>
+      <p class="intro">원하시는 년도와 달을 선택하세요.</p>
+      <form action="/user/shop/reserv.proc1" method="post">
+        <div class="selector">
+          <select name="year" th:with="thisyear=${#dates.year(#dates.createNow())}">
+            <th:block th:each="i : ${#numbers.sequence(0, 1)}">
+              <option name="year" th:value="${thisyear + i}" th:text="${thisyear + i}"></option>
+            </th:block>
+          </select>
+        </div>
+        <div class="selector">
+          <select name="month">
+            <th:block th:each="i : ${#numbers.sequence(1, 12)}">
+              <option name="month" th:value="${i}" th:text="${i}"></option>
+            </th:block>
+          </select>
+        </div>
+        <input type="hidden" name="shopId" th:value="${shopId}">
+        <button type="submit">다음</button>
+      </form>
+      <div class="move">
+        <a th:href="@{/user/shop/info(shopId=${shopId})}">👈🏻매장 상세정보로 돌아가기</a>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
