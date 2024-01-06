@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"
+<html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 >
@@ -51,12 +51,13 @@
         </div>
         <div class="text-filed" id="time">
           <div class="input-box">
-            <input id="open" type="text" name="open" th:value="${shopInfo.open}" readonly/>
+            <input id="open" type="text" name="open" th:value="${shopInfo.open + '시'}" readonly/>
             <label for="open" class="label">예약 오픈 시각</label>
           </div>
           <div class="input-box">
-            <input id="close" type="text" name="close" th:value="${shopInfo.close}" readonly/>
+            <input id="close" type="text" name="close" th:value="${shopInfo.close - 2 + '시 50분'}" readonly/>
             <label for="close" class="label">예약 마감 시각</label>
+            <p class="example">마감시각에 예약할 경우 최대 1시간 예약가능</p>
           </div>
         </div>
         <div class="text-filed">
