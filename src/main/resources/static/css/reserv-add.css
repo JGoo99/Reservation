@@ -106,7 +106,7 @@ label {
 
 .move a,
 .move button {
-  margin: 0 20px;
+  margin: 20px;
   color: darkslategray;
   border: none;
   background-color: transparent;
