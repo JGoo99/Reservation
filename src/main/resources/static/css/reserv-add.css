@@ -104,6 +104,13 @@ label {
   margin-top: 15px;
 }
 
+#before {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
 .move a,
 .move button,
 #before {
@@ -120,7 +127,7 @@ label {
 }
 
 .move a:hover,
-.move button:hover
+.move button:hover,
 #before {
   border-bottom: 1px solid darkslategray;
 }

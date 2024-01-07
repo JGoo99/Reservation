@@ -56,6 +56,7 @@
     };
     
     function check() {
+      // 연속시간 검사
       const checkboxes = document.querySelectorAll('input[name="times"]:checked');
       
       let pre;
@@ -106,7 +107,7 @@
         <form action="/user/shop/reserv.proc3" method="post" id="submitForm">
           <div class="selector" th:with="open=${days.getOpen()}, close=${days.getClose()}">
             <div class="box-wrap" th:each="i : ${#numbers.sequence(open, close)}">
-              <input type="checkbox" th:if="${availableTimes.peek() == i}" name="times" th:value="${i}" class="times">
+              <input type="checkbox" th:if="${availableTimes.peek() == i}" name="times" th:value="${i}" class="times" id="times">
               <p th:text="${i}"></p>
               <th:block th:if="${availableTimes.peek() == i} ? ${availableTimes.poll()} : ''"></th:block>
             </div>

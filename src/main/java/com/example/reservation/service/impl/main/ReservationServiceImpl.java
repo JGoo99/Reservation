@@ -78,7 +78,7 @@ public class ReservationServiceImpl implements ReservationService {
       }
     }
 
-    // 현재 시간 기준 10분 미만으로 남은 예약은 선택못하도록 처리
+    // 현재 시간 기준 10분 미만으로 남은 예약은 선택 못하도록 처리
     LocalDateTime now = LocalDateTime.now();
     if (now.getYear() == addDto.getYear() && now.getMonthValue() == addDto.getMonth()
             && now.getDayOfMonth() == addDto.getDate()) {
@@ -98,6 +98,16 @@ public class ReservationServiceImpl implements ReservationService {
   public ReservationInfoDto save(ReservationAddDto addDto) {
     Shop shop = shopRepository.findById(addDto.getShopId())
       .orElseThrow(() -> new RuntimeException("존재하지 않는 매장입니다."));
+
+    // 예약 10분 전 마감 더블체크
+    int curHour = LocalDateTime.now().plusMinutes(10).getHour();
+
+    List<Integer> times = addDto.getTimes();
+    for (int i = 0; i < times.size(); i++) {
+      if (times.get(i) <= curHour) {
+        throw new RuntimeException("예약할 수 없는 날짜입니다.");
+      }
+    }
 
     Reservation reservation =
       reservationRepository.save(ReservationAddDto.toEntity(addDto));
