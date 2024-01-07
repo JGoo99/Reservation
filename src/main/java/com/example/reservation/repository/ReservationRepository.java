@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
 
@@ -19,5 +18,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
   List<DateMapping> findAllByReservedAtBetweenAndIsAcceptedAndShopId(
     LocalDateTime from, LocalDateTime to, int isAccepted, Long shopId);
 
-  Optional<Reservation> findByUserId(Long userId);
+  boolean existsByUserId(Long userID);
+
+  List<Reservation> findAllByReservedAtAfterAndUserId(LocalDateTime now, Long userId);
 }

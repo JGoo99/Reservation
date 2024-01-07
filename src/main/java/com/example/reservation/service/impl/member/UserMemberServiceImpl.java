@@ -12,6 +12,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UserMemberServiceImpl implements UserMemberService {
@@ -64,22 +67,32 @@ public class UserMemberServiceImpl implements UserMemberService {
     User user = userRepository.findById(userId)
       .orElseThrow(() -> new RuntimeException("해당 유저 정보가 없습니다."));
 
-    validateDuplicateMember(editDto);
+    if (!user.getEmail().equals(editDto.getEmail())) {
+      validateDuplicateMember(editDto);
+      user.setEmail(editDto.getEmail());
+    }
 
-    user.setEmail(editDto.getEmail());
     user.setUsername(editDto.getUsername());
     user.setNickname(editDto.getNickname());
     user.setPhone(editDto.getPhone());
     user.setAddress(editDto.getAddress());
-
-    Reservation reservation = reservationRepository.findByUserId(userId)
-      .orElseThrow(() -> new RuntimeException("해당 유저 정보가 없습니다."));
-
-    reservation.setUserName(editDto.getUsername());
-    reservation.setUserPhone(editDto.getPhone());
-
     user = userRepository.save(user);
-    reservationRepository.save(reservation);
+
+    // 예약 DB 에서 현재시간 이후의 데이터만 예약자 이름과 번호를 수정한다.
+    if (reservationRepository.existsByUserId(userId)) {
+      List<Reservation> reservation =
+        reservationRepository.findAllByReservedAtAfterAndUserId(LocalDateTime.now(), userId);
+
+      String username = editDto.getUsername();
+      String phone = editDto.getPhone();
+      for (int i = 0; i < reservation.size(); i++) {
+        Reservation cur = reservation.get(i);
+
+        cur.setUserName(username);
+        cur.setUserPhone(phone);
+        reservationRepository.save(cur);
+      }
+    }
 
     return UserJoinDto.from(user);
   }

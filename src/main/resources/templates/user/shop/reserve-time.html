@@ -122,7 +122,7 @@
             <button type="submit" onclick="return check()">예약 신청하기</button>
           </div>
         </form>
-        <form action="/user/shop/reserv.proc1" method="post">
+        <form action="/user/shop/reserv.proc1" method="post" id="before">
           <input type="hidden" name="year" th:value="${year}">
           <input type="hidden" name="month" th:value="${month}">
           <input type="hidden" name="shopId" th:value="${days.shopId}">

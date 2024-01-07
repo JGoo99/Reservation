@@ -65,6 +65,7 @@ public class ReservationServiceImpl implements ReservationService {
       reservationRepository.findAllByReservedAtBetweenAndIsAcceptedAndShopId(
         request, request.plusDays(1).minusMinutes(1), 1, addDto.getShopId());
 
+    // 영업시간에서 예약확정시간 제외
     for (int i = shop.getOpen(); i <= shop.getClose(); i++) {
       available.add(i);
     }
@@ -74,6 +75,19 @@ public class ReservationServiceImpl implements ReservationService {
 
       for (int j = 0; j < acceptedList.get(i).getTime(); j++) {
         available.remove(idx);
+      }
+    }
+
+    // 현재 시간 기준 10분 미만으로 남은 예약은 선택못하도록 처리
+    LocalDateTime now = LocalDateTime.now();
+    if (now.getYear() == addDto.getYear() && now.getMonthValue() == addDto.getMonth()
+            && now.getDayOfMonth() == addDto.getDate()) {
+
+      // from 시 부터 예약가능
+      int from = now.plusMinutes(10).getHour() + 1;
+
+      for (int i = 0; i < from; i++) {
+        available.remove((Integer) i);
       }
     }
 

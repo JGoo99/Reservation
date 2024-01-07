@@ -69,7 +69,7 @@ public class UserController {
     UserJoinDto userInfo = userMemberService.getUserInfo(details.getId());
     model.addAttribute("info", userInfo);
 
-    LOGGER.info(userInfo.toString());
+    LOGGER.info(details.getId().toString());
 
     return "user/info-edit";
   }
@@ -78,9 +78,10 @@ public class UserController {
   public String infoEditProcP(@ModelAttribute UserJoinDto editDto,
                               @AuthenticationPrincipal CustomUserDetails details,
                               Model model) {
+    LOGGER.info("[edit]: {}", editDto.toString());
 
-     UserJoinDto userInfo = userMemberService.edit(editDto, details.getId());
-     model.addAttribute("info", userInfo);
+      UserJoinDto userInfo = userMemberService.edit(editDto, details.getId());
+      model.addAttribute("info", userInfo);
 
     return "user/info";
   }
