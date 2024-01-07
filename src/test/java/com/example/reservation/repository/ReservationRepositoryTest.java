@@ -3,7 +3,9 @@ package com.example.reservation.repository;
 import com.example.reservation.data.dto.reservation.DateMapping;
 import com.example.reservation.data.dto.reservation.ReservationAddDto;
 import com.example.reservation.data.dto.reservation.ReservationInfoDto;
+import com.example.reservation.data.dto.shop.ShopInfoDto;
 import com.example.reservation.data.entity.Reservation;
+import com.example.reservation.data.entity.Shop;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,9 @@ class ReservationRepositoryTest {
   @Autowired
   ReservationRepository reservationRepository;
 
+  @Autowired
+  ShopRepository shopRepository;
+
   @Test
   void save() {
     // given
@@ -39,7 +44,7 @@ class ReservationRepositoryTest {
     // then
     assertEquals(reservationAddDto.getYear(), savedReservation.getReservedAt().getYear());
     assertEquals(reservationAddDto.getMonth(), savedReservation.getReservedAt().getMonthValue());
-    assertEquals(reservationAddDto.getDay(), savedReservation.getReservedAt().getDayOfMonth());
+    assertEquals(reservationAddDto.getDate(), savedReservation.getReservedAt().getDayOfMonth());
     assertEquals(reservationAddDto.getTimes().get(0), savedReservation.getReservedAt().getHour());
     assertEquals(reservationAddDto.getTimes().size(), savedReservation.getTime());
   }
@@ -54,7 +59,12 @@ class ReservationRepositoryTest {
       reservationRepository.findAllByShopIdAndIsAccepted(1L, 1,
         PageRequest.of(0, 10, Sort.by(DESC, "reservedAt")));
 
-    Page<ReservationInfoDto> acceptedList = savedAcceptedList.map(ReservationInfoDto::from);
+    Shop shop = shopRepository.findById(1L)
+      .orElseThrow(() -> new RuntimeException("존재하지 않는 매장입니다."));
+
+    Page<ReservationInfoDto> acceptedList = savedAcceptedList.map(m -> {
+      return ReservationInfoDto.from(m, ShopInfoDto.fromEntity(shop));
+    });
 
     // then
     System.out.println(acceptedList.getContent().get(0).toString());
@@ -71,7 +81,7 @@ class ReservationRepositoryTest {
 
     // then
     LocalDateTime date =
-      LocalDateTime.of(request.getYear(), request.getMonth(), request.getDay(), 0, 0);
+      LocalDateTime.of(request.getYear(), request.getMonth(), request.getDate(), 0, 0);
 
     List<DateMapping> acceptedList =
       reservationRepository.findAllByReservedAtBetweenAndIsAcceptedAndShopId(
@@ -106,7 +116,7 @@ class ReservationRepositoryTest {
     return ReservationAddDto.builder()
       .year(2024)
       .month(1)
-      .day(3)
+      .date(3)
       .shopId(1L)
       .userName("구진")
       .userPhone("010-1234-5678")
@@ -121,7 +131,7 @@ class ReservationRepositoryTest {
     return ReservationAddDto.builder()
       .year(2024)
       .month(1)
-      .day(3)
+      .date(3)
       .shopId(1L)
       .userName("구구")
       .userPhone("010-1234-5679")

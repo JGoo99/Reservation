@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
 import java.awt.print.Pageable;
-import java.util.List;
+import java.util.Queue;
 
 public interface ReservationService {
 
@@ -14,7 +14,9 @@ public interface ReservationService {
 
   PageRequest getPaging(int page, int size);
 
-  List<Integer> getAvailableTimeList(ReservationAddDto addDto);
+  Queue<Integer> getAvailableTimeList(ReservationAddDto addDto);
 
-  boolean save(ReservationAddDto addDto);
+  ReservationInfoDto save(ReservationAddDto addDto);
+
+  void setOpeningHours(ReservationAddDto addDto);
 }

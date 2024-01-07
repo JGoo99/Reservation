@@ -8,7 +8,7 @@
   <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="/css/shop-info.css">
+  <link rel="stylesheet" href="/css/reserv-success.css">
   <title>User Shop Reserve</title>
 </head>
 <body>
@@ -31,7 +31,51 @@
           </div>
         </div>
       </div>
-      <p></p>
+      <p class="date">예약 신청이 완료되었습니다.</p>
+      <div class="info-wrap">
+        <div class="info-title">
+          <div class="shop-name" th:text="${info.shopName}"></div>
+        </div>
+        <div class="reservation-info">
+          <div class="status">
+            <p>상태</p>
+            <div class="status-value" th:text="${info.isAccepted}"></div>
+          </div>
+          <div class="date-info">
+            <p>일정</p>
+            <div class="date">
+              <div class="year" th:text="${info.year + '년'}"></div>
+              <div class="month" th:text="${info.month + '월'}"></div>
+              <div class="day" th:text="${info.day + '일'}"></div>
+              <div class="week" th:text="${'(' + info.week + ')'}"></div>
+              <div class="hour" th:text="${info.hour + '시'}"></div>
+            </div>
+          </div>
+          <div class="time">
+            <p>시간</p>
+            <div class="reserved-at" th:text="${'총 ' + info.time + '시간'}"></div>
+          </div>
+          <div class="user-name">
+            <p>성명</p>
+            <div class="name" th:text="${info.userName}"></div>
+          </div>
+          <div class="user-phone">
+            <p>번호</p>
+            <div class="phone" th:text="${info.userPhone}"></div>
+          </div>
+          <div class="place-info">
+            <p>위치</p>
+            <div class="address1" th:text="${info.address1}"></div>
+            <div class="address2" th:text="${info.address2}"></div>
+          </div>
+        </div>
+      </div>
+      <p class="intro">
+        이후 예약 승인 여부는 <a href="/user/my">마이페이지</a>에서 확인가능합니다.
+      </p>
+      <div class="move">
+        <a href="/user/home">홈으로</a>
+      </div>
     </div>
   </div>
 </div>

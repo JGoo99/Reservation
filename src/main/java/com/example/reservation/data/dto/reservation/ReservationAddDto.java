@@ -18,10 +18,12 @@ public class ReservationAddDto {
   private int year;
   private int month;
 
-  private Integer day;
+  private Integer date;
   private Long shopId;
   private String userName;
   private String userPhone;
+  private Integer open;
+  private Integer close;
 
   private List<Integer> times;
 
@@ -36,7 +38,7 @@ public class ReservationAddDto {
       .reservedAt(LocalDateTime.of(
         reservationAddDto.getYear(),
         reservationAddDto.getMonth(),
-        reservationAddDto.getDay(),
+        reservationAddDto.getDate(),
         from, 0))
       .time(time)
       .shopId(reservationAddDto.getShopId())

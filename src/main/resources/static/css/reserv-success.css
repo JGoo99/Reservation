@@ -1,0 +1,90 @@
+@import "default.css";
+
+body {
+    padding: 0 0 20px 0;
+    justify-content: center;
+}
+
+.intro {
+    font-size: 16px;
+    margin: 20px;
+}
+
+.intro a {
+    color: #ff9900;
+    font-weight: bold;
+}
+
+.info-wrap {
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    align-items: center;
+    margin: 20px;
+    width: 400px;
+    border-radius: 16px;
+    overflow: hidden;
+    background-color: white;
+}
+
+.info-title {
+    letter-spacing: 2px;
+    font-size: 16pt;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    color: white;
+    background-color: darkslategray;
+}
+
+.reservation-info {
+    letter-spacing: 1px;
+    margin: 20px;
+}
+
+.reservation-info .status {
+    margin-top: 0;
+}
+
+.reservation-info > div {
+    display: flex;
+    align-items: center;
+    margin-top: 25px;
+}
+
+.reservation-info > div > p {
+    letter-spacing: 2px;
+    color: darkgray;
+    margin-right: 10px;
+}
+
+.date {
+    display: flex;
+}
+
+.date > div {
+    margin-right: 3px;
+}
+.date .time {
+    margin-left: 5px;
+}
+
+.move {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.move a {
+    margin: 0 20px;
+    color: darkslategray;
+    font-size: 12pt;
+    border: none;
+    background-color: transparent;
+    padding: 0;
+}
+
+.move a:hover {
+    border-bottom: 1px solid darkslategray;
+}

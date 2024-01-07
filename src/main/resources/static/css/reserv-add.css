@@ -1,0 +1,127 @@
+@import "default.css";
+
+body {
+  padding: 0 0 100px 0;
+  justify-content: center;
+}
+
+.date {
+  font-size: 25px;
+  margin: 10px;
+}
+
+.intro {
+  font-size: 16px;
+  margin: 20px;
+}
+
+#addForm {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+select {
+  text-align: center;
+  width: 100px;
+  height: 40px;
+  border-radius: 16px;
+  border: 2px solid darkslategray;
+  padding: 5px;
+  outline: none;
+  font-size: 12pt;
+}
+
+.box-wrap {
+  position: relative;
+  display: flex;
+  width: 60px;
+  height: 40px;
+  border: 1px solid black;
+  padding: 0;
+  background-color: darkgray;
+}
+
+.box-wrap p {
+  position: absolute;
+  left: 3px;
+  top: 43px;
+}
+
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  outline: 0;
+  background-color: white;
+  cursor: pointer;
+}
+
+input[type="checkbox"]:checked {
+  background-color: #a5d6a7;
+}
+
+input[type="checkbox"]:hover {
+  background-color: #a5d6a7;
+}
+
+label {
+  margin: 5px;
+  font-size: 12pt;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+
+.selector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 20px;
+}
+
+.explain {
+  margin-left: 13px;
+  color: darkslategray;
+  font-size: 7pt;
+}
+
+.example {
+  margin-top: 4px;
+  margin-left: 10px;
+  color: darkslategray;
+  font-size: 7pt;
+}
+
+.move {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.move a,
+.move button {
+  margin: 0 20px;
+  color: darkslategray;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+}
+
+.move a {
+  font-size: 10pt;
+}
+
+.move button {
+  font-size: 16pt;
+}
+
+.move a:hover,
+.move button:hover {
+  border-bottom: 1px solid darkslategray;
+}

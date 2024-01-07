@@ -3,6 +3,7 @@ package com.example.reservation.service.impl.main;
 import com.example.reservation.data.dto.reservation.DateMapping;
 import com.example.reservation.data.dto.reservation.ReservationAddDto;
 import com.example.reservation.data.dto.reservation.ReservationInfoDto;
+import com.example.reservation.data.dto.shop.ShopInfoDto;
 import com.example.reservation.data.entity.Reservation;
 import com.example.reservation.data.entity.Shop;
 import com.example.reservation.repository.ReservationRepository;
@@ -17,7 +18,9 @@ import org.springframework.stereotype.Service;
 import java.awt.print.Pageable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import static org.springframework.data.domain.Sort.Direction.DESC;
 
@@ -36,7 +39,12 @@ public class ReservationServiceImpl implements ReservationService {
     Page<Reservation> selectedAcceptedList =
       reservationRepository.findAllByShopIdAndIsAccepted(shopId, 1, pageRequest);
 
-    return selectedAcceptedList.map(ReservationInfoDto::from);
+    Shop shop = shopRepository.findById(shopId)
+      .orElseThrow(() -> new RuntimeException("존재하지 않는 매장입니다."));
+
+    return selectedAcceptedList.map(m -> {
+      return ReservationInfoDto.from(m, ShopInfoDto.fromEntity(shop));
+    });
   }
 
   @Override
@@ -45,13 +53,13 @@ public class ReservationServiceImpl implements ReservationService {
   }
 
   @Override
-  public List<Integer> getAvailableTimeList(ReservationAddDto addDto) {
+  public Queue<Integer> getAvailableTimeList(ReservationAddDto addDto) {
     List<Integer> available = new ArrayList<>();
     Shop shop = shopRepository.findById(addDto.getShopId())
       .orElseThrow(() -> new RuntimeException("존재하지 않는 매장입니다."));
 
     LocalDateTime request =
-      LocalDateTime.of(addDto.getYear(), addDto.getMonth(), addDto.getDay(), 0, 0);
+      LocalDateTime.of(addDto.getYear(), addDto.getMonth(), addDto.getDate(), 0, 0);
 
     List<DateMapping> acceptedList =
       reservationRepository.findAllByReservedAtBetweenAndIsAcceptedAndShopId(
@@ -60,20 +68,35 @@ public class ReservationServiceImpl implements ReservationService {
     for (int i = shop.getOpen(); i <= shop.getClose(); i++) {
       available.add(i);
     }
-    // 14 2 / 16 1
+
     for (int i = 0; i < acceptedList.size(); i++) {
       int idx = available.indexOf(acceptedList.get(i).getReservedAt().getHour());
 
       for (int j = 0; j < acceptedList.get(i).getTime(); j++) {
-        available.remove(idx++);
+        available.remove(idx);
       }
     }
-    return available;
+
+    return new LinkedList<>(available);
   }
 
   @Override
-  public boolean save(ReservationAddDto addDto) {
-    reservationRepository.save(ReservationAddDto.toEntity(addDto));
-    return true;
+  public ReservationInfoDto save(ReservationAddDto addDto) {
+    Reservation reservation =
+      reservationRepository.save(ReservationAddDto.toEntity(addDto));
+
+    Shop shop = shopRepository.findById(addDto.getShopId())
+      .orElseThrow(() -> new RuntimeException("존재하지 않는 매장입니다."));
+
+    return ReservationInfoDto.from(reservation, ShopInfoDto.fromEntity(shop));
+  }
+
+  @Override
+  public void setOpeningHours(ReservationAddDto addDto) {
+    Shop shop = shopRepository.findById(addDto.getShopId())
+      .orElseThrow(() -> new RuntimeException("존재하지 않는 매장입니다."));
+
+    addDto.setOpen(shop.getOpen());
+    addDto.setClose(shop.getClose());
   }
 }

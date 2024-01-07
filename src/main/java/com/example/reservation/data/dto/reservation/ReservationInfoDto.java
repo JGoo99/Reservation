@@ -1,12 +1,14 @@
 package com.example.reservation.data.dto.reservation;
 
+import com.example.reservation.data.dto.shop.ShopInfoDto;
 import com.example.reservation.data.entity.Reservation;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.time.LocalDateTime;
+import java.time.format.TextStyle;
+import java.util.Locale;
 
 @Getter
 @Setter
@@ -21,25 +23,57 @@ public class ReservationInfoDto {
   private String userName;
   private String userPhone;
 
-  private LocalDateTime reservedAt;
-  private int time;
+  private Integer year;
+  private Integer month;
+  private Integer day;
+  private String week;
+  private Integer hour;
+  private Integer time;
 
-  private int isAccepted;
-  private boolean isVisited;
+  private String isAccepted;
+  private String isVisited;
 
 
-  public static ReservationInfoDto from(Reservation reservation) {
+  public static ReservationInfoDto from(Reservation reservation, ShopInfoDto shopInfoDto) {
+    String isAccepted = "";
+    switch (reservation.getIsAccepted()) {
+      case 0:
+        isAccepted = "신청 완료";
+        break;
+      case -1:
+        isAccepted = "예약 거부";
+        break;
+      case 1:
+        isAccepted = "예약 승인";
+        break;
+      default:
+        isAccepted = "ERROR(예약 오류)";
+    }
+
+    String isVisited = "";
+    if (reservation.isVisited()) {
+      isVisited = "방문 완료";
+    } else {
+      isVisited = "방문 기록이 없음";
+    }
+
+
     return ReservationInfoDto.builder()
-      // shopName
-      // address1
-      // address2
-      // isVisited
+      .shopName(shopInfoDto.getShopName())
+      .address1(shopInfoDto.getAddress1())
+      .address2(shopInfoDto.getAddress2())
       .userName(reservation.getUserName())
       .userPhone(reservation.getUserPhone())
-      .reservedAt(reservation.getReservedAt())
+      .year(reservation.getReservedAt().getYear())
+      .month(reservation.getReservedAt().getMonthValue())
+      .day(reservation.getReservedAt().getDayOfMonth())
+      .week(reservation.getReservedAt().getDayOfWeek()
+        .getDisplayName(TextStyle.NARROW, Locale.KOREA))
+      .hour(reservation.getReservedAt().getHour())
       .time(reservation.getTime())
-      .isVisited(reservation.isVisited())
-      .isAccepted(reservation.getIsAccepted())
+      .isVisited(isVisited)
+      .isAccepted(isAccepted)
       .build();
   }
+
 }

@@ -1,6 +1,7 @@
 package com.example.reservation.controller.user;
 
 import com.example.reservation.data.dto.reservation.ReservationAddDto;
+import com.example.reservation.data.dto.reservation.ReservationInfoDto;
 import com.example.reservation.data.dto.shop.ShopInfoDto;
 import com.example.reservation.service.impl.main.ReservationServiceImpl;
 import com.example.reservation.service.impl.main.ShopServiceImpl;
@@ -12,7 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Queue;
 
 @Controller
 @RequiredArgsConstructor
@@ -55,10 +56,13 @@ public class UserShopController {
   @PostMapping("/reserv.proc2")
   public String reservProc2P(@ModelAttribute ReservationAddDto addDto, Model model) {
 
-    List<Integer> availableTimes = reservationService.getAvailableTimeList(addDto);
+    Queue<Integer> availableTimes = reservationService.getAvailableTimeList(addDto);
+
     int lastDays =
       LocalDate.of(addDto.getYear(), addDto.getMonth() + 1, 1)
         .minusDays(1).getDayOfMonth();
+
+    reservationService.setOpeningHours(addDto);
 
     model.addAttribute("days", addDto);
     model.addAttribute("availableTimes", availableTimes);
@@ -71,8 +75,8 @@ public class UserShopController {
   public String reservProc3P(@ModelAttribute ReservationAddDto addDto, Model model) {
     LOGGER.info("[reserve]: {}", addDto.toString());
 
-    boolean isSaved = reservationService.save(addDto);
-    model.addAttribute("reservInfo", addDto);
+    ReservationInfoDto infoDto = reservationService.save(addDto);
+    model.addAttribute("info", infoDto);
 
     return "user/shop/reserve-success";
   }

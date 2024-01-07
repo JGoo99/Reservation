@@ -8,7 +8,76 @@
   <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="/css/shop-info.css">
+  <link rel="stylesheet" href="/css/reserv-add.css">
+  <script type="text/javascript">
+    window.onload = function () {
+      const checkboxes = document.querySelectorAll(
+        '.selector input[type="checkbox"]'
+      );
+      
+      checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener("click", handleClick);
+      });
+      
+      let lastClicked;
+      function handleClick(e) {
+        if (lastClicked !== undefined) {
+          
+          let cur = Number(this.value);
+          
+          if (lastClicked < cur) {
+            let first = Math.min(lastClicked, cur);
+            let last = Math.max(lastClicked, cur);
+            
+            let box_pre;
+            checkboxes.forEach((checkbox) => {
+              let box_cur = Number(checkbox.value);
+              
+              if (first <= box_cur && box_cur <= last) {
+                checkbox.checked = true;
+                box_pre = box_cur;
+              }
+            });
+          } else if (lastClicked > cur) {
+            checkboxes.forEach((checkbox) => {
+              checkbox.checked = false;
+            });
+            this.checked = true;
+          } else {
+            checkboxes.forEach((checkbox) => {
+              checkbox.checked = false;
+            });
+            lastClicked = undefined;
+            return;
+          }
+        }
+        lastClicked = Number(this.value);
+      }
+    };
+    
+    function check() {
+      const checkboxes = document.querySelectorAll('input[name="times"]:checked');
+      
+      let pre;
+      try {
+        checkboxes.forEach(checkbox => {
+          let cur = Number(checkbox.value)
+          
+          if (pre !== undefined && pre + 1 < cur) {
+            alert("연속된 시간만 선택할 수 있습니다.")
+            throw new Error();
+          } else {
+            pre = cur;
+          }
+        });
+      } catch (e) {
+        checkboxes.forEach((checkbox) => {
+          checkbox.checked = false;
+        });
+        return false;
+      }
+    }
+  </script>
   <title>User Shop Reserve</title>
 </head>
 <body>
@@ -31,58 +100,38 @@
           </div>
         </div>
       </div>
-      <th:block th:with="year=${days.year}, month=${days.month}, day=${days.day}">
-        <p class="intro" th:text="${year + '년 ' + month + '월 ' + day + '일'}"></p>
+      <th:block th:with="year=${days.year}, month=${days.month}, date=${days.getDate()}">
+        <p class="intro" th:text="${year + '년 ' + month + '월 ' + date + '일'}"></p>
         <p class="intro">원하시는 시간을 선택하세요.</p>
-        <form action="/user/shop/reserv.proc3" method="post">
-          <div class="selector">
-            <th:block th:each="i : ${availableTimes}">
-              <input type="checkbox" name="times" th:value="${i}" th:text="${i}" class="times">
-            </th:block>
+        <form action="/user/shop/reserv.proc3" method="post" id="submitForm">
+          <div class="selector" th:with="open=${days.getOpen()}, close=${days.getClose()}">
+            <div class="box-wrap" th:each="i : ${#numbers.sequence(open, close)}">
+              <input type="checkbox" th:if="${availableTimes.peek() == i}" name="times" th:value="${i}" class="times">
+              <p th:text="${i}"></p>
+              <th:block th:if="${availableTimes.peek() == i} ? ${availableTimes.poll()} : ''"></th:block>
+            </div>
           </div>
-          <input type="hidden" name="year" th:value="${year}">
-          <input type="hidden" name="month" th:value="${month}">
-          <input type="hidden" name="day" th:value="${day}">
-          <input type="hidden" name="shopId" th:value="${days.shopId}">
+          <input id="year" type="hidden" name="year" th:value="${year}">
+          <input id="month" type="hidden" name="month" th:value="${month}">
+          <input id="date" type="hidden" name="date" th:value="${date}">
+          <input id="shopId" type="hidden" name="shopId" th:value="${days.shopId}">
           <input type="hidden" name="userName" th:value="${#authentication.principal.username}">
           <input type="hidden" name="userPhone" th:value="${#authentication.principal.phone}">
-          <button type="submit">예약 신청하기</button>
+          <div class="move">
+            <button type="submit" onclick="return check()">예약 신청하기</button>
+          </div>
         </form>
         <form action="/user/shop/reserv.proc1" method="post">
           <input type="hidden" name="year" th:value="${year}">
           <input type="hidden" name="month" th:value="${month}">
           <input type="hidden" name="shopId" th:value="${days.shopId}">
-          <button type="submit">이전</button>
+          <div class="move">
+            <button type="submit">이전</button>
+          </div>
         </form>
       </th:block>
     </div>
   </div>
 </div>
-<script>
-  $(function() {
-    $(".times").click(function() {
-      let times = new Array();
-      let i = 0;
-      $(".times").each(function(index){
-        if($(this).is(":checked")){
-          times[i]=index;
-          i++;
-        }
-      })
-      if(times.length !== 1){
-        let temp = times[0];
-        for(let x=1; x<times.length; x++){
-          if(temp+x !== times[x]){
-            if($(this).is(":checked"))
-              $(this).is(":checked", false)
-            else
-              $(this).is(":checked", true);
-            return false;
-          }
-        }
-      }
-    })
-  })
-</script>
 </body>
 </html>

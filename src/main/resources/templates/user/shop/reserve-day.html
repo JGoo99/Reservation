@@ -8,8 +8,27 @@
   <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="/css/shop-info.css">
+  <link rel="stylesheet" href="/css/reserv-add.css">
   <title>User Shop Reserve</title>
+  <script type="text/javascript">
+    function check() {
+      const today = new Date();
+      const submitForm = document.querySelector("#addForm");
+      
+      const selectedYear = submitForm.querySelector("#year").value;
+      const selectedMonth = submitForm.querySelector("#month").value;
+      const selectedDate = submitForm.querySelector("#date").value;
+
+      if (Number(selectedYear) === today.getFullYear()) {
+        if (Number(selectedMonth) === today.getMonth() + 1) {
+          if (Number(selectedDate) < today.getDate()) {
+            alert("예약할 수 없는 날짜입니다.");
+            return false;
+          }
+        }
+      }
+    }
+  </script>
 </head>
 <body>
 <div id="default">
@@ -34,18 +53,20 @@
       <th:block th:with="year=${days.year}, month=${days.month}">
         <p class="intro" th:text="${year + '년 ' + month + '월'}"></p>
         <p class="intro">원하시는 날짜를 선택하세요.</p>
-        <form action="/user/shop/reserv.proc2" method="post">
+        <form action="/user/shop/reserv.proc2" method="post" id="addForm">
           <div class="selector">
-            <select name="day" th:with="lastdays=${lastDays}">
+            <select id="date" name="date" th:with="lastdays=${lastDays}">
               <th:block th:each="i : ${#numbers.sequence(1, lastDays)}">
-                <option name="day" th:value="${i}" th:text="${i}"></option>
+                <option th:value="${i}" th:text="${i}"></option>
               </th:block>
             </select>
           </div>
-          <input type="hidden" name="year" th:value="${year}">
-          <input type="hidden" name="month" th:value="${month}">
+          <input id="year" type="hidden" name="year" th:value="${year}">
+          <input id="month" type="hidden" name="month" th:value="${month}">
           <input type="hidden" name="shopId" th:value="${days.shopId}">
-          <button type="submit">다음</button>
+          <div class="move">
+            <button type="submit" onclick="return check()">다음</button>
+          </div>
         </form>
       </th:block>
       
