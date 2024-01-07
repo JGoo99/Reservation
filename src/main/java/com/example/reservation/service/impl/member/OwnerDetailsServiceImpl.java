@@ -1,6 +1,7 @@
 package com.example.reservation.service.impl.member;
 
 import com.example.reservation.data.dto.owner.OwnerDetails;
+import com.example.reservation.data.dto.owner.OwnerJoinDto;
 import com.example.reservation.data.entity.Owner;
 import com.example.reservation.repository.OwnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;

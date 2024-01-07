@@ -76,7 +76,6 @@ public class UserMemberServiceImpl implements UserMemberService {
     user.setNickname(editDto.getNickname());
     user.setPhone(editDto.getPhone());
     user.setAddress(editDto.getAddress());
-    user = userRepository.save(user);
 
     // 예약 DB 에서 현재시간 이후의 데이터만 예약자 이름과 번호를 수정한다.
     if (reservationRepository.existsByUserId(userId)) {
@@ -94,6 +93,6 @@ public class UserMemberServiceImpl implements UserMemberService {
       }
     }
 
-    return UserJoinDto.from(user);
+    return UserJoinDto.from(userRepository.save(user));
   }
 }

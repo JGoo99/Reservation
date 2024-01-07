@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link rel="stylesheet" href="/css/info.css" />
+  <title>Owner Home</title>
+</head>
+<body>
+<div id="default">
+  <div id="container">
+    <div class="contents">
+      <div class="title" id="owner-title">
+        <a href="/owner/home" id="home">Goo's Reservation</a>
+        <div class="member-wrap">
+          <div class="is-login" sec:authorize="hasRole('OWNER')">
+            <a href="/owner/my" sec:authentication="name"></a>
+            <p>점장님</p>
+            <span> | </span>
+            <a href="/owner/logout">로그아웃</a>
+          </div>
+          <div class="is-logout" sec:authorize="hasRole('USER') or isAnonymous()">
+            <a href="/owner/join">회원가입</a>
+            <span> | </span>
+            <a href="/owner/login">로그인</a>
+          </div>
+        </div>
+      </div>
+      <p class="intro">점장님의 상세정보</p>
+      <div class="info-details">
+        <div class="text-filed">
+          <div class="input-box">
+            <input id="email" type="text" name="email" th:value="${info.email}" readonly/>
+            <label for="email" class="label">이메일</label>
+          </div>
+        </div>
+        <div class="text-filed" id="place">
+          <div class="input-box">
+            <input id="ownerName" type="text" name="ownerName" th:value="${info.ownerName}" readonly/>
+            <label for="ownerName" class="label">성함</label>
+          </div>
+          <div class="input-box">
+            <input id="busNumber" type="text" name="busNumber" th:value="${info.busNumber}" readonly/>
+            <label for="busNumber" class="label">사업자번호</label>
+          </div>
+        </div>
+        <div class="text-filed">
+          <div class="input-box">
+            <input id="phone" type="text" name="phone" th:value="${info.phone}" readonly/>
+            <label for="phone" class="label">전화번호</label>
+          </div>
+        </div>
+        <div class="text-filed">
+          <div class="input-box">
+            <input id="address" type="text" name="address" th:value="${info.address}" readonly/>
+            <label for="address" class="label">주소</label>
+          </div>
+        </div>
+        <div class="move">
+          <a href="/owner/my">이전</a>
+          <a href="/owner/edit">내정보 수정하기</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

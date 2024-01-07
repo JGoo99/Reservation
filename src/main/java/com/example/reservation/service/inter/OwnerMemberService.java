@@ -10,4 +10,8 @@ public interface OwnerMemberService {
   boolean login(OwnerLoginDto ownerLoginDto);
 
   void validateDuplicateMember(OwnerJoinDto ownerJoinDto);
+
+  OwnerJoinDto getOwnerInfo(Long ownerId);
+
+  OwnerJoinDto edit(OwnerJoinDto editDto, Long ownerId);
 }

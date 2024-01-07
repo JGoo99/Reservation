@@ -78,3 +78,25 @@
 .review-count p {
     font-size: 12pt;
 }
+
+
+.move {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.move a {
+    margin: 20px;
+    color: darkslategray;
+    border: none;
+    font-size: 10pt;
+    background-color: transparent;
+    padding: 0;
+}
+
+.move a:hover {
+    border-bottom: 1px solid darkslategray;
+}
+

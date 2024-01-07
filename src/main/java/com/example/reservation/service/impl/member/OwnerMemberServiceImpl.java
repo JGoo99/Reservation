@@ -46,4 +46,29 @@ public class OwnerMemberServiceImpl implements OwnerMemberService {
       throw new RuntimeException("이미 회원가입된 이메일입니다.");
     }
   }
+
+  @Override
+  public OwnerJoinDto getOwnerInfo(Long ownerId) {
+    Owner owner = ownerRepository.findById(ownerId)
+      .orElseThrow(() -> new RuntimeException("해당 점장의 정보가 존재하지 않습니다."));
+
+    return OwnerJoinDto.from(owner);
+  }
+
+  @Override
+  public OwnerJoinDto edit(OwnerJoinDto editDto, Long ownerId) {
+    Owner owner = ownerRepository.findById(ownerId)
+      .orElseThrow(() -> new RuntimeException("해당 점장의 정보가 존재하지 않습니다."));
+
+    if (!owner.getEmail().equals(editDto.getEmail())) {
+      validateDuplicateMember(editDto);
+      owner.setEmail(editDto.getEmail());
+    }
+    owner.setBusNumber(editDto.getBusNumber());
+    owner.setOwnerName(editDto.getOwnerName());
+    owner.setPhone(editDto.getPhone());
+    owner.setAddress(editDto.getAddress());
+
+    return OwnerJoinDto.from(ownerRepository.save(owner));
+  }
 }

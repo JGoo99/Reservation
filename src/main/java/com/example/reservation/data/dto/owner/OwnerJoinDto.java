@@ -46,4 +46,14 @@ public class OwnerJoinDto {
       .role(RoleType.ROLE_OWNER.toString())
       .build();
   }
+
+  public static OwnerJoinDto from(Owner owner) {
+    return OwnerJoinDto.builder()
+      .busNumber(owner.getBusNumber())
+      .email(owner.getEmail())
+      .ownerName(owner.getOwnerName())
+      .phone(owner.getPhone())
+      .address(owner.getAddress())
+      .build();
+  }
 }

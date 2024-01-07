@@ -2,8 +2,11 @@ package com.example.reservation.controller.owner;
 
 import com.example.reservation.data.dto.SearchDto;
 import com.example.reservation.data.dto.owner.OwnerDetails;
+import com.example.reservation.data.dto.owner.OwnerJoinDto;
 import com.example.reservation.data.dto.shop.ShopInfoDto;
+import com.example.reservation.data.dto.user.UserJoinDto;
 import com.example.reservation.service.impl.main.ShopServiceImpl;
+import com.example.reservation.service.impl.member.OwnerMemberServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,10 +16,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,6 +26,7 @@ import java.util.List;
 public class OwnerController {
 
   private final ShopServiceImpl shopService;
+  private final OwnerMemberServiceImpl ownerMemberService;
   private final Logger LOGGER = LoggerFactory.getLogger(OwnerController.class);
 
   @GetMapping("/home")
@@ -53,5 +54,50 @@ public class OwnerController {
     model.addAttribute("list", list);
 
     return "owner/my";
+  }
+
+  @GetMapping("/info")
+  public String infoP(@AuthenticationPrincipal OwnerDetails details, Model model) {
+
+    OwnerJoinDto ownerInfo = ownerMemberService.getOwnerInfo(details.getId());
+    model.addAttribute("info", ownerInfo);
+
+    return "owner/info";
+  }
+
+  @GetMapping("/edit")
+  public String infoEditP(@AuthenticationPrincipal OwnerDetails details,
+                          Model model) {
+
+    OwnerJoinDto ownerInfo = ownerMemberService.getOwnerInfo(details.getId());
+    model.addAttribute("info", ownerInfo);
+
+    return "owner/info-edit";
+  }
+
+  @PostMapping("/editProc")
+  public String infoEditProcP(@ModelAttribute OwnerJoinDto editDto,
+                              @AuthenticationPrincipal OwnerDetails details,
+                              Model model) {
+
+    OwnerJoinDto ownerInfo = ownerMemberService.edit(editDto, details.getId());
+    model.addAttribute("info", ownerInfo);
+
+    return "owner/info";
+  }
+
+  @GetMapping("/reserve/info")
+  public String reservInfoP(@RequestParam Long shopId) {
+
+
+    return "owner/reserv-info";
+  }
+
+  @GetMapping("/review/info")
+  public String reviewInfoP(@RequestParam Long shopId) {
+
+
+
+    return "owner/review-info";
   }
 }
