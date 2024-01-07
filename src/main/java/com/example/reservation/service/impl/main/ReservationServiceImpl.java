@@ -82,11 +82,11 @@ public class ReservationServiceImpl implements ReservationService {
 
   @Override
   public ReservationInfoDto save(ReservationAddDto addDto) {
-    Reservation reservation =
-      reservationRepository.save(ReservationAddDto.toEntity(addDto));
-
     Shop shop = shopRepository.findById(addDto.getShopId())
       .orElseThrow(() -> new RuntimeException("존재하지 않는 매장입니다."));
+
+    Reservation reservation =
+      reservationRepository.save(ReservationAddDto.toEntity(addDto));
 
     return ReservationInfoDto.from(reservation, ShopInfoDto.fromEntity(shop));
   }

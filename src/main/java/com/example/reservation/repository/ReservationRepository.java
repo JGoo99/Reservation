@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
 
@@ -17,4 +18,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
   // 해당 날짜 확정 예약 조회
   List<DateMapping> findAllByReservedAtBetweenAndIsAcceptedAndShopId(
     LocalDateTime from, LocalDateTime to, int isAccepted, Long shopId);
+
+  Optional<Reservation> findByUserId(Long userId);
 }

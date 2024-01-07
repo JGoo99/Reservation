@@ -26,5 +26,6 @@ public class Reservation extends BaseEntity {
 
   private String userName;
   private String userPhone;
+  private Long userId;
   private Long shopId;
 }

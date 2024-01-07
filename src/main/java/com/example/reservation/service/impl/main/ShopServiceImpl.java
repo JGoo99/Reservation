@@ -3,7 +3,6 @@ package com.example.reservation.service.impl.main;
 import com.example.reservation.data.dto.SearchDto;
 import com.example.reservation.data.dto.shop.ShopAddDto;
 import com.example.reservation.data.dto.shop.ShopInfoDto;
-import com.example.reservation.data.entity.Owner;
 import com.example.reservation.data.entity.Shop;
 import com.example.reservation.repository.OwnerRepository;
 import com.example.reservation.repository.ReservationRepository;
@@ -18,7 +17,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.springframework.data.domain.Sort.Direction.ASC;
 import static org.springframework.data.domain.Sort.Direction.DESC;
@@ -32,12 +30,9 @@ public class ShopServiceImpl implements ShopService {
   private final ReservationRepository reservationRepository;
 
   @Override
-  public ShopInfoDto add(ShopAddDto shopAddDto, String ownerEmail) {
+  public ShopInfoDto add(ShopAddDto shopAddDto) {
 
     validateDuplicateStore(shopAddDto.getShopName());
-    Owner owner = validateOwnerEmail(ownerEmail);
-
-    shopAddDto.setOwnerId(owner.getId());
     Shop shop = shopRepository.save(ShopAddDto.toEntity(shopAddDto));
 
     return ShopInfoDto.fromEntity(shop);
@@ -107,14 +102,6 @@ public class ShopServiceImpl implements ShopService {
     shop.setClose(shopInfoDto.getClose());
 
     return shop;
-  }
-
-  public Owner validateOwnerEmail(String ownerEmail) {
-    Optional<Owner> owner = ownerRepository.findByEmail(ownerEmail);
-    if (!owner.isPresent()) {
-      throw new RuntimeException("이메일 정보가 유효하지 않아 매장등록에 실패했습니다.");
-    }
-    return owner.get();
   }
 
   public void validateDuplicateStore(String storeName) {

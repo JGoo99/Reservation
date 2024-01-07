@@ -44,4 +44,14 @@ public class UserJoinDto {
       .role(RoleType.ROLE_USER.toString())
       .build();
   }
+
+  public static UserJoinDto from(User user) {
+    return UserJoinDto.builder()
+      .email(user.getEmail())
+      .username(user.getUsername())
+      .nickname(user.getNickname())
+      .phone(user.getPhone())
+      .address(user.getAddress())
+      .build();
+  }
 }

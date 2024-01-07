@@ -117,6 +117,7 @@
           <input id="shopId" type="hidden" name="shopId" th:value="${days.shopId}">
           <input type="hidden" name="userName" th:value="${#authentication.principal.username}">
           <input type="hidden" name="userPhone" th:value="${#authentication.principal.phone}">
+          <input type="hidden" name="userId" th:value="${#authentication.principal.id}">
           <div class="move">
             <button type="submit" onclick="return check()">예약 신청하기</button>
           </div>

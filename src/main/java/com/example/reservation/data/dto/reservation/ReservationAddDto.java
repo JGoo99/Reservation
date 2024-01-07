@@ -20,6 +20,7 @@ public class ReservationAddDto {
 
   private Integer date;
   private Long shopId;
+  private Long userId;
   private String userName;
   private String userPhone;
   private Integer open;
@@ -44,6 +45,7 @@ public class ReservationAddDto {
       .shopId(reservationAddDto.getShopId())
       .userName(reservationAddDto.userName)
       .userPhone(reservationAddDto.userPhone)
+      .userId(reservationAddDto.getUserId())
       .build();
   }
 }

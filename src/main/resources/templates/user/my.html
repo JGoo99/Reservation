@@ -1,13 +1,75 @@
 <!doctype html>
-<html lang="ko">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="/css/select.css">
   <title>User My Page</title>
 </head>
 <body>
-유저 마이페이지
+<div id="default">
+  <div id="container">
+    <div class="contents">
+      <div class="title">
+        <a href="/user/home" id="home">Goo's Reservation</a>
+        <div class="member-wrap">
+          <div class="is-login" sec:authorize="hasRole('USER')">
+            <a href="/user/my" sec:authentication="principal.nickname"></a>
+            <p>고객님</p>
+            <span> | </span>
+            <a href="/logout">로그아웃</a>
+          </div>
+          <div class="is-logout" sec:authorize="hasRole('OWNER') or isAnonymous()">
+            <a href="/join">회원가입</a>
+            <span> | </span>
+            <a href="/login">로그인</a>
+          </div>
+        </div>
+      </div>
+      <div class="service-boxes">
+        <div class="box-wrap" onclick="location.href='/user/info'">
+          <div class="box-contents">
+            <div class="box-name">
+              <p>내정보 서비스</p>
+            </div>
+            <div class="summary">
+              <p>
+                고객님의 정보를 확인하고 <br />일부 정보를 수정할 수 있어요.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="box-wrap" onclick="location.href='/user/reserv/info'">
+          <div class="box-contents">
+            <div class="box-name">
+              <p>예약 서비스</p>
+            </div>
+            <div class="summary">
+              <p>
+                예약 현황을 확인하고 <br />방문 도착을 확정할 수 있어요.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="box-wrap" onclick="location.href='/user/review/info'">
+          <div class="box-contents">
+            <div class="box-name">
+              <p>리뷰 작성 서비스</p>
+            </div>
+            <div class="summary">
+              <p>
+                리뷰를 작성하고 <br />리뷰의 일부 내용을 수정할 수 있어요.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>

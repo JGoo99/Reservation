@@ -8,7 +8,7 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 
 public interface ShopService {
-  ShopInfoDto add(ShopAddDto storeDto, String ownerEmail);
+  ShopInfoDto add(ShopAddDto storeDto);
 
   List<ShopInfoDto> getOwnerShopList(Long ownerId);
 

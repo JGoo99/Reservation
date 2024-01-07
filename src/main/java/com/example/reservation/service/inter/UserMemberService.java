@@ -10,4 +10,8 @@ public interface UserMemberService {
   boolean login(UserLoginDto userLoginDto);
 
   void validateDuplicateMember(UserJoinDto userJoinDto);
+
+  UserJoinDto getUserInfo(Long userId);
+
+  UserJoinDto edit(UserJoinDto editDto, Long userId);
 }
