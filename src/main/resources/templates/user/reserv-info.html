@@ -37,7 +37,7 @@
         <div class="reserv-list">
           <a th:href="@{/user/shop/reserv/detail(userId=${#authentication.principal.id})}" class="shop-ele" th:each="x : ${list}">
             <p class="ele-title" th:text="${x.shopName}"></p>
-            <div class="ele-summary">
+            <div class="reserv-summary">
               <p th:text="${x.address1}"></p>
               <p th:text="${x.address2}"></p>
               <p th:text="${x.userPhone}"></p>

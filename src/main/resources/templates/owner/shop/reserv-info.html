@@ -40,7 +40,7 @@
         <div class="reserv-list">
           <a th:href="@{/owner/shop/reserv/detail(reservId=${x.id})}" class="shop-ele" th:each="x : ${list}">
             <p class="ele-title" th:text="${x.userName + '님'}"></p>
-            <div class="ele-summary">
+            <div class="reserv-summary">
               <p th:text="${x.userPhone}"></p>
               <p th:text="${x.year + '년 ' + x.month + '월 ' + x.day + '일 ' + ' (' + x.week + ')'}"></p>
               <p th:text="${x.hour + '시 ' + '총 ' + x.time + '시간'}"></p>
