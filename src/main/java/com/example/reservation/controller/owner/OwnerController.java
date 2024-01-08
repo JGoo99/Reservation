@@ -117,19 +117,4 @@ public class OwnerController {
 
     return "owner/info";
   }
-
-//  @GetMapping("/reserve/info")
-//  public String reservInfoP(@RequestParam Long shopId) {
-//
-//
-//    return "owner/reserv-info";
-//  }
-//
-//  @GetMapping("/review/info")
-//  public String reviewInfoP(@RequestParam Long shopId) {
-//
-//
-//
-//    return "owner/review-info";
-//  }
 }

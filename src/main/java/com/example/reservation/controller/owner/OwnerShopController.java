@@ -1,5 +1,8 @@
 package com.example.reservation.controller.owner;
 
+import com.example.reservation.data.dto.SearchDto;
+import com.example.reservation.data.dto.reservation.AccProcDto;
+import com.example.reservation.data.dto.reservation.ReservationInfoDto;
 import com.example.reservation.data.dto.shop.ShopAddDto;
 import com.example.reservation.data.dto.shop.ShopInfoDto;
 import com.example.reservation.service.impl.main.ReservationServiceImpl;
@@ -7,6 +10,9 @@ import com.example.reservation.service.impl.main.ShopServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +25,7 @@ import java.security.Principal;
 public class OwnerShopController {
 
   private final ShopServiceImpl shopService;
+  private final ReservationServiceImpl reservationService;
   private final Logger LOGGER = LoggerFactory.getLogger(OwnerShopController.class);
 
   /**
@@ -125,5 +132,52 @@ public class OwnerShopController {
     model.addAttribute("shopInfo", shopInfo);
 
     return "owner/shop/edit-success";
+  }
+
+  /**
+   * 매장의 예약 정보를 보여준다.
+   */
+  @GetMapping("/reserv/info")
+  public String reservInfoP(@RequestParam Long shopId,
+                            @RequestParam(defaultValue = "1") int page,
+                            @ModelAttribute SearchDto searchDto,
+                            @PageableDefault(page = 1) Pageable pageable, Model model) {
+
+    searchDto.setPageNum(page);
+    Page<ReservationInfoDto> list = reservationService.getUndefinedList(searchDto, shopId);
+    searchDto.setPaging(pageable, list.getTotalPages());
+
+    model.addAttribute("shopId", shopId);
+    model.addAttribute("list", list);
+    model.addAttribute("startPage", searchDto.getStartPage());
+    model.addAttribute("endPage", searchDto.getEndPage());
+
+    return "owner/shop/reserv-info";
+  }
+
+  @PostMapping("/reserv/accProc")
+  public String accProc(@ModelAttribute AccProcDto accProcDto) {
+    LOGGER.info(accProcDto.toString());
+
+    reservationService.setIsAccepted(accProcDto);
+
+    return "redirect:/owner/shop/reserv/info?shopId=" + accProcDto.getShopId();
+  }
+
+  @GetMapping("/reserv/detail")
+  public String reservDetailP(@RequestParam Long reservId, Model model) {
+
+    return "owner/shop/reserv-detail";
+  }
+
+  /**
+   * 매장의 리뷰를 보여준다.
+   */
+  @GetMapping("/review/info")
+  public String reviewInfoP(@RequestParam Long shopId) {
+
+
+
+    return "owner/review-info";
   }
 }

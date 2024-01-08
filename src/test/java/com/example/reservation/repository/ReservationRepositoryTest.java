@@ -3,7 +3,6 @@ package com.example.reservation.repository;
 import com.example.reservation.data.dto.reservation.DateMapping;
 import com.example.reservation.data.dto.reservation.ReservationAddDto;
 import com.example.reservation.data.dto.reservation.ReservationInfoDto;
-import com.example.reservation.data.dto.shop.ShopInfoDto;
 import com.example.reservation.data.entity.Reservation;
 import com.example.reservation.data.entity.Shop;
 import org.junit.jupiter.api.DisplayName;
@@ -62,9 +61,7 @@ class ReservationRepositoryTest {
     Shop shop = shopRepository.findById(1L)
       .orElseThrow(() -> new RuntimeException("존재하지 않는 매장입니다."));
 
-    Page<ReservationInfoDto> acceptedList = savedAcceptedList.map(m -> {
-      return ReservationInfoDto.from(m, ShopInfoDto.fromEntity(shop));
-    });
+    Page<ReservationInfoDto> acceptedList = savedAcceptedList.map(m -> ReservationInfoDto.from(m, shop));
 
     // then
     System.out.println(acceptedList.getContent().get(0).toString());

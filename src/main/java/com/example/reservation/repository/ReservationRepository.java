@@ -12,7 +12,7 @@ import java.util.List;
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
 
   /**
-   * 해당 매장의 확정된 예약만 페이징처리하여 반환
+   * 해당 매장의 예약 상태(대기, 승인, 거부)에 따라 페이징처리하여 반환
    */
   Page<Reservation> findAllByShopIdAndIsAccepted(
     Long shopId, int isAccepted, Pageable pageable);

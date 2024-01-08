@@ -1,11 +1,14 @@
 package com.example.reservation.service.inter;
 
+import com.example.reservation.data.dto.SearchDto;
+import com.example.reservation.data.dto.reservation.AccProcDto;
 import com.example.reservation.data.dto.reservation.ReservationAddDto;
 import com.example.reservation.data.dto.reservation.ReservationInfoDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
-import java.awt.print.Pageable;
+import org.springframework.data.domain.Pageable;
+
 import java.util.Queue;
 
 public interface ReservationService {
@@ -20,4 +23,7 @@ public interface ReservationService {
 
   void setOpeningHours(ReservationAddDto addDto);
 
+  Page<ReservationInfoDto> getUndefinedList(SearchDto searchDto, Long shopId);
+
+  Boolean setIsAccepted(AccProcDto accProcDto);
 }

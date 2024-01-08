@@ -1,5 +1,7 @@
 package com.example.reservation.service.impl.main;
 
+import com.example.reservation.data.dto.SearchDto;
+import com.example.reservation.data.dto.reservation.AccProcDto;
 import com.example.reservation.data.dto.reservation.DateMapping;
 import com.example.reservation.data.dto.reservation.ReservationAddDto;
 import com.example.reservation.data.dto.reservation.ReservationInfoDto;
@@ -11,16 +13,17 @@ import com.example.reservation.service.inter.ReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Pageable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import static org.springframework.data.domain.Sort.Direction.ASC;
 import static org.springframework.data.domain.Sort.Direction.DESC;
 
 @Service
@@ -36,7 +39,7 @@ public class ReservationServiceImpl implements ReservationService {
   @Override
   public Page<ReservationInfoDto> getAcceptedList(Long shopId, Pageable pageable) {
     PageRequest pageRequest =
-      getPaging(pageable.getNumberOfPages() - 1, 5);
+      getPaging(pageable.getPageNumber() - 1, 5);
 
     Page<Reservation> selectedAcceptedList =
       reservationRepository.findAllByShopIdAndIsAccepted(shopId, 1, pageRequest);
@@ -119,12 +122,17 @@ public class ReservationServiceImpl implements ReservationService {
       .orElseThrow(() -> new RuntimeException("존재하지 않는 매장입니다."));
 
     // 예약 10분 전 마감 더블체크
-    int curHour = LocalDateTime.now().plusMinutes(10).getHour();
+    LocalDateTime now = LocalDateTime.now();
+    if (now.getYear() == addDto.getYear() && now.getMonthValue() == addDto.getMonth()
+      && now.getDayOfMonth() == addDto.getDate()) {
 
-    List<Integer> times = addDto.getTimes();
-    for (int i = 0; i < times.size(); i++) {
-      if (times.get(i) <= curHour) {
-        throw new RuntimeException("예약할 수 없는 날짜입니다.");
+      int curHour = LocalDateTime.now().plusMinutes(10).getHour();
+
+      List<Integer> times = addDto.getTimes();
+      for (int i = 0; i < times.size(); i++) {
+        if (times.get(i) <= curHour) {
+          throw new RuntimeException("예약할 수 없는 날짜입니다.");
+        }
       }
     }
 
@@ -145,5 +153,43 @@ public class ReservationServiceImpl implements ReservationService {
 
     addDto.setOpen(shop.getOpen());
     addDto.setClose(shop.getClose());
+  }
+
+  /**
+   * 대기중인 예약 리스트 날짜 가까운 순으로 전체 반환
+   */
+  @Override
+  public Page<ReservationInfoDto> getUndefinedList(SearchDto searchDto, Long shopId) {
+    searchDto.setDirectionColumn("reservedAt");
+    searchDto.setDirection(0);
+    Pageable pageable = getPaging(searchDto);
+
+    Page<Reservation> reservations =
+      reservationRepository.findAllByShopIdAndIsAccepted(shopId, 0, pageable);
+
+    Shop shop = shopRepository.findById(shopId)
+      .orElseThrow(() -> new RuntimeException("해당 매장 정보가 유효하지 않습니다."));
+
+    return reservations.map(m -> ReservationInfoDto.from(m, shop));
+  }
+
+  @Override
+  public Boolean setIsAccepted(AccProcDto accProcDto) {
+    Reservation reservation = reservationRepository.findById(accProcDto.getReservationId())
+      .orElseThrow(() -> new RuntimeException("해당 예약 정보가 존재하지 않습니다."));
+
+    reservation.setIsAccepted(accProcDto.getIsAccepted());
+    reservationRepository.save(reservation);
+
+    return true;
+  }
+
+  public PageRequest getPaging(SearchDto searchDto) {
+    if (searchDto.getDirection() == 0) {
+      return PageRequest.of(searchDto.getPageNum() - 1, searchDto.getSize(),
+        Sort.by(ASC, searchDto.getDirectionColumn()));
+    }
+    return PageRequest.of(searchDto.getPageNum() - 1, searchDto.getSize(),
+      Sort.by(DESC, searchDto.getDirectionColumn()));
   }
 }

@@ -16,6 +16,8 @@ import java.util.Locale;
 @ToString
 public class ReservationInfoDto {
 
+  private Long id;
+
   private String shopName;
   private String address1;
   private String address2;
@@ -58,6 +60,7 @@ public class ReservationInfoDto {
     }
 
     return ReservationInfoDto.builder()
+      .id(reservation.getId())
       .shopName(shop.getShopName())
       .address1(shop.getAddress1())
       .address2(shop.getAddress2())
