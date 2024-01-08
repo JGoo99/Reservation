@@ -8,8 +8,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
+
+  /**
+   * 유저 예약 취소시 사용
+   */
+  Optional<Reservation> findByIdAndUserId(Long reservationId, Long userId);
 
   /**
    * 해당 매장의 예약 상태(대기, 승인, 거부)에 따라 페이징처리하여 반환
@@ -35,5 +41,8 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
    */
   List<Reservation> findAllByReservedAtAfterAndUserId(LocalDateTime now, Long userId);
 
+  /**
+   * 해당 유저의 현재시간 이후 예약 데이터 전부 페이징처리하여 반환
+   */
   Page<Reservation> findAllByReservedAtAfterAndUserId(LocalDateTime now, Long userId, Pageable pageable);
 }

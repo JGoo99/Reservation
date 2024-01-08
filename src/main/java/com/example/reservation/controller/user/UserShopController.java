@@ -43,8 +43,6 @@ public class UserShopController {
 
   /**
    * 매장 예약 : 년도와 달을 고르는 페이지
-   * @param shopId .
-   * @param model .
    * @return 매장 예약 중 년도와 달을 고르는 페이지
    */
   @GetMapping("/reserv")
@@ -57,9 +55,6 @@ public class UserShopController {
 
   /**
    * 매장 예약 : 날짜를 고르는 페이지
-   * @param addDto .
-   * @param model .
-   * @return .
    */
   @PostMapping("/reserv.proc1")
   public String reservProc1P(@ModelAttribute ReservationAddDto addDto, Model model) {
@@ -75,8 +70,6 @@ public class UserShopController {
 
   /**
    * 매장 예약 : 시각을 고르는 페이지
-   * @param addDto .
-   * @param model .
    * @return 예약가능한 시간만 선택할 수 있도록 한다.
    */
   @PostMapping("/reserv.proc2")
@@ -116,7 +109,17 @@ public class UserShopController {
   public String reservDeleteProc(@AuthenticationPrincipal CustomUserDetails details,
                                  @RequestParam Long reservationId) {
 
-    boolean isDeleted = reservationService.deleteByUser(reservationId);
+    boolean isDeleted = reservationService.deleteByUser(reservationId, details.getId());
+
+    return "redirect:/user/reserv/info";
+  }
+
+  @PostMapping("/reserv/visitProc")
+  public String reservVisitProc(@AuthenticationPrincipal CustomUserDetails details,
+                                 @RequestParam Long reservationId) {
+
+    boolean isDeleted = reservationService.visitByUSer(reservationId, details.getId());
+
 
     return "redirect:/user/reserv/info";
   }

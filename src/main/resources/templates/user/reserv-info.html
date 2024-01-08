@@ -50,6 +50,10 @@
               <input type="hidden" name="reservationId" th:value="${x.id}">
               <button type="submit">취소</button>
             </form>
+            <form action="/user/shop/reserv/visitProc" method="post">
+              <input type="hidden" name="reservationId" th:value="${x.id}">
+              <button type="submit">방문</button>
+            </form>
           </a>
         </div>
       </div>

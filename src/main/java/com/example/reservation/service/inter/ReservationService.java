@@ -6,7 +6,6 @@ import com.example.reservation.data.dto.reservation.ReservationAddDto;
 import com.example.reservation.data.dto.reservation.ReservationInfoDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-
 import org.springframework.data.domain.Pageable;
 
 import java.util.Queue;
@@ -29,5 +28,7 @@ public interface ReservationService {
 
   Page<ReservationInfoDto> getInfoByUser(SearchDto searchDto, Long userId);
 
-  Boolean deleteByUser(Long reservationId);
+  Boolean deleteByUser(Long reservationId, Long userId);
+
+  boolean visitByUSer(Long reservationId, Long userId);
 }

@@ -213,13 +213,32 @@ public class ReservationServiceImpl implements ReservationService {
    * 유저 페이지에서 예약 취소하는 메소드
    */
   @Override
-  public Boolean deleteByUser(Long reservationId) {
+  public Boolean deleteByUser(Long reservationId, Long userId) {
 
-    Reservation reservation = reservationRepository.findById(reservationId)
+    Reservation reservation = reservationRepository.findByIdAndUserId(reservationId, userId)
       .orElseThrow(() -> new RuntimeException("해당 예약 정보가 유효하지 않아 예약취소에 실패했습니다."));
 
     if (reservation.getIsAccepted() == 0) {
       reservationRepository.delete(reservation);
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * 유저 페이지에서 방문 도착 처리하는 메소드
+   */
+  @Override
+  public boolean visitByUSer(Long reservationId, Long userId) {
+
+    Reservation reservation = reservationRepository.findByIdAndUserId(reservationId, userId)
+      .orElseThrow(() -> new RuntimeException("해당 예약 정보가 유효하지 않아 예약취소에 실패했습니다."));
+
+    // 예약승인 & 10분 전 도착인 경우
+    if (reservation.getIsAccepted() == 1
+            && LocalDateTime.now().plusMinutes(10).isBefore(reservation.getReservedAt())) {
+      reservation.setVisited(true);
+      reservationRepository.save(reservation);
       return true;
     }
     return false;
