@@ -173,6 +173,11 @@ public class ReservationServiceImpl implements ReservationService {
     return reservations.map(m -> ReservationInfoDto.from(m, shop));
   }
 
+  /**
+   * 예약 승인/거부 처리 메소드
+   * @param accProcDto 승인여부 및 db 아이디를 받아온다.
+   * @return 처리 결과
+   */
   @Override
   public Boolean setIsAccepted(AccProcDto accProcDto) {
     Reservation reservation = reservationRepository.findById(accProcDto.getReservationId())
@@ -182,6 +187,42 @@ public class ReservationServiceImpl implements ReservationService {
     reservationRepository.save(reservation);
 
     return true;
+  }
+
+  /**
+   * 유저의 모든 예약 리스트를 날짜 가까운 순으로 반환
+   */
+  @Override
+  public Page<ReservationInfoDto> getInfoByUser(SearchDto searchDto, Long userId) {
+    searchDto.setDirectionColumn("reservedAt");
+    searchDto.setDirection(0);
+    Pageable pageable = getPaging(searchDto);
+
+    Page<Reservation> reservations =
+      reservationRepository.findAllByReservedAtAfterAndUserId(LocalDateTime.now(), userId, pageable);
+
+    return reservations.map(m -> {
+      Shop shop = shopRepository.findById(m.getShopId())
+        .orElseThrow(() -> new RuntimeException("해당 예약의 매장정보가 유효하지 않습니다."));
+
+      return ReservationInfoDto.from(m, shop);
+    });
+  }
+
+  /**
+   * 유저 페이지에서 예약 취소하는 메소드
+   */
+  @Override
+  public Boolean deleteByUser(Long reservationId) {
+
+    Reservation reservation = reservationRepository.findById(reservationId)
+      .orElseThrow(() -> new RuntimeException("해당 예약 정보가 유효하지 않아 예약취소에 실패했습니다."));
+
+    if (reservation.getIsAccepted() == 0) {
+      reservationRepository.delete(reservation);
+      return true;
+    }
+    return false;
   }
 
   public PageRequest getPaging(SearchDto searchDto) {

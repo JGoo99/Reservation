@@ -34,4 +34,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
    * - 유저의 개인정보 변경 시 현재시간 이후의 데이터만 변경
    */
   List<Reservation> findAllByReservedAtAfterAndUserId(LocalDateTime now, Long userId);
+
+  Page<Reservation> findAllByReservedAtAfterAndUserId(LocalDateTime now, Long userId, Pageable pageable);
 }

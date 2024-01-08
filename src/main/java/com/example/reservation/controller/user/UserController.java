@@ -1,9 +1,11 @@
 package com.example.reservation.controller.user;
 
 import com.example.reservation.data.dto.SearchDto;
+import com.example.reservation.data.dto.reservation.ReservationInfoDto;
 import com.example.reservation.data.dto.shop.ShopInfoDto;
 import com.example.reservation.data.dto.user.CustomUserDetails;
 import com.example.reservation.data.dto.user.UserJoinDto;
+import com.example.reservation.service.impl.main.ReservationServiceImpl;
 import com.example.reservation.service.impl.main.ShopServiceImpl;
 import com.example.reservation.service.impl.member.UserMemberServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +26,8 @@ public class UserController {
 
   private final ShopServiceImpl shopService;
   private final UserMemberServiceImpl userMemberService;
+  private final ReservationServiceImpl reservationService;
+
   private final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
   /**
@@ -119,8 +123,19 @@ public class UserController {
 
   @GetMapping("/reserv/info")
   public String reservInfoP(@AuthenticationPrincipal CustomUserDetails details,
+                            @RequestParam(defaultValue = "1") int page,
+                            @ModelAttribute SearchDto searchDto,
+                            @PageableDefault(page = 1) Pageable pageable,
                             Model model) {
 
+    searchDto.setPageNum(page);
+    Page<ReservationInfoDto> list =
+      reservationService.getInfoByUser(searchDto, details.getId());
+    searchDto.setPaging(pageable, list.getTotalPages());
+
+    model.addAttribute("list", list);
+    model.addAttribute("startPage", searchDto.getStartPage());
+    model.addAttribute("endPage", searchDto.getEndPage());
 
     return "user/reserv-info";
   }

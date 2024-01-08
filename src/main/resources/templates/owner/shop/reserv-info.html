@@ -34,8 +34,8 @@
           </div>
         </div>
       </div>
+      <div class="intro">대기중인 예약</div>
       <div class="shop-box">
-        <div class="intro">대기중인 예약</div>
         <div class="intro" th:if="${list.totalPages} == '0'">대기중인 예약이 없습니다.</div>
         <div class="reserv-list">
           <a th:href="@{/owner/shop/reserv/detail(reservId=${x.id})}" class="shop-ele" th:each="x : ${list}">

@@ -26,4 +26,8 @@ public interface ReservationService {
   Page<ReservationInfoDto> getUndefinedList(SearchDto searchDto, Long shopId);
 
   Boolean setIsAccepted(AccProcDto accProcDto);
+
+  Page<ReservationInfoDto> getInfoByUser(SearchDto searchDto, Long userId);
+
+  Boolean deleteByUser(Long reservationId);
 }

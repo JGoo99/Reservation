@@ -40,7 +40,7 @@ public class ReservationInfoDto {
     String isAccepted = "";
     switch (reservation.getIsAccepted()) {
       case 0:
-        isAccepted = "신청 완료";
+        isAccepted = "예약 대기";
         break;
       case -1:
         isAccepted = "예약 거부";

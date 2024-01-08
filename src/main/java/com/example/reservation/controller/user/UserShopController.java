@@ -3,11 +3,13 @@ package com.example.reservation.controller.user;
 import com.example.reservation.data.dto.reservation.ReservationAddDto;
 import com.example.reservation.data.dto.reservation.ReservationInfoDto;
 import com.example.reservation.data.dto.shop.ShopInfoDto;
+import com.example.reservation.data.dto.user.CustomUserDetails;
 import com.example.reservation.service.impl.main.ReservationServiceImpl;
 import com.example.reservation.service.impl.main.ShopServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -103,11 +105,19 @@ public class UserShopController {
    */
   @PostMapping("/reserv.proc3")
   public String reservProc3P(@ModelAttribute ReservationAddDto addDto, Model model) {
-    LOGGER.info("[reserve]: {}", addDto.toString());
 
     ReservationInfoDto infoDto = reservationService.save(addDto);
     model.addAttribute("info", infoDto);
 
     return "user/shop/reserve-success";
+  }
+
+  @PostMapping("/reserv/deleteProc")
+  public String reservDeleteProc(@AuthenticationPrincipal CustomUserDetails details,
+                                 @RequestParam Long reservationId) {
+
+    boolean isDeleted = reservationService.deleteByUser(reservationId);
+
+    return "redirect:/user/reserv/info";
   }
 }

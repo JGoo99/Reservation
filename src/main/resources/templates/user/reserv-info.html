@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="/css/home.css">
+  <title>User Shop Reserve</title>
+</head>
+<body>
+<div id="default">
+  <div id="container">
+    <div class="contents">
+      <div class="title">
+        <a href="/user/home" id="home">Goo's Reservation</a>
+        <div class="member-wrap">
+          <div class="is-login" sec:authorize="hasRole('USER')">
+            <a href="/user/my" sec:authentication="principal.nickname"></a>
+            <p>고객님</p>
+            <span> | </span>
+            <a href="/logout">로그아웃</a>
+          </div>
+          <div class="is-logout" sec:authorize="hasRole('OWNER') or isAnonymous()">
+            <a href="/join">회원가입</a>
+            <span> | </span>
+            <a href="/login">로그인</a>
+          </div>
+        </div>
+      </div>
+      <div class="intro">예약현황</div>
+      <div class="shop-box">
+        <div class="intro" th:if="${list.totalPages} == '0'">예약내역이 없습니다.</div>
+        <div class="reserv-list">
+          <a th:href="@{/user/shop/reserv/detail(userId=${#authentication.principal.id})}" class="shop-ele" th:each="x : ${list}">
+            <p class="ele-title" th:text="${x.shopName}"></p>
+            <div class="ele-summary">
+              <p th:text="${x.address1}"></p>
+              <p th:text="${x.address2}"></p>
+              <p th:text="${x.userPhone}"></p>
+              <p th:text="${x.year + '년 ' + x.month + '월 ' + x.day + '일 ' + ' (' + x.week + ')'}"></p>
+              <p th:text="${x.hour + '시 ' + '총 ' + x.time + '시간'}"></p>
+              <p th:text="${x.isAccepted}"></p>
+              <p th:text="${x.isVisited}"></p>
+            </div>
+            <form action="/user/shop/reserv/deleteProc" method="post">
+              <input type="hidden" name="reservationId" th:value="${x.id}">
+              <button type="submit">취소</button>
+            </form>
+          </a>
+        </div>
+      </div>
+      <div class="paging-wrap" th:unless="${list.totalPages}== '0'">
+        <ul th:with="start=${startPage}, last=${endPage}">
+          <th:block th:with="
+          firstLink=@{/user/reserv/info(page=1)},
+          prevLink=@{/user/reserv/info(page=${list.number})},
+          nextLink=@{/user/reserv/info(page=${list.number + 2})},
+          lastLink=@{/user/reserv/info(page=${list.totalPages})}"
+          />
+          <li th:style="${list.first}"><a th:href="${firstLink}"> << </a></li>
+          <li><a th:href="${list.first} ? '#' : ${prevLink}"> < </a></li>
+          <li class="number" th:each="p : ${#numbers.sequence(start, last)}">
+            <a th:classappend="${p == list.number + 1} ? 'active'"
+               th:href="@{/owner/home(page=${p})}" th:text=" ${p} " >
+            </a>
+          </li>
+          <li><a th:href="${list.last} ? '#' : ${nextLink}"> > </a></li>
+          <li><a th:href="${lastLink}"> >> </a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
