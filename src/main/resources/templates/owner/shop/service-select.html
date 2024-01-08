@@ -30,12 +30,11 @@
           </div>
         </div>
       </div>
-      
       <div class="service-boxes">
-        <div class="box-wrap" th:onclick="|location.href='@{|/owner/shop/${shopId}/info|}'|">
+        <div class="box-wrap" th:onclick="|location.href='@{/owner/shop/info(shopId=${shopId})}'|">
           <div class="box-contents">
             <div class="box-name">
-              <p>정보 관리 서비스</p>
+              <p>매장정보 관리 서비스</p>
             </div>
             <div class="summary">
               <p>
@@ -44,7 +43,7 @@
             </div>
           </div>
         </div>
-        <div class="box-wrap" th:onclick="|location.href='@{|/owner/shop/${shopId}/reserve|}'|">
+        <div class="box-wrap" th:onclick="|location.href='@{/owner/reserve/info(shopId=${shopId})}'|">
           <div class="box-contents">
             <div class="box-name">
               <p>예약 관리 서비스</p>
@@ -56,7 +55,7 @@
             </div>
           </div>
         </div>
-        <div class="box-wrap" th:onclick="|location.href='@{|/owner/shop/${shopId}/review|}'|">
+        <div class="box-wrap" th:onclick="|location.href='@{/owner/reserve/info(shopId=${shopId})}'|">
           <div class="box-contents">
             <div class="box-name">
               <p>리뷰 관리 서비스</p>

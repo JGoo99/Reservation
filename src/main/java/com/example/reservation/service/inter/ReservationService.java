@@ -10,7 +10,7 @@ import java.util.Queue;
 
 public interface ReservationService {
 
-  Page<ReservationInfoDto> getAvailableTimeList(Long shopId, Pageable pageable);
+   Page<ReservationInfoDto> getAcceptedList(Long shopId, Pageable pageable);
 
   PageRequest getPaging(int page, int size);
 
@@ -19,4 +19,5 @@ public interface ReservationService {
   ReservationInfoDto save(ReservationAddDto addDto);
 
   void setOpeningHours(ReservationAddDto addDto);
+
 }

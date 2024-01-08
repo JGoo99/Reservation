@@ -21,4 +21,10 @@ public class Review extends BaseEntity {
   private String title;
   private String content;
   private int star;
+
+  private Long userId;
+  private Long shopId;
+
+  @Column(unique = true)
+  private Long reservationId;
 }

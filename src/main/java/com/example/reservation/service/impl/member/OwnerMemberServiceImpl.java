@@ -55,11 +55,18 @@ public class OwnerMemberServiceImpl implements OwnerMemberService {
     return OwnerJoinDto.from(owner);
   }
 
+  /**
+   * 점장 개인정보 수정
+   * @param editDto 회원가입 Dto 와 비밀번호를 받지 않는 것 빼고 동일
+   * @param ownerId .
+   * @return 수정 완료된 결과를 다시 dt o로 반환
+   */
   @Override
   public OwnerJoinDto edit(OwnerJoinDto editDto, Long ownerId) {
     Owner owner = ownerRepository.findById(ownerId)
       .orElseThrow(() -> new RuntimeException("해당 점장의 정보가 존재하지 않습니다."));
 
+    // 이메일이 바뀐 경우 중복검사 후 변경 [이메일 : unique = true]
     if (!owner.getEmail().equals(editDto.getEmail())) {
       validateDuplicateMember(editDto);
       owner.setEmail(editDto.getEmail());

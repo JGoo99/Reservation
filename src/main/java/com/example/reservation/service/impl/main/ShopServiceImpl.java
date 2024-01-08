@@ -4,8 +4,6 @@ import com.example.reservation.data.dto.SearchDto;
 import com.example.reservation.data.dto.shop.ShopAddDto;
 import com.example.reservation.data.dto.shop.ShopInfoDto;
 import com.example.reservation.data.entity.Shop;
-import com.example.reservation.repository.OwnerRepository;
-import com.example.reservation.repository.ReservationRepository;
 import com.example.reservation.repository.ShopRepository;
 import com.example.reservation.service.inter.ShopService;
 import lombok.RequiredArgsConstructor;
@@ -26,9 +24,10 @@ import static org.springframework.data.domain.Sort.Direction.DESC;
 public class ShopServiceImpl implements ShopService {
 
   private final ShopRepository shopRepository;
-  private final OwnerRepository ownerRepository;
-  private final ReservationRepository reservationRepository;
 
+  /**
+   * 매장 정보 등록 메소드
+   */
   @Override
   public ShopInfoDto add(ShopAddDto shopAddDto) {
 
@@ -38,6 +37,9 @@ public class ShopServiceImpl implements ShopService {
     return ShopInfoDto.fromEntity(shop);
   }
 
+  /**
+   * 해당 점장이 등록한 매장 리스트를 반환
+   */
   @Override
   public List<ShopInfoDto> getOwnerShopList(Long ownerId) {
     List<Shop> shops = shopRepository.findAllByOwnerId(ownerId);
@@ -50,6 +52,12 @@ public class ShopServiceImpl implements ShopService {
     return shopInfoList;
   }
 
+  /**
+   * 전체 매장리스트
+   * - 유저와 점장의 메인페이지에서 매장 리스트를 페이징 처리하여 보여줄 때 사용
+   * @param searchDto .
+   * @return 등록된 매장리스틀 페이징 처리하여 반환
+   */
   @Override
   public Page<ShopInfoDto> getSearchedShopList(SearchDto searchDto) {
     Pageable pageable = getPaging(searchDto);
@@ -72,10 +80,13 @@ public class ShopServiceImpl implements ShopService {
     return ShopInfoDto.fromEntity(shop);
   }
 
+  /**
+   * 매장 삭제 메소드
+   */
   @Override
   public boolean delete(Long shopId) {
     shopRepository.deleteById(shopId);
-    // reviewRepository.deleteByShopId(shopId);
+    // 관련 예약, 리뷰 db 수정 필요
 
     if(shopRepository.existsById(shopId)) {
       throw new RuntimeException("매장정보가 유효하지 않아 매장 삭제에 실패했습니다.");
@@ -83,6 +94,9 @@ public class ShopServiceImpl implements ShopService {
     return true;
   }
 
+  /**
+   * 매장 정보 수정 메소드
+   */
   @Override
   public ShopInfoDto edit(ShopInfoDto shopInfoDto) {
     Shop shop = shopRepository.findById(shopInfoDto.getShopId())
@@ -104,6 +118,9 @@ public class ShopServiceImpl implements ShopService {
     return shop;
   }
 
+  /**
+   * 매장명 : unique = true
+   */
   public void validateDuplicateStore(String storeName) {
     boolean isStore = shopRepository.existsByShopName(storeName);
     if (isStore) {
@@ -111,6 +128,11 @@ public class ShopServiceImpl implements ShopService {
     }
   }
 
+  /**
+   * 페이징 구현체를 반환하는 메소드
+   * - 오름차순 / 내림차순에 따라 반환하는 구현체가 다름
+   * @param searchDto 유저, 점장의 메인화면에서 받아온 페이징 및 검색 관련 dto
+   */
   public PageRequest getPaging(SearchDto searchDto) {
     if (searchDto.getDirection() == 0) {
       return PageRequest.of(searchDto.getPageNum() - 1, searchDto.getSize(),

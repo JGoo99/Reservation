@@ -1,7 +1,7 @@
 package com.example.reservation.data.dto.reservation;
 
-import com.example.reservation.data.dto.shop.ShopInfoDto;
 import com.example.reservation.data.entity.Reservation;
+import com.example.reservation.data.entity.Shop;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,7 +34,7 @@ public class ReservationInfoDto {
   private String isVisited;
 
 
-  public static ReservationInfoDto from(Reservation reservation, ShopInfoDto shopInfoDto) {
+  public static ReservationInfoDto from(Reservation reservation, Shop shop) {
     String isAccepted = "";
     switch (reservation.getIsAccepted()) {
       case 0:
@@ -57,11 +57,10 @@ public class ReservationInfoDto {
       isVisited = "방문 기록이 없음";
     }
 
-
     return ReservationInfoDto.builder()
-      .shopName(shopInfoDto.getShopName())
-      .address1(shopInfoDto.getAddress1())
-      .address2(shopInfoDto.getAddress2())
+      .shopName(shop.getShopName())
+      .address1(shop.getAddress1())
+      .address2(shop.getAddress2())
       .userName(reservation.getUserName())
       .userPhone(reservation.getUserPhone())
       .year(reservation.getReservedAt().getYear())

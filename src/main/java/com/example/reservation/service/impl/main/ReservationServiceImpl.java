@@ -3,7 +3,6 @@ package com.example.reservation.service.impl.main;
 import com.example.reservation.data.dto.reservation.DateMapping;
 import com.example.reservation.data.dto.reservation.ReservationAddDto;
 import com.example.reservation.data.dto.reservation.ReservationInfoDto;
-import com.example.reservation.data.dto.shop.ShopInfoDto;
 import com.example.reservation.data.entity.Reservation;
 import com.example.reservation.data.entity.Shop;
 import com.example.reservation.repository.ReservationRepository;
@@ -31,8 +30,11 @@ public class ReservationServiceImpl implements ReservationService {
   private final ReservationRepository reservationRepository;
   private final ShopRepository shopRepository;
 
+  /**
+   * 확정된 예약 리스트를 페이징 처리하여 반환
+   */
   @Override
-  public Page<ReservationInfoDto> getAvailableTimeList(Long shopId, Pageable pageable) {
+  public Page<ReservationInfoDto> getAcceptedList(Long shopId, Pageable pageable) {
     PageRequest pageRequest =
       getPaging(pageable.getNumberOfPages() - 1, 5);
 
@@ -42,16 +44,28 @@ public class ReservationServiceImpl implements ReservationService {
     Shop shop = shopRepository.findById(shopId)
       .orElseThrow(() -> new RuntimeException("존재하지 않는 매장입니다."));
 
+
     return selectedAcceptedList.map(m -> {
-      return ReservationInfoDto.from(m, ShopInfoDto.fromEntity(shop));
+      return ReservationInfoDto.from(m, shop);
     });
   }
 
+  /**
+   * 예약순서를 기준으로 정렬한 페이징 구현체를 반환한다.
+   * @param page 현재 페이지
+   * @param size 페이지 당 보여주는 데이터 수
+   * @return pageable 구현체
+   */
   @Override
   public PageRequest getPaging(int page, int size) {
     return PageRequest.of(page, size, Sort.by(DESC, "reservedAt"));
   }
 
+  /**
+   * 요청된 시간에 예약 가능한 시간을 큐에 담아서 리턴한다.
+   * @param addDto 유저의 예약 신청 시 사용
+   * @return 예약 가능한 시간 큐 [프론트단에서 타임리프 이중 반복문 사용하기 위해 큐를 사용]
+   */
   @Override
   public Queue<Integer> getAvailableTimeList(ReservationAddDto addDto) {
     List<Integer> available = new ArrayList<>();
@@ -61,15 +75,15 @@ public class ReservationServiceImpl implements ReservationService {
     LocalDateTime request =
       LocalDateTime.of(addDto.getYear(), addDto.getMonth(), addDto.getDate(), 0, 0);
 
+    // 요청된 날짜에서 확정된 예약의 시간은 제외한다.
     List<DateMapping> acceptedList =
       reservationRepository.findAllByReservedAtBetweenAndIsAcceptedAndShopId(
         request, request.plusDays(1).minusMinutes(1), 1, addDto.getShopId());
 
-    // 영업시간에서 예약확정시간 제외
+    // 총 영업시간에서 확정예약의 시간 제외처리
     for (int i = shop.getOpen(); i <= shop.getClose(); i++) {
       available.add(i);
     }
-
     for (int i = 0; i < acceptedList.size(); i++) {
       int idx = available.indexOf(acceptedList.get(i).getReservedAt().getHour());
 
@@ -94,6 +108,11 @@ public class ReservationServiceImpl implements ReservationService {
     return new LinkedList<>(available);
   }
 
+  /**
+   * 예약 요청이 들어온 시점을 기준으로 예약 시간 유효성을 한 번 더 체크 후 예약 정보를 저장한다.
+   * @param addDto 최종 예약 신청 dto
+   * @return 저장된 예약 정보를 반환
+   */
   @Override
   public ReservationInfoDto save(ReservationAddDto addDto) {
     Shop shop = shopRepository.findById(addDto.getShopId())
@@ -112,9 +131,13 @@ public class ReservationServiceImpl implements ReservationService {
     Reservation reservation =
       reservationRepository.save(ReservationAddDto.toEntity(addDto));
 
-    return ReservationInfoDto.from(reservation, ShopInfoDto.fromEntity(shop));
+    return ReservationInfoDto.from(reservation, shop);
   }
 
+  /**
+   * 해당 매장의 오픈시간, 마감시간을 초기화한다.
+   * @param addDto 예약 신청 시 받아온 dto
+   */
   @Override
   public void setOpeningHours(ReservationAddDto addDto) {
     Shop shop = shopRepository.findById(addDto.getShopId())

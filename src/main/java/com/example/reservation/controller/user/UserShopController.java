@@ -24,6 +24,12 @@ public class UserShopController {
   private final ReservationServiceImpl reservationService;
   private final Logger LOGGER = LoggerFactory.getLogger(UserShopController.class);
 
+  /**
+   * 유저 메인화면에 보이는 매장 리스트의 상세정보
+   * @param shopId .
+   * @param model .
+   * @return 매장 상세정보 페이지
+   */
   @GetMapping("/info")
   public String infoP(@RequestParam Long shopId, Model model) {
 
@@ -33,6 +39,12 @@ public class UserShopController {
     return "user/shop/info";
   }
 
+  /**
+   * 매장 예약 : 년도와 달을 고르는 페이지
+   * @param shopId .
+   * @param model .
+   * @return 매장 예약 중 년도와 달을 고르는 페이지
+   */
   @GetMapping("/reserv")
   public String reservP(@RequestParam Long shopId, Model model) {
 
@@ -41,6 +53,12 @@ public class UserShopController {
     return "user/shop/reserve";
   }
 
+  /**
+   * 매장 예약 : 날짜를 고르는 페이지
+   * @param addDto .
+   * @param model .
+   * @return .
+   */
   @PostMapping("/reserv.proc1")
   public String reservProc1P(@ModelAttribute ReservationAddDto addDto, Model model) {
     int lastDays =
@@ -53,6 +71,12 @@ public class UserShopController {
     return "user/shop/reserve-day";
   }
 
+  /**
+   * 매장 예약 : 시각을 고르는 페이지
+   * @param addDto .
+   * @param model .
+   * @return 예약가능한 시간만 선택할 수 있도록 한다.
+   */
   @PostMapping("/reserv.proc2")
   public String reservProc2P(@ModelAttribute ReservationAddDto addDto, Model model) {
 
@@ -71,6 +95,12 @@ public class UserShopController {
     return "user/shop/reserve-time";
   }
 
+  /**
+   * 매장 예약 : 모든 정보를 받아서 예약 db 에 저장.
+   * @param addDto .
+   * @param model .
+   * @return 저장 시 예약정보를 확인할 수 있는 페이지
+   */
   @PostMapping("/reserv.proc3")
   public String reservProc3P(@ModelAttribute ReservationAddDto addDto, Model model) {
     LOGGER.info("[reserve]: {}", addDto.toString());
